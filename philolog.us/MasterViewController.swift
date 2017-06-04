@@ -16,6 +16,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
+    var kb:KeyboardViewController? = nil
     
     var whichLang:Int = 0
     let searchTextField = UITextField()
@@ -43,6 +44,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb?.appExt = false
+        
+        searchTextField.inputView = kb?.view
+        searchTextField.delegate = self
         
         tableView.separatorStyle = .none
         

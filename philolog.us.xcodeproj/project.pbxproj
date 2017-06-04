@@ -19,6 +19,18 @@
 		3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */; };
 		3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */; };
 		3F00F76B1EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */; };
+		3F0D2E681EE48DDA00B34C62 /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E561EE48DDA00B34C62 /* HCAccentButton.swift */; };
+		3F0D2E691EE48DDA00B34C62 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E571EE48DDA00B34C62 /* HCbutton.swift */; };
+		3F0D2E6A1EE48DDA00B34C62 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E581EE48DDA00B34C62 /* HCCapsLockButton.swift */; };
+		3F0D2E6B1EE48DDA00B34C62 /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E591EE48DDA00B34C62 /* HCDeleteButton.swift */; };
+		3F0D2E6C1EE48DDA00B34C62 /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E5A1EE48DDA00B34C62 /* HCEnterButton.swift */; };
+		3F0D2E6D1EE48DDA00B34C62 /* HCGlobeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E5B1EE48DDA00B34C62 /* HCGlobeButton.swift */; };
+		3F0D2E6E1EE48DDA00B34C62 /* HCPunctuationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E5E1EE48DDA00B34C62 /* HCPunctuationButton.swift */; };
+		3F0D2E6F1EE48DDA00B34C62 /* HCSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E5F1EE48DDA00B34C62 /* HCSpaceButton.swift */; };
+		3F0D2E701EE48DDA00B34C62 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F0D2E601EE48DDA00B34C62 /* Info.plist */; };
+		3F0D2E711EE48DDA00B34C62 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E611EE48DDA00B34C62 /* KeyboardViewController.swift */; };
+		3F0D2E721EE48DDA00B34C62 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E631EE48DDA00B34C62 /* accent.c */; };
+		3F0D2E731EE48DDA00B34C62 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E661EE48DDA00B34C62 /* utilities.c */; };
 		3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8241ED27380007633D2 /* AppDelegate.swift */; };
 		3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8261ED27380007633D2 /* philolog_us.xcdatamodeld */; };
 		3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8291ED27380007633D2 /* MasterViewController.swift */; };
@@ -41,6 +53,23 @@
 		3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinWords+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F0D2E561EE48DDA00B34C62 /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
+		3F0D2E571EE48DDA00B34C62 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
+		3F0D2E581EE48DDA00B34C62 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCCapsLockButton.swift; sourceTree = "<group>"; };
+		3F0D2E591EE48DDA00B34C62 /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
+		3F0D2E5A1EE48DDA00B34C62 /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEnterButton.swift; sourceTree = "<group>"; };
+		3F0D2E5B1EE48DDA00B34C62 /* HCGlobeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCGlobeButton.swift; sourceTree = "<group>"; };
+		3F0D2E5C1EE48DDA00B34C62 /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
+		3F0D2E5D1EE48DDA00B34C62 /* HCPolytonicGreekKB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HCPolytonicGreekKB.entitlements; sourceTree = "<group>"; };
+		3F0D2E5E1EE48DDA00B34C62 /* HCPunctuationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCPunctuationButton.swift; sourceTree = "<group>"; };
+		3F0D2E5F1EE48DDA00B34C62 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSpaceButton.swift; sourceTree = "<group>"; };
+		3F0D2E601EE48DDA00B34C62 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F0D2E611EE48DDA00B34C62 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		3F0D2E631EE48DDA00B34C62 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accent.c; sourceTree = "<group>"; };
+		3F0D2E641EE48DDA00B34C62 /* accent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accent.h; sourceTree = "<group>"; };
+		3F0D2E651EE48DDA00B34C62 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekUnicode.h; sourceTree = "<group>"; };
+		3F0D2E661EE48DDA00B34C62 /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utilities.c; sourceTree = "<group>"; };
+		3F0D2E671EE48DDA00B34C62 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
 		3F85E8211ED27380007633D2 /* philolog.us.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = philolog.us.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F85E8241ED27380007633D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F85E8271ED27380007633D2 /* philolog_us.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = philolog_us.xcdatamodel; sourceTree = "<group>"; };
@@ -63,6 +92,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F0D2E551EE48DDA00B34C62 /* HCPolytonicGreekKB */ = {
+			isa = PBXGroup;
+			children = (
+				3F0D2E5C1EE48DDA00B34C62 /* HCPolytonicGreekKB-Bridging-Header.h */,
+				3F0D2E561EE48DDA00B34C62 /* HCAccentButton.swift */,
+				3F0D2E571EE48DDA00B34C62 /* HCbutton.swift */,
+				3F0D2E581EE48DDA00B34C62 /* HCCapsLockButton.swift */,
+				3F0D2E591EE48DDA00B34C62 /* HCDeleteButton.swift */,
+				3F0D2E5A1EE48DDA00B34C62 /* HCEnterButton.swift */,
+				3F0D2E5B1EE48DDA00B34C62 /* HCGlobeButton.swift */,
+				3F0D2E5D1EE48DDA00B34C62 /* HCPolytonicGreekKB.entitlements */,
+				3F0D2E5E1EE48DDA00B34C62 /* HCPunctuationButton.swift */,
+				3F0D2E5F1EE48DDA00B34C62 /* HCSpaceButton.swift */,
+				3F0D2E601EE48DDA00B34C62 /* Info.plist */,
+				3F0D2E611EE48DDA00B34C62 /* KeyboardViewController.swift */,
+				3F0D2E621EE48DDA00B34C62 /* libmorph */,
+			);
+			path = HCPolytonicGreekKB;
+			sourceTree = "<group>";
+		};
+		3F0D2E621EE48DDA00B34C62 /* libmorph */ = {
+			isa = PBXGroup;
+			children = (
+				3F0D2E631EE48DDA00B34C62 /* accent.c */,
+				3F0D2E641EE48DDA00B34C62 /* accent.h */,
+				3F0D2E651EE48DDA00B34C62 /* GreekUnicode.h */,
+				3F0D2E661EE48DDA00B34C62 /* utilities.c */,
+				3F0D2E671EE48DDA00B34C62 /* utilities.h */,
+			);
+			path = libmorph;
+			sourceTree = "<group>";
+		};
 		3F85E8181ED27380007633D2 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +151,7 @@
 		3F85E8231ED27380007633D2 /* philolog.us */ = {
 			isa = PBXGroup;
 			children = (
+				3F0D2E551EE48DDA00B34C62 /* HCPolytonicGreekKB */,
 				3F00F7581EDE6FD2002DBE9E /* philolog_us.sqlite-wal */,
 				3F00F7591EDE6FD2002DBE9E /* philolog_us.sqlite-shm */,
 				3F00F7561EDE6DCC002DBE9E /* philolog_us.sqlite */,
@@ -166,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F0D2E701EE48DDA00B34C62 /* Info.plist in Resources */,
 				3F85E8341ED27380007633D2 /* LaunchScreen.storyboard in Resources */,
 				3F00F7571EDE6DCC002DBE9E /* philolog_us.sqlite in Resources */,
 				3F00F7511EDB44DC002DBE9E /* newathu5.ttf in Resources */,
@@ -187,12 +250,23 @@
 				3F00F7651EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift in Sources */,
 				3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */,
 				3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */,
+				3F0D2E711EE48DDA00B34C62 /* KeyboardViewController.swift in Sources */,
+				3F0D2E6A1EE48DDA00B34C62 /* HCCapsLockButton.swift in Sources */,
+				3F0D2E691EE48DDA00B34C62 /* HCbutton.swift in Sources */,
+				3F0D2E731EE48DDA00B34C62 /* utilities.c in Sources */,
+				3F0D2E721EE48DDA00B34C62 /* accent.c in Sources */,
 				3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */,
 				3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */,
 				3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */,
+				3F0D2E6F1EE48DDA00B34C62 /* HCSpaceButton.swift in Sources */,
+				3F0D2E6B1EE48DDA00B34C62 /* HCDeleteButton.swift in Sources */,
+				3F0D2E6E1EE48DDA00B34C62 /* HCPunctuationButton.swift in Sources */,
+				3F0D2E6D1EE48DDA00B34C62 /* HCGlobeButton.swift in Sources */,
+				3F0D2E6C1EE48DDA00B34C62 /* HCEnterButton.swift in Sources */,
 				3F85E82C1ED27380007633D2 /* DetailViewController.swift in Sources */,
 				3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */,
 				3F00F7641EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift in Sources */,
+				3F0D2E681EE48DDA00B34C62 /* HCAccentButton.swift in Sources */,
 				3F00F7671EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift in Sources */,
 				3F00F7661EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift in Sources */,
 			);
@@ -325,6 +399,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "philolog.us/HCPolytonicGreekKB/HCPolytonicGreekKB-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -339,6 +414,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "philolog.us/HCPolytonicGreekKB/HCPolytonicGreekKB-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
