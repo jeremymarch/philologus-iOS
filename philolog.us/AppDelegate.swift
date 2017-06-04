@@ -9,6 +9,12 @@
 import UIKit
 import CoreData
 
+/*
+ /Users/jeremy/Library/Developer/CoreSimulator/Devices/3A765A42-5B22-45D9-88CD-5B1A7A54AC5E/data/Containers/Data/Application/0B3F219C-9BF0-4A56-9682-9DD7FFE3E03A/Library/Application Supports
+ 
+ INSERT INTO A.ZGREEKWORDS VALUES () FROM B.ZGREEKWORDS;
+ */
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
@@ -64,20 +70,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return false
     }
     // MARK: - Core Data stack
+    
+    //https://stackoverflow.com/questions/22582020/crash-when-using-nsreadonlypersistentstoreoption
 
+    lazy var persistentContainer: NSPersistentContainer = {
+        let appName = "philolog_us"
+        
+        let container = NSPersistentContainer(name: appName)
+        
+        let seededData: String = appName
+        var persistentStoreDescriptions: NSPersistentStoreDescription
+        
+        //let storeUrl = self.applicationDocumentsDirectory.appendingPathComponent("app_name.sqlite")
+        //let storeURL = [[NSBundle mainBundle] URLForResource:@"philologus" withExtension:@"sqlite"];
+        let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
+      /*
+        if !FileManager.default.fileExists(atPath: (storeURL?.path)!) {
+            let seededDataUrl = Bundle.main.url(forResource: seededData, withExtension: "sqlite")
+            try! FileManager.default.copyItem(at: seededDataUrl!, to: storeURL!)
+            
+        }
+ */
+        print(storeURL!)
+        //var options = NSMutableDictionary()
+        //options[NSReadOnlyPersistentStoreOption] = true
+        
+        //container.persistentStoreCoordinator.addPersistentStore(ofType: <#T##String#>, configurationName: <#T##String?#>, at: <#T##URL?#>, options: <#T##[AnyHashable : Any]?#>)
+        
+        let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
+        d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+        d.setOption(["journal_mode": "delete"] as NSObject!, forKey: NSSQLitePragmasOption)
+        container.persistentStoreDescriptions = [d]
+        
+        //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+        //container.persistentStoreCoordinator.
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error {
+                
+                fatalError("Unresolved error \(error),")
+            }
+        })
+        
+        return container
+    }()
+ 
+    /*
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
-        */
+         */
         let container = NSPersistentContainer(name: "philolog_us")
+        //container.persistentStoreDescriptions[0].setOption(, forKey: )
+        container.persistentStoreDescriptions[0].setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+        container.persistentStoreDescriptions[0].setOption(["journal_mode": "delete"] as NSObject!, forKey: NSSQLitePragmasOption)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -91,7 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         })
         return container
     }()
-
+*/
     // MARK: - Core Data Saving support
 
     func saveContext () {
@@ -108,5 +161,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
     }
 
+}
+
+extension NSPersistentContainer {
+    
+    public convenience init(name: String, bundle: Bundle) {
+        guard let modelURL = bundle.url(forResource: name, withExtension: "momd"),
+            let mom = NSManagedObjectModel(contentsOf: modelURL)
+            else {
+                fatalError("Unable to located Core Data model")
+        }
+        
+        self.init(name: name, managedObjectModel: mom)
+    }
+    
 }
 

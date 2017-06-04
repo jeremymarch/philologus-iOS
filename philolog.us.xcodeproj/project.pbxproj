@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F00F7511EDB44DC002DBE9E /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F00F7501EDB44DC002DBE9E /* newathu5.ttf */; };
+		3F00F7571EDE6DCC002DBE9E /* philolog_us.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3F00F7561EDE6DCC002DBE9E /* philolog_us.sqlite */; };
+		3F00F75A1EDE6FD2002DBE9E /* philolog_us.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 3F00F7581EDE6FD2002DBE9E /* philolog_us.sqlite-wal */; };
+		3F00F75B1EDE6FD2002DBE9E /* philolog_us.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 3F00F7591EDE6FD2002DBE9E /* philolog_us.sqlite-shm */; };
+		3F00F7641EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */; };
+		3F00F7651EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75D1EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift */; };
+		3F00F7661EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75E1EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift */; };
+		3F00F7671EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */; };
+		3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */; };
+		3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */; };
+		3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */; };
+		3F00F76B1EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */; };
 		3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8241ED27380007633D2 /* AppDelegate.swift */; };
 		3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8261ED27380007633D2 /* philolog_us.xcdatamodeld */; };
 		3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8291ED27380007633D2 /* MasterViewController.swift */; };
@@ -17,6 +29,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F00F7501EDB44DC002DBE9E /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
+		3F00F7561EDE6DCC002DBE9E /* philolog_us.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = philolog_us.sqlite; sourceTree = "<group>"; };
+		3F00F7581EDE6FD2002DBE9E /* philolog_us.sqlite-wal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "philolog_us.sqlite-wal"; sourceTree = "<group>"; };
+		3F00F7591EDE6FD2002DBE9E /* philolog_us.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "philolog_us.sqlite-shm"; sourceTree = "<group>"; };
+		3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinDefs+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F00F75D1EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinDefs+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F00F75E1EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekWords+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekWords+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinWords+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinWords+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F85E8211ED27380007633D2 /* philolog.us.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = philolog.us.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F85E8241ED27380007633D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F85E8271ED27380007633D2 /* philolog_us.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = philolog_us.xcdatamodel; sourceTree = "<group>"; };
@@ -42,6 +66,14 @@
 		3F85E8181ED27380007633D2 = {
 			isa = PBXGroup;
 			children = (
+				3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */,
+				3F00F75D1EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift */,
+				3F00F75E1EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift */,
+				3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */,
+				3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */,
+				3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */,
+				3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */,
+				3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */,
 				3F85E8231ED27380007633D2 /* philolog.us */,
 				3F85E8221ED27380007633D2 /* Products */,
 			);
@@ -58,6 +90,10 @@
 		3F85E8231ED27380007633D2 /* philolog.us */ = {
 			isa = PBXGroup;
 			children = (
+				3F00F7581EDE6FD2002DBE9E /* philolog_us.sqlite-wal */,
+				3F00F7591EDE6FD2002DBE9E /* philolog_us.sqlite-shm */,
+				3F00F7561EDE6DCC002DBE9E /* philolog_us.sqlite */,
+				3F00F7501EDB44DC002DBE9E /* newathu5.ttf */,
 				3F85E8241ED27380007633D2 /* AppDelegate.swift */,
 				3F85E8291ED27380007633D2 /* MasterViewController.swift */,
 				3F85E82B1ED27380007633D2 /* DetailViewController.swift */,
@@ -131,7 +167,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F85E8341ED27380007633D2 /* LaunchScreen.storyboard in Resources */,
+				3F00F7571EDE6DCC002DBE9E /* philolog_us.sqlite in Resources */,
+				3F00F7511EDB44DC002DBE9E /* newathu5.ttf in Resources */,
 				3F85E8311ED27380007633D2 /* Assets.xcassets in Resources */,
+				3F00F75A1EDE6FD2002DBE9E /* philolog_us.sqlite-wal in Resources */,
+				3F00F75B1EDE6FD2002DBE9E /* philolog_us.sqlite-shm in Resources */,
 				3F85E82F1ED27380007633D2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,10 +183,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F00F76B1EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift in Sources */,
+				3F00F7651EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift in Sources */,
+				3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */,
 				3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */,
 				3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */,
+				3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */,
 				3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */,
 				3F85E82C1ED27380007633D2 /* DetailViewController.swift in Sources */,
+				3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */,
+				3F00F7641EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift in Sources */,
+				3F00F7671EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift in Sources */,
+				3F00F7661EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,8 +321,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = philolog.us/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.philolog.philologus.philolog-us";
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -286,8 +335,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = philolog.us/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.philolog.philologus.philolog-us";
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -312,6 +362,7 @@
 				3F85E83A1ED27380007633D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
