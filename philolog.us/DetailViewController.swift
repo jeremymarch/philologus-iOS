@@ -30,8 +30,11 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        //self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationItem.title = ""
         
-        configureView()
+        //configureView()
         self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal
     }
 
@@ -56,7 +59,29 @@ class DetailViewController: UIViewController {
         }
         else
         {
-         //   loadCredits()
+            loadCredits()
+        }
+    }
+    
+    func loadCredits()
+    {
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            let iPadCredits = "<html><body style='font-family:helvetica;text-align:center;margin-top:40px;font-size:20pt;'><div style='font-size:34pt;font-weight:bold;'>philolog.us</div><div style='font-size:14pt;margin-top:20px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:10px;'>and</div><div style='margin-top:10px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:16px;'>courtesy of the</div><div style='margin-top:16px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div style='font-size:14pt;'>Visit philolog.us on the web at<br><span style='color:blue;'>http://philolog.us</span></div></body></html>"
+            
+            if let w = webView
+            {
+                w.loadHTMLString(iPadCredits, baseURL: nil)
+            }
+        }
+        else
+        {
+            let iPhoneCredits = "<html><body style='font-family:helvetica;text-align:center;margin-top:0px;font-size:14pt;'><div style='font-size:24pt;font-weight:bold;'>philolog.us</div><div style='font-size:12pt;margin-top:8px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:8px;'>and</div><div style='margin-top:8px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:10px;'>courtesy of the</div><div style='margin-top:10px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div>Visit philolog.us on the web at<br><span style='color:blue;'>http://philolog.us</span></div></body></html>";
+            
+            if let w = webView
+            {
+                w.loadHTMLString(iPhoneCredits, baseURL: nil)
+            }
         }
     }
     
@@ -143,7 +168,7 @@ class DetailViewController: UIViewController {
                 return
             }
             
-            if results != nil
+            if results != nil && results!.count > 0
             {
                 let match = results?[0]
                 let def2:String = match!.def!
@@ -155,12 +180,19 @@ class DetailViewController: UIViewController {
                     w.loadHTMLString(header + def2 + "</BODY></HTML>", baseURL: nil)
                 }
             }
+            else
+            {
+                if let w = webView {
+                    //label.text = detail.timestamp!.description
+                    w.loadHTMLString("<html><body>Could not find Greek word \(self.wordid).</body></html>", baseURL: nil)
+                }
+            }
         }
         else
         {
             let request: NSFetchRequest<LatinDefs> = LatinDefs.fetchRequest()
             request.entity = LatinDefs.entity()
-            
+            NSLog("Find ID: %d", self.wordid)
             let pred = NSPredicate(format: "(wordid = %d)", self.wordid)
             request.predicate = pred
             var results: [LatinDefs]? = nil
@@ -175,8 +207,9 @@ class DetailViewController: UIViewController {
                 return
             }
             
-            if results != nil
+            if results != nil && results!.count > 0
             {
+                NSLog("herehere1")
                 let match = results?[0]
                 let def2:String = match!.def!
                 //NSLog("res: %@", def2)
@@ -185,6 +218,13 @@ class DetailViewController: UIViewController {
                 {
                     //label.text = detail.timestamp!.description
                     w.loadHTMLString(header + def2 + "</BODY></HTML>", baseURL: nil)
+                }
+            }
+            else
+            {
+                if let w = webView {
+                    //label.text = detail.timestamp!.description
+                    w.loadHTMLString("<html><body>Could not find Latin word \(self.wordid).</body></html>", baseURL: nil)
                 }
             }
         }

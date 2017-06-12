@@ -124,7 +124,7 @@
 			path = libmorph;
 			sourceTree = "<group>";
 		};
-		3F85E8181ED27380007633D2 = {
+		3F0D2E741EE4962500B34C62 /* CoreDataClasses */ = {
 			isa = PBXGroup;
 			children = (
 				3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */,
@@ -135,6 +135,14 @@
 				3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */,
 				3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */,
 				3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */,
+			);
+			name = CoreDataClasses;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		3F85E8181ED27380007633D2 = {
+			isa = PBXGroup;
+			children = (
 				3F85E8231ED27380007633D2 /* philolog.us */,
 				3F85E8221ED27380007633D2 /* Products */,
 			);
@@ -151,6 +159,7 @@
 		3F85E8231ED27380007633D2 /* philolog.us */ = {
 			isa = PBXGroup;
 			children = (
+				3F0D2E741EE4962500B34C62 /* CoreDataClasses */,
 				3F0D2E551EE48DDA00B34C62 /* HCPolytonicGreekKB */,
 				3F00F7581EDE6FD2002DBE9E /* philolog_us.sqlite-wal */,
 				3F00F7591EDE6FD2002DBE9E /* philolog_us.sqlite-shm */,

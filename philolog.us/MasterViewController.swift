@@ -18,16 +18,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var managedObjectContext: NSManagedObjectContext? = nil
     var kb:KeyboardViewController? = nil
     
+    let GREEK = 0
+    let LATIN = 1
     var whichLang:Int = 0
-    let searchTextField = UITextField()
-    let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 34))// [UIButton 
+    
+    let searchTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 320, height: 38))
+    let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))// [UIButton
     
     var selectedRow = -1
     var selectedId = -1
     var animatedScroll = false
-    
-    static let GREEK = 0
-    static let LATIN = 1
     
     var tc:NSLayoutConstraint?
     var lc:NSLayoutConstraint?
@@ -44,12 +44,41 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationItem.title = ""
+        
+        //remove navigation bar bottom border
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
-        
         searchTextField.inputView = kb?.view
         searchTextField.delegate = self
+        
+        let defaults = UserDefaults.standard
+        let a = defaults.object(forKey: "lang")
+        if (a != nil)
+        {
+            whichLang = a as! Int
+        }
+        else
+        {
+            whichLang = 0
+            defaults.set(whichLang, forKey: "lang")
+            defaults.synchronize()
+        }
+        
+        //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
+        if #available(iOS 9.0, *)
+        {
+            let item: UITextInputAssistantItem = searchTextField.inputAssistantItem
+            item.leadingBarButtonGroups = []
+            item.trailingBarButtonGroups = []
+        }
         
         tableView.separatorStyle = .none
         
@@ -60,10 +89,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField.delegate = self
         searchTextField.autocapitalizationType = .none
         searchTextField.autocorrectionType = .no
+        searchTextField.clearButtonMode = .always
     
         self.navigationItem.titleView = searchTextField
         
-        //searchTextField.autoresizingMask = []
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        //let screenHeight = screenSize.height
+        searchTextField.frame = CGRect(x: 0, y: 0, width: screenWidth - 10, height: 38)
+        searchTextField.autoresizingMask = [.flexibleWidth]
+        /*
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         tc = searchTextField.topAnchor.constraint(equalTo: (searchTextField.superview!.topAnchor))
         lc = searchTextField.leftAnchor.constraint(equalTo: (searchTextField.superview!.leftAnchor))
@@ -71,9 +106,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         tc?.isActive = true
         lc?.isActive = true
         rc?.isActive = true
-        
         searchTextField.heightAnchor.constraint(equalToConstant: 34.0).isActive = true
-        
+        */
         
         //let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 34))// [UIButton buttonWithType:UIButtonTypeCustom];
         langButton.backgroundColor = UIColor.clear
@@ -84,35 +118,31 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         langButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 16.0)
         
         langButton.addTarget(self, action: #selector(toggleLanguage), for: .touchDown)
-        /*
-        [self.langButton addTarget:self action:@selector(toggleLanguage) forControlEvents:UIControlEventTouchDown];
-         
-        [self.langButton addTarget:self action:@selector(langButtonUp) forControlEvents:UIControlEventTouchUpInside];
-         
-        [self.langButton addTarget:self action:@selector(langButtonUp) forControlEvents:UIControlEventTouchUpOutside];
-         
-        [self setLanguage:self->lang];
-        */
         
         searchTextField.leftView = langButton
         searchTextField.leftViewMode = UITextFieldViewMode.always
         
+        setLanguage(language: whichLang)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        /*
         searchTextField.isHidden = true
         tc?.isActive = false
         lc?.isActive = false
         rc?.isActive = false
+ */
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        /*
         tc?.isActive = true
         lc?.isActive = true
         rc?.isActive = true
         searchTextField.isHidden = false
+ */
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -121,13 +151,13 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     
     func toggleLanguage()
     {
-        if whichLang == 0
+        if whichLang == GREEK
         {
-            whichLang = 1
+            whichLang = LATIN
         }
         else
         {
-            whichLang = 0
+            whichLang = GREEK
         }
         searchTextField.text = ""
         setLanguage(language: whichLang)
@@ -135,15 +165,17 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     
     func setLanguage(language:Int)
     {
-        if language == 0
+        if language == GREEK
         {
             langButton.setTitle("Greek:", for: .normal)
+            title = "Greek"
         }
         else
         {
             langButton.setTitle("Latin:", for: .normal)
+            title = "Latin"
         }
-        
+        kb?.setLang(lang: language)
         tableView.reloadData()
         
         //scroll to top
@@ -262,23 +294,41 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-            let object = fetchedResultsController.object(at: indexPath)
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                
-                searchTextField.resignFirstResponder()
-                
-                controller.wordid = Int(object.wordid)
-                controller.whichLang = whichLang
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
+                if whichLang == GREEK
+                {
+                    let object = fetchedResultsController.object(at: indexPath)
+                    let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                    
+                    //NSLog("Find word1a: %d", Int(object.wordid))
+                    controller.wordid = Int(object.wordid)
+                    controller.whichLang = whichLang
+                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                    controller.navigationItem.leftItemsSupplementBackButton = true
+                }
+                else
+                {
+                    let object = latinFetchedResultsController.object(at: indexPath)
+                    let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                    
+                    
+                    //NSLog("Find word1b: %d", Int(object.wordid))
+                    controller.wordid = Int(object.wordid)
+                    controller.whichLang = whichLang
+                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                    controller.navigationItem.leftItemsSupplementBackButton = true
+                }
             }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        searchTextField.resignFirstResponder()
     }
 
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if whichLang == 0
+        if whichLang == GREEK
         {
             return fetchedResultsController.sections?.count ?? 0
         }
@@ -290,7 +340,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var sectionInfo:NSFetchedResultsSectionInfo? = nil
-        if whichLang == 0
+        if whichLang == GREEK
         {
             sectionInfo = fetchedResultsController.sections![section]
         }
@@ -303,7 +353,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        if whichLang == 0
+        if whichLang == GREEK
         {
             let event = fetchedResultsController.object(at: indexPath)
             greekConfigureCell(cell, withEvent: event)
@@ -345,7 +395,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         cell.textLabel!.text = gw.word!.description
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
         cell.textLabel?.font = greekFont
-        cell.tag = Int(gw.wordid)
+        //cell.tag = Int(gw.wordid)
     }
     
     func latinConfigureCell(_ cell: UITableViewCell, withEvent gw: LatinWords) {
@@ -353,7 +403,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         cell.textLabel!.text = gw.word!.description
         let greekFont = UIFont(name: "Helvetica-Light", size: 22.0)
         cell.textLabel?.font = greekFont
-        cell.tag = Int(gw.wordid)
+        //cell.tag = Int(gw.wordid)
     }
 
     // MARK: - Fetched results controller
@@ -476,7 +526,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         var seq = -1
         
-        if whichLang == 0
+        if whichLang == GREEK
         {
             let request: NSFetchRequest<GreekWords> = GreekWords.fetchRequest()
             request.entity = GreekWords.entity()
