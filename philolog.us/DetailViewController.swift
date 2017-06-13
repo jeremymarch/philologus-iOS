@@ -16,21 +16,10 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var webView: UIWebView!
 
-
-    func configureView() {
-        // Update the user interface for the detail item.
-
-            if let w = webView {
-                //label.text = detail.timestamp!.description
-                w.loadHTMLString("<html><body><i>Testing</i></body></html>", baseURL: nil)
-            }
-        
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        
         //self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.title = ""
         
@@ -46,7 +35,7 @@ class DetailViewController: UIViewController {
     var detailItem: Event? {
         didSet {
             // Update the view.
-            configureView()
+            //configureView()
         }
     }
 

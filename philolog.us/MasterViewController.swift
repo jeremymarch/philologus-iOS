@@ -45,6 +45,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.title = ""
         
@@ -293,30 +294,25 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
+            var wordid = -1
+            let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
             if let indexPath = tableView.indexPathForSelectedRow {
                 if whichLang == GREEK
                 {
                     let object = fetchedResultsController.object(at: indexPath)
-                    let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                    
-                    //NSLog("Find word1a: %d", Int(object.wordid))
-                    controller.wordid = Int(object.wordid)
-                    controller.whichLang = whichLang
-                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                    controller.navigationItem.leftItemsSupplementBackButton = true
+                    wordid = Int(object.wordid)
                 }
                 else
                 {
                     let object = latinFetchedResultsController.object(at: indexPath)
-                    let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                    
-                    
-                    //NSLog("Find word1b: %d", Int(object.wordid))
-                    controller.wordid = Int(object.wordid)
-                    controller.whichLang = whichLang
-                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                    controller.navigationItem.leftItemsSupplementBackButton = true
+                    wordid = Int(object.wordid)
+
                 }
+                //NSLog("Find word1b: %d", wordid)
+                controller.wordid = wordid
+                controller.whichLang = whichLang
+                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }
