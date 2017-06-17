@@ -38,6 +38,7 @@
 		3F85E82F1ED27380007633D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F85E82D1ED27380007633D2 /* Main.storyboard */; };
 		3F85E8311ED27380007633D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F85E8301ED27380007633D2 /* Assets.xcassets */; };
 		3F85E8341ED27380007633D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F85E8321ED27380007633D2 /* LaunchScreen.storyboard */; };
+		3F9B9BE31EEF6E0500DF500E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B9BE21EEF6E0500DF500E /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		3F85E8301ED27380007633D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F85E8331ED27380007633D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F85E8351ED27380007633D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F9B9BE21EEF6E0500DF500E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				3F00F7501EDB44DC002DBE9E /* newathu5.ttf */,
 				3F85E8241ED27380007633D2 /* AppDelegate.swift */,
 				3F85E8291ED27380007633D2 /* MasterViewController.swift */,
+				3F9B9BE21EEF6E0500DF500E /* Settings.bundle */,
 				3F85E82B1ED27380007633D2 /* DetailViewController.swift */,
 				3F85E82D1ED27380007633D2 /* Main.storyboard */,
 				3F85E8301ED27380007633D2 /* Assets.xcassets */,
@@ -244,6 +247,7 @@
 				3F85E8311ED27380007633D2 /* Assets.xcassets in Resources */,
 				3F00F75A1EDE6FD2002DBE9E /* philolog_us.sqlite-wal in Resources */,
 				3F00F75B1EDE6FD2002DBE9E /* philolog_us.sqlite-shm in Resources */,
+				3F9B9BE31EEF6E0500DF500E /* Settings.bundle in Resources */,
 				3F85E82F1ED27380007633D2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

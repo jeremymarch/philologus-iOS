@@ -41,7 +41,6 @@ class DetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
 
-    //NSLog(@"wordid=%d", self.wordid);
         if wordid > 0
         {
             loadDef()
@@ -83,16 +82,16 @@ class DetailViewController: UIViewController {
         
         let styles:[String] = ["color:black;","color:red;","color:blue;","color:green;","color:orange;","color:purple;","font-weight:bold;","font-style:italic;"]
         
-        //NSLog(@"Custom Colors Enabled?: %d", enabled);
-        var enabled = false
+        let enabled = UserDefaults.standard.object(forKey: "enableCustomColors") as? Bool
+
         var authorStyle = ""
         var titleStyle = ""
         var bibscopeStyle = ""
         var foreignStyle = ""
         var quoteStyle = ""
         var translationStyle = ""
-        var js = ""
-        if (!enabled)
+        let js = ""
+        if enabled == nil || !enabled!
         {
             authorStyle = styles[1]
             titleStyle = styles[4]
@@ -103,14 +102,17 @@ class DetailViewController: UIViewController {
         }
         else
         {
-            //UserDefaults.integer("authorStyel")
-            
-            let authorStyle = UserDefaults.standard.object(forKey: "authorStyle") as? [Int]
-            let titleStyle = UserDefaults.standard.object(forKey: "titleStyle") as? [Int]
-            let bibscopeStyle = UserDefaults.standard.object(forKey: "bibScopeStyle") as? [Int]
-            let foreignStyle = UserDefaults.standard.object(forKey: "foreignStyle") as? [Int]
-            let quoteStyle = UserDefaults.standard.object(forKey: "quoteStyle") as? [Int]
-            let translationStyle = 6
+            let a = UserDefaults.standard.object(forKey: "authorStyle") as! Int
+            let titl = UserDefaults.standard.object(forKey: "titleStyle") as! Int
+            let bib = UserDefaults.standard.object(forKey: "bibScopeStyle") as! Int
+            let foreign = UserDefaults.standard.object(forKey: "foreignStyle") as! Int
+            let quote = UserDefaults.standard.object(forKey: "quoteStyle") as! Int
+            authorStyle = styles[a]
+            titleStyle = styles[titl]
+            bibscopeStyle = styles[bib]
+            foreignStyle = styles[foreign]
+            quoteStyle = styles[quote]
+            translationStyle = styles[6]
         }
         
         let h = "<HTML><head>%@<style>" +

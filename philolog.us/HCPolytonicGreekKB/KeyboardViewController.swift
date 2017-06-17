@@ -281,7 +281,15 @@ class KeyboardViewController: UIInputViewController {
 
         if lang == 0
         {
-            buttonSpacing = 5.0
+            //for iphone 5s and narrower
+            if UIScreen.main.nativeBounds.width < 641
+            {
+                buttonSpacing = 4.0
+            }
+            else
+            {
+                buttonSpacing = 5.0
+            }
             widthMultiple = 0.0976
 
             whichLang = 0
@@ -334,8 +342,16 @@ class KeyboardViewController: UIInputViewController {
         }
         else
         {
-            buttonSpacing = 3.0
-            widthMultiple = 0.09
+            //for iphone 5s and narrower
+            if UIScreen.main.nativeBounds.width < 641
+            {
+                buttonSpacing = 2.0
+            }
+            else
+            {
+                buttonSpacing = 3.0
+            }
+            widthMultiple = 0.0886
             whichLang = 1
             for (i, key) in romanKeys[0].enumerated()
             {

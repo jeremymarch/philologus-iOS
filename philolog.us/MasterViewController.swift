@@ -93,12 +93,27 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField.clearButtonMode = .always
     
         self.navigationItem.titleView = searchTextField
+        //self.navigationItem.titleView.
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = nil
         
-        let screenSize = UIScreen.main.bounds
-        let screenWidth = screenSize.width
+        //self.navigationItem.titleView?.autoresizingMask = [.flexibleWidth]
+        
+        //let screenSize = UIScreen.main.bounds
+        //let screenWidth = screenSize.width
         //let screenHeight = screenSize.height
-        searchTextField.frame = CGRect(x: 0, y: 0, width: screenWidth - 10, height: 38)
+        searchTextField.frame = CGRect(x: 0, y: 0, width: (searchTextField.superview?.frame.size.width)!, height: 38)
+
+        //searchTextField.frame = CGRect(x: 0, y: 0, width: navFrame.width*3, height: 38)
+
+        
+//        let myView = UIView(frame: CGRect(x: 0, y: 0, width: navFrame.width*3, height: navFrame.height))
+
+        //NSLog("nb width: %f, %f, %f", (self.navigationController?.navigationBar.frame.size.width)!, screenWidth,tableView.frame.size.width)
+        
         searchTextField.autoresizingMask = [.flexibleWidth]
+        searchTextField.translatesAutoresizingMaskIntoConstraints = true
+
         /*
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         tc = searchTextField.topAnchor.constraint(equalTo: (searchTextField.superview!.topAnchor))
@@ -113,7 +128,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 34))// [UIButton buttonWithType:UIButtonTypeCustom];
         langButton.backgroundColor = UIColor.clear
         langButton.layer.cornerRadius = 10
-        langButton.clipsToBounds = true
+        langButton
+            .clipsToBounds = true
         langButton.setTitleColor(UIColor.black, for: .normal)
         langButton.setTitle("Greek:", for: .normal)
         langButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 16.0)
@@ -122,6 +138,18 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         searchTextField.leftView = langButton
         searchTextField.leftViewMode = UITextFieldViewMode.always
+        
+        
+        let infoButton = UIButton.init(type: .infoDark)
+        infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
+        searchTextField.rightView = infoButton
+        searchTextField.rightViewMode = .unlessEditing
+        
+        searchTextField.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
+        //align lang button title for ios7.  Gives it some left padding
+        //we also adjust the size in setLang
+        langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+        
         
         setLanguage(language: whichLang)
         
@@ -314,11 +342,28 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
+            
+        }
+        else if segue.identifier == "showCredits"
+        {
+            let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+            controller.wordid = -1
+            controller.whichLang = whichLang
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchTextField.resignFirstResponder()
+    }
+    
+    func showCredits()
+    {
+        searchTextField.resignFirstResponder()
+        //detailViewController?.performSegue(withIdentifier: "showDetail", sender: self)
+        self.performSegue(withIdentifier: "showCredits", sender: self)
+
     }
 
     // MARK: - Table View
@@ -385,6 +430,34 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
  */
         }
     }
+    
+    func removeMacronsBreves(string:String) -> String
+    {
+        var temp = string.replacingOccurrences(of: "ā", with: "a")
+        temp = temp.replacingOccurrences(of: "ă", with: "a")
+        temp = temp.replacingOccurrences(of: "ē", with: "e")
+        temp = temp.replacingOccurrences(of: "ĕ", with: "e")
+        temp = temp.replacingOccurrences(of: "ī", with: "i")
+        temp = temp.replacingOccurrences(of: "ĭ", with: "i")
+        temp = temp.replacingOccurrences(of: "ō", with: "o")
+        temp = temp.replacingOccurrences(of: "ŏ", with: "o")
+        temp = temp.replacingOccurrences(of: "ū", with: "u")
+        temp = temp.replacingOccurrences(of: "ŭ", with: "u")
+        temp = temp.replacingOccurrences(of: "ȳ", with: "y")
+        
+        temp = temp.replacingOccurrences(of: "Ă", with: "A")
+        temp = temp.replacingOccurrences(of: "Ā", with: "A")
+        temp = temp.replacingOccurrences(of: "Ĕ", with: "E")
+        temp = temp.replacingOccurrences(of: "Ē", with: "E")
+        temp = temp.replacingOccurrences(of: "Ī", with: "I")
+        temp = temp.replacingOccurrences(of: "Ĭ", with: "I")
+        temp = temp.replacingOccurrences(of: "Ŏ", with: "O")
+        temp = temp.replacingOccurrences(of: "Ō", with: "O")
+        temp = temp.replacingOccurrences(of: "Ŭ", with: "U")
+        temp = temp.replacingOccurrences(of: "Ū", with: "U")
+        
+        return temp
+    }
 
     func greekConfigureCell(_ cell: UITableViewCell, withEvent gw: GreekWords) {
         //cell.textLabel!.text = event.timestamp!.description
@@ -392,14 +465,22 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
         cell.textLabel?.font = greekFont
         //cell.tag = Int(gw.wordid)
+        
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
+        cell.selectedBackgroundView = bgColorView
     }
     
     func latinConfigureCell(_ cell: UITableViewCell, withEvent gw: LatinWords) {
         //cell.textLabel!.text = event.timestamp!.description
-        cell.textLabel!.text = gw.word!.description
+        cell.textLabel!.text = removeMacronsBreves(string: gw.word!.description)
         let greekFont = UIFont(name: "Helvetica-Light", size: 22.0)
         cell.textLabel?.font = greekFont
         //cell.tag = Int(gw.wordid)
+        
+        let bgColorView = UIView()
+                bgColorView.backgroundColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
+        cell.selectedBackgroundView = bgColorView
     }
 
     // MARK: - Fetched results controller
