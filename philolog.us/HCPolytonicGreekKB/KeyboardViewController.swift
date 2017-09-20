@@ -150,7 +150,7 @@ class KeyboardViewController: UIInputViewController {
         super.updateViewConstraints()
     }
     */
-    
+    /*
      //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
     func handleDrag(gestureRecognizer:UIPanGestureRecognizer)
     {
@@ -162,7 +162,7 @@ class KeyboardViewController: UIInputViewController {
             NSLog("changed")
             if draggedView is UIButton && self.currentButton == nil {
                 self.currentButton = draggedView as! UIButton
-                NSLog("Enter: \(self.currentButton?.tag)")
+                //NSLog("Enter: \(self.currentButton?.tag)")
                 
                 // send enter event to your button
                 self.currentButton?.sendActions(for: .touchDragEnter)
@@ -170,7 +170,7 @@ class KeyboardViewController: UIInputViewController {
             
             if self.currentButton != nil && !(self.currentButton?.isEqual(draggedView))!
             {
-                NSLog("Out: \(self.currentButton?.tag)")
+                //NSLog("Out: \(self.currentButton?.tag)")
                 
                 // send exit event to your button
                 self.currentButton?.sendActions(for: .touchDragExit)
@@ -186,7 +186,7 @@ class KeyboardViewController: UIInputViewController {
             self.currentButton = nil
         }
     }
-    
+    */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

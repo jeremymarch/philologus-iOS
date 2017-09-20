@@ -27,7 +27,6 @@ class HCDeleteButton: UIButton {
     var deleteXColorDown:UIColor        = HopliteConstants.deleteXColorDown
     
     required init(devicea:Int = 1) {
-        let device = 1
         super.init(frame: .zero)
         
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
