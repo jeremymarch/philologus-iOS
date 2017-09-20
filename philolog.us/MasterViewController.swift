@@ -77,7 +77,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         tableView.separatorStyle = .none
         NSLog("here2")
-        searchTextField = UITextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x + 5, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width - 10, height: 38))
+        searchTextField = UITextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
         //searchTextField = UITextField(frame: navigationController!.navigationBar.bounds)
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
@@ -106,7 +106,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //self.navigationController?.navigationBar.addSubview(searchTextField!)
         
         self.navigationItem.titleView = searchTextField!
-        searchTextField?.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x + 5, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width - 10, height: 38)
+        searchTextField?.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38)
         //self.navigationItem.titleView.
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
@@ -188,7 +188,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
             {
                 let navBar = self.navigationController!.navigationBar
-                self.searchTextField?.frame = CGRect(x: navBar.bounds.origin.x + 5, y: navBar.bounds.origin.y, width: navBar.bounds.size.width - 10, height: 38)
+                self.searchTextField?.frame = CGRect(x: navBar.bounds.origin.x, y: navBar.bounds.origin.y, width: navBar.bounds.size.width, height: 38)
             }
             
         }, completion: nil)
