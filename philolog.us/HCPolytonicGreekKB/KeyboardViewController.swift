@@ -303,7 +303,7 @@ class KeyboardViewController: UIInputViewController {
                     buttonWidths[w].isActive = false
                     
                     buttonWidths[w] = a.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: 0)
-                    buttonWidths[w].priority = 999
+                    buttonWidths[w].priority = UILayoutPriority(rawValue: 999)
                     buttonWidths[w].isActive = true
                     stackView2.arrangedSubviews[i].isHidden = true
                     
@@ -312,7 +312,7 @@ class KeyboardViewController: UIInputViewController {
                 {
                     buttonWidths[w].isActive = false
                     buttonWidths[w] = a.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                    buttonWidths[w].priority = 999
+                    buttonWidths[w].priority = UILayoutPriority(rawValue: 999)
                     buttonWidths[w].isActive = true
                 }
                 
@@ -324,7 +324,7 @@ class KeyboardViewController: UIInputViewController {
                 let a = stackView3.arrangedSubviews[i] as! UIButton
                 buttonWidths[w].isActive = false
                 buttonWidths[w] = a.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                buttonWidths[w].priority = 999
+                buttonWidths[w].priority = UILayoutPriority(rawValue: 999)
                 buttonWidths[w].isActive = true
                 a.setTitle(key, for: .normal)
                 w = w + 1
@@ -334,7 +334,7 @@ class KeyboardViewController: UIInputViewController {
                 let a = stackView4.arrangedSubviews[i] as! UIButton
                 buttonWidths[w].isActive = false
                 buttonWidths[w] = a.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                buttonWidths[w].priority = 999
+                buttonWidths[w].priority = UILayoutPriority(rawValue: 999)
                 buttonWidths[w].isActive = true
                 a.setTitle(key, for: .normal)
                 w = w + 1
@@ -358,7 +358,7 @@ class KeyboardViewController: UIInputViewController {
                 let a = stackView2.arrangedSubviews[i] as! UIButton
                 buttonWidths[w].isActive = false
                 buttonWidths[w] = a.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                buttonWidths[w].priority = 999
+                buttonWidths[w].priority = UILayoutPriority(rawValue: 999)
                 buttonWidths[w].isActive = true
                 a.setTitle(key, for: .normal)
                 if i < 2
@@ -375,7 +375,7 @@ class KeyboardViewController: UIInputViewController {
                 let a = stackView3.arrangedSubviews[i] as! UIButton
                 buttonWidths[w].isActive = false
                 buttonWidths[w] = a.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                buttonWidths[w].priority = 999
+                buttonWidths[w].priority = UILayoutPriority(rawValue: 999)
                 buttonWidths[w].isActive = true
                 a.setTitle(key, for: .normal)
                 w = w + 1
@@ -385,7 +385,7 @@ class KeyboardViewController: UIInputViewController {
                 let a = stackView4.arrangedSubviews[i] as! UIButton
                 buttonWidths[w].isActive = false
                 buttonWidths[w] = a.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                buttonWidths[w].priority = 999
+                buttonWidths[w].priority = UILayoutPriority(rawValue: 999)
                 buttonWidths[w].isActive = true
                 a.setTitle(key, for: .normal)
                 w = w + 1
@@ -448,7 +448,7 @@ class KeyboardViewController: UIInputViewController {
                                                attribute: .notAnAttribute,
                                                multiplier: 1.0,
                                                constant: kbHeight)
-         heightConstraint!.priority = 999.0
+         heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
          heightConstraint?.isActive = true
          self.view.addConstraint(heightConstraint!)
         
@@ -475,7 +475,7 @@ class KeyboardViewController: UIInputViewController {
                 b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                 
                 let w = b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple)
-                w.priority = 999
+                w.priority = UILayoutPriority(rawValue: 999)
                 buttonWidths.append(w)
                 w.isActive = true
                 
@@ -1010,7 +1010,7 @@ class KeyboardViewController: UIInputViewController {
     let HYPHEN =                     0x2010
     let COMMA =                      0x002C
     
-    func accentPressed(_ button: UIButton) {
+    @objc func accentPressed(_ button: UIButton) {
         let whichAccent = button.titleLabel!.text
         var accent = -1
         if whichAccent == "´" //acute
@@ -1111,12 +1111,12 @@ class KeyboardViewController: UIInputViewController {
         (textDocumentProxy as UIKeyInput).insertText("\(newLetter)")
     }
 
-    func keyPressedDown(button: UIButton) {
+    @objc func keyPressedDown(button: UIButton) {
         //button.superview!.bringSubview(toFront: button)
         playKeyClick()
     }
     
-    func keyPressed(button: UIButton) {
+    @objc func keyPressed(button: UIButton) {
         
         var string = button.titleLabel!.text
         if whichLang == 1
@@ -1126,12 +1126,12 @@ class KeyboardViewController: UIInputViewController {
         (textDocumentProxy as UIKeyInput).insertText("\(string!)")
     }
     
-    func backSpacePressed(_ button: UIButton) {
+    @objc func backSpacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).deleteBackward()
         playKeyClick()
     }
     
-    func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
         
         if ( gestureReconizer.state == UIGestureRecognizerState.began )
         {
@@ -1152,18 +1152,18 @@ class KeyboardViewController: UIInputViewController {
         //NSLog(@"lg: %ld", (long)gesture.state);
     }
     
-    func spacePressed(_ button: UIButton) {
+    @objc func spacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(" ")
     }
     func didDoubleTapSapce(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(". ")
     }
     
-    func returnPressed(_ button: UIButton) {
+    @objc func returnPressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText("\n")
     }
     
-    func capsPressed(_ button: UIButton) {
+    @objc func capsPressed(_ button: UIButton) {
         capsLockOn = !capsLockOn
         changeCaps(stackView1)
         changeCaps(stackView2)
@@ -1237,7 +1237,7 @@ class KeyboardViewController: UIInputViewController {
         }
     }
  
-    func nextKeyboardPressed(_ button: UIButton) {
+    @objc func nextKeyboardPressed(_ button: UIButton) {
         advanceToNextInputMode()
     }
 }

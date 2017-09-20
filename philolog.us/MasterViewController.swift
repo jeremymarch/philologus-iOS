@@ -22,7 +22,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     let LATIN = 1
     var whichLang:Int = 0
     
-    let searchTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 320, height: 38))
+    var searchTextField:UITextField?
     let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))// [UIButton
     
     var selectedRow = -1
@@ -35,6 +35,13 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSLog("here1")
+        
+        //to hide title
+        let label = UILabel.init()
+        self.navigationItem.titleView = label;
+        
         // Do any additional setup after loading the view, typically from a nib.
         //navigationItem.leftBarButtonItem = editButtonItem
 
@@ -55,11 +62,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         
-        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
-        kb?.appExt = false
-        searchTextField.inputView = kb?.view
-        searchTextField.delegate = self
-        
         let defaults = UserDefaults.standard
         let a = defaults.object(forKey: "lang")
         if (a != nil)
@@ -73,26 +75,38 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             defaults.synchronize()
         }
         
+        tableView.separatorStyle = .none
+        NSLog("here2")
+        searchTextField = UITextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x + 5, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width - 10, height: 38))
+        //searchTextField = UITextField(frame: navigationController!.navigationBar.bounds)
+        
+        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb?.appExt = false
+        searchTextField?.inputView = kb?.view
+        searchTextField?.delegate = self
+        
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
         {
-            let item: UITextInputAssistantItem = searchTextField.inputAssistantItem
+            let item: UITextInputAssistantItem = searchTextField!.inputAssistantItem
             item.leadingBarButtonGroups = []
             item.trailingBarButtonGroups = []
         }
         
-        tableView.separatorStyle = .none
-        
-        //let searchTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-        searchTextField.layer.borderColor = UIColor.black.cgColor
-        searchTextField.layer.borderWidth = 2.0
-        searchTextField.layer.cornerRadius = 15.5
-        searchTextField.delegate = self
-        searchTextField.autocapitalizationType = .none
-        searchTextField.autocorrectionType = .no
-        searchTextField.clearButtonMode = .always
+        searchTextField?.layer.borderColor = UIColor.black.cgColor
+        searchTextField?.layer.borderWidth = 2.0
+        searchTextField?.layer.cornerRadius = 15.5
+        searchTextField?.delegate = self
+        searchTextField?.autocapitalizationType = .none
+        searchTextField?.autocorrectionType = .no
+        searchTextField?.clearButtonMode = .always
+        searchTextField?.autoresizingMask = [.flexibleWidth]
     
-        self.navigationItem.titleView = searchTextField
+        //self.navigationItem.titleView?.addSubview(searchTextField!)
+        //self.navigationController?.navigationBar.addSubview(searchTextField!)
+        
+        self.navigationItem.titleView = searchTextField!
+        searchTextField?.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x + 5, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width - 10, height: 38)
         //self.navigationItem.titleView.
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
@@ -102,7 +116,15 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //let screenSize = UIScreen.main.bounds
         //let screenWidth = screenSize.width
         //let screenHeight = screenSize.height
-        searchTextField.frame = CGRect(x: 0, y: 0, width: (searchTextField.superview?.frame.size.width)!, height: 38)
+        
+        /*
+         UIView* ctrl = [[UIView alloc] initWithFrame:navController.navigationBar.bounds];
+         ctrl.backgroundColor = [UIColor yellowColor];
+         ctrl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+         [navController.navigationBar addSubview:ctrl];
+ */
+        
+        //searchTextField?.frame = CGRect(x: 0, y: 0, width: (self.navigationItem.titleView?.frame.size.width)!, height: 38)
 
         //searchTextField.frame = CGRect(x: 0, y: 0, width: navFrame.width*3, height: 38)
 
@@ -111,8 +133,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
         //NSLog("nb width: %f, %f, %f", (self.navigationController?.navigationBar.frame.size.width)!, screenWidth,tableView.frame.size.width)
         
-        searchTextField.autoresizingMask = [.flexibleWidth]
-        searchTextField.translatesAutoresizingMaskIntoConstraints = true
+        searchTextField?.autoresizingMask = [.flexibleWidth]
+        searchTextField?.translatesAutoresizingMaskIntoConstraints = true
+        //searchTextField?.contentMode = .redraw
 
         /*
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -136,27 +159,43 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         langButton.addTarget(self, action: #selector(toggleLanguage), for: .touchDown)
         
-        searchTextField.leftView = langButton
-        searchTextField.leftViewMode = UITextFieldViewMode.always
+        searchTextField?.leftView = langButton
+        searchTextField?.leftViewMode = UITextFieldViewMode.always
         
         
         let infoButton = UIButton.init(type: .infoDark)
         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
-        searchTextField.rightView = infoButton
-        searchTextField.rightViewMode = .unlessEditing
+        searchTextField?.rightView = infoButton
+        searchTextField!.rightViewMode = .unlessEditing
         
-        searchTextField.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
+        searchTextField?.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //align lang button title for ios7.  Gives it some left padding
         //we also adjust the size in setLang
         langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
         
-        
         setLanguage(language: whichLang)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        //NSLog("here3")
+        //NSLog("Available fonts: %s", UIFont.familyNames);
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        NSLog("rotate")
+        coordinator.animate(alongsideTransition: { _ in
+            
+            if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
+            {
+                let navBar = self.navigationController!.navigationBar
+                self.searchTextField?.frame = CGRect(x: navBar.bounds.origin.x + 5, y: navBar.bounds.origin.y, width: navBar.bounds.size.width - 10, height: 38)
+            }
+            
+        }, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        //searchTextField?.isHidden = true
         /*
         searchTextField.isHidden = true
         tc?.isActive = false
@@ -170,15 +209,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         tc?.isActive = true
         lc?.isActive = true
         rc?.isActive = true
-        searchTextField.isHidden = false
+        searchTextField?.isHidden = false
  */
+        
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        searchTextField.resignFirstResponder()
+        searchTextField?.resignFirstResponder()
     }
     
-    func toggleLanguage()
+    @objc func toggleLanguage()
     {
         if whichLang == GREEK
         {
@@ -188,7 +228,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         {
             whichLang = GREEK
         }
-        searchTextField.text = ""
+        searchTextField?.text = ""
         setLanguage(language: whichLang)
     }
     
@@ -282,7 +322,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         */
     }
     
-    func textDidChange(_ notification: Notification) {
+    @objc func textDidChange(_ notification: Notification) {
         //guard let textView = notification.object as? UITextField else { return }
         //print(textView.text ?? "abc")
         scrollToWord()
@@ -291,6 +331,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        //searchTextField?.isHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -355,12 +396,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchTextField.resignFirstResponder()
+        searchTextField?.resignFirstResponder()
     }
     
-    func showCredits()
+    @objc func showCredits()
     {
-        searchTextField.resignFirstResponder()
+        searchTextField?.resignFirstResponder()
         //detailViewController?.performSegue(withIdentifier: "showDetail", sender: self)
         self.performSegue(withIdentifier: "showCredits", sender: self)
 
@@ -596,7 +637,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             return;
         }
     
-        let searchText = searchTextField.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+        let searchText = searchTextField?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
         let vc = delegate.persistentContainer.viewContext

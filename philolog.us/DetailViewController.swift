@@ -18,6 +18,10 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //to hide title
+        let label = UILabel.init()
+        self.navigationItem.titleView = label;
+        
         // Do any additional setup after loading the view, typically from a nib.
         
         //self.navigationController?.navigationBar.isTranslucent = false
@@ -32,15 +36,16 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    var detailItem: Event? {
+    var detailItem: Int? {
         didSet {
+            self.navigationItem.title = ""
             // Update the view.
             //configureView()
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
+        self.navigationItem.title = ""
         if wordid > 0
         {
             loadDef()
@@ -133,7 +138,7 @@ class DetailViewController: UIViewController {
             ".label {font-weight:bold;padding-right:0px;text-indent:0px;} " +
             ".label:after { content: ' '; } " +
             ".orth {font-weight:bold; } " +
-            "</style></head><BODY style='font-size:14pt;font-family:NewAthenaUnicode;margin:0px 10px;'>"
+            "</style></head><BODY style='font-size:14pt;font-family:\"New Athena Unicode\";margin:0px 10px;'>"
         
         let header = String(format: h, js, foreignStyle, quoteStyle, translationStyle, authorStyle, bibscopeStyle, titleStyle);
         
@@ -168,7 +173,9 @@ class DetailViewController: UIViewController {
                 if let w = webView
                 {
                     //label.text = detail.timestamp!.description
-                    w.loadHTMLString(header + def2 + "</BODY></HTML>", baseURL: nil)
+                    let html = header + def2 + "</BODY></HTML>"
+                    w.loadHTMLString(html, baseURL: nil)
+                    //NSLog("html: \(html)")
                 }
             }
             else
