@@ -143,12 +143,21 @@ class DetailViewController: UIViewController {
         let header = String(format: h, js, foreignStyle, quoteStyle, translationStyle, authorStyle, bibscopeStyle, titleStyle);
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
-        let vc = delegate.persistentContainer.viewContext
+        var vc:NSManagedObjectContext
+        if #available(iOS 10.0, *) {
+            vc = delegate.persistentContainer.viewContext
+        } else {
+            vc = delegate.managedObjectContext
+        }
         
         if whichLang == 0
         {
             let request: NSFetchRequest<GreekDefs> = GreekDefs.fetchRequest()
-            request.entity = GreekDefs.entity()
+            if #available(iOS 10.0, *) {
+                request.entity = GreekDefs.entity()
+            } else {
+                request.entity = NSEntityDescription.entity(forEntityName: "GreekDefs", in: delegate.managedObjectContext)
+            }
             
             let pred = NSPredicate(format: "(wordid = %d)", self.wordid)
             request.predicate = pred
@@ -189,7 +198,11 @@ class DetailViewController: UIViewController {
         else
         {
             let request: NSFetchRequest<LatinDefs> = LatinDefs.fetchRequest()
-            request.entity = LatinDefs.entity()
+            if #available(iOS 10.0, *) {
+                request.entity = LatinDefs.entity()
+            } else {
+                request.entity = NSEntityDescription.entity(forEntityName: "LatinDefs", in: delegate.managedObjectContext)
+            }
             NSLog("Find ID: %d", self.wordid)
             let pred = NSPredicate(format: "(wordid = %d)", self.wordid)
             request.predicate = pred

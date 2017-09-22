@@ -640,14 +640,23 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         let searchText = searchTextField?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
-        let vc = delegate.persistentContainer.viewContext
+        var vc:NSManagedObjectContext
+        if #available(iOS 10.0, *) {
+            vc = delegate.persistentContainer.viewContext
+        } else {
+            vc = delegate.managedObjectContext
+        }
         
         var seq = -1
         
         if whichLang == GREEK
         {
             let request: NSFetchRequest<GreekWords> = GreekWords.fetchRequest()
-            request.entity = GreekWords.entity()
+            if #available(iOS 10.0, *) {
+                request.entity = GreekWords.entity()
+            } else {
+                request.entity = NSEntityDescription.entity(forEntityName: "GreekWords", in: delegate.managedObjectContext)
+            }
             
             let pred = NSPredicate(format: "(unaccentedWord >= %@)", searchText!)
             request.predicate = pred
@@ -682,7 +691,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         else
         {
             let request: NSFetchRequest<LatinWords> = LatinWords.fetchRequest()
-            request.entity = LatinWords.entity()
+            if #available(iOS 10.0, *) {
+                request.entity = LatinWords.entity()
+            } else {
+                request.entity = NSEntityDescription.entity(forEntityName: "LatinWords", in: delegate.managedObjectContext)
+            }
             
             let pred = NSPredicate(format: "(unaccentedWord >= %@)", searchText!)
             request.predicate = pred
