@@ -59,7 +59,7 @@ class HCDeleteButton: UIButton {
     override func draw(_ rect: CGRect) {
         self.device = 1
         // Drawing code
-        NSLog("Draw delete")
+        //NSLog("Draw delete")
         let context = UIGraphicsGetCurrentContext()
         
         let buttonRadius:CGFloat

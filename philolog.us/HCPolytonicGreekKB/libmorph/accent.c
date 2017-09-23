@@ -15,10 +15,16 @@
 #define MAX_COMBINING 5 //macron, breathing, accent, iota subscript || diaeresis, macron, accent
 
 char unicode_mode = PRECOMPOSED_MODE; //set default
+bool addSpacingDiacriticIfNotLegal = true;
 
-#define NUM_COMBINING_ACCENTS 8
-//this is the order they will be added to a vowel
-unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        , COMBINING_IOTA_SUBSCRIPT };
+void allowSpacingDiacritics(bool val)
+{
+    addSpacingDiacriticIfNotLegal = val;
+}
+
+#define NUM_COMBINING_ACCENTS 9
+//this is the order they will follow after the vowel
+unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_BREVE, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX, COMBINING_IOTA_SUBSCRIPT };
 
 //precomposed indices
 enum {
@@ -122,7 +128,7 @@ unsigned short letters[NUM_VOWEL_CODES][NUM_ACCENT_CODES] = {
         PUA_GREEK_SMALL_LETTER_IOTA_WITH_OXIA_AND_MACRON,
         PUA_GREEK_SMALL_LETTER_IOTA_WITH_VARIA_AND_MACRON
 #endif
-        },
+    },
     
     { GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_OMICRON_WITH_PSILI, GREEK_SMALL_LETTER_OMICRON_WITH_DASIA, GREEK_SMALL_LETTER_OMICRON_WITH_OXIA, GREEK_SMALL_LETTER_OMICRON_WITH_PSILI_AND_OXIA, GREEK_SMALL_LETTER_OMICRON_WITH_DASIA_AND_OXIA, GREEK_SMALL_LETTER_OMICRON_WITH_VARIA, GREEK_SMALL_LETTER_OMICRON_WITH_PSILI_AND_VARIA, GREEK_SMALL_LETTER_OMICRON_WITH_DASIA_AND_VARIA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 #ifdef ALLOW_PRIVATE_USE_AREA
@@ -147,11 +153,11 @@ unsigned short letters[NUM_VOWEL_CODES][NUM_ACCENT_CODES] = {
     { GREEK_SMALL_LETTER_OMEGA, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA, GREEK_SMALL_LETTER_OMEGA_WITH_OXIA, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI_AND_OXIA, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA_AND_OXIA, GREEK_SMALL_LETTER_OMEGA_WITH_VARIA, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI_AND_VARIA, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA_AND_VARIA, GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI_AND_PERISPOMENI, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA_AND_PERISPOMENI, GREEK_SMALL_LETTER_OMEGA_WITH_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_OXIA_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA_AND_OXIA_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_VARIA_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI_AND_VARIA_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA_AND_VARIA_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI, GREEK_SMALL_LETTER_OMEGA_WITH_DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI, 0, 0, 0, 0, 0
 #ifdef ALLOW_PRIVATE_USE_AREA
         , 0, 0, 0, 0, 0, 0, 0, 0
-#endif 
+#endif
     },
     
     /* START CAPITALS */
-    { GREEK_CAPITAL_LETTER_ALPHA, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_OXIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_OXIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_OXIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_VARIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_VARIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_VARIA, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_PERISPOMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_PERISPOMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_PERISPOMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_PROSGEGRAMMENI, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_OXIA_AND_PROSGEGRAMMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_OXIA_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_OXIA_AND_PROSGEGRAMMENI, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_VARIA_AND_PROSGEGRAMMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_VARIA_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_VARIA_AND_PROSGEGRAMMENI, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_PERISPOMENI_AND_PROSGEGRAMMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_PERISPOMENI_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_PERISPOMENI_AND_PROSGEGRAMMENI, 0, 0, 0, 0, 0
+    { GREEK_CAPITAL_LETTER_ALPHA, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_OXIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_OXIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_OXIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_VARIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_VARIA, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_VARIA, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_PERISPOMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_PERISPOMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_PERISPOMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_PROSGEGRAMMENI, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_OXIA_AND_PROSGEGRAMMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_OXIA_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_OXIA_AND_PROSGEGRAMMENI, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_VARIA_AND_PROSGEGRAMMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_VARIA_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_VARIA_AND_PROSGEGRAMMENI, 0/*GREEK_CAPITAL_LETTER_ALPHA_WITH_PERISPOMENI_AND_PROSGEGRAMMENI*/, GREEK_CAPITAL_LETTER_ALPHA_WITH_PSILI_AND_PERISPOMENI_AND_PROSGEGRAMMENI, GREEK_CAPITAL_LETTER_ALPHA_WITH_DASIA_AND_PERISPOMENI_AND_PROSGEGRAMMENI, 0, 0, 0, 0, GREEK_CAPITAL_LETTER_ALPHA_WITH_MACRON
 #ifdef ALLOW_PRIVATE_USE_AREA
         , 0, 0, 0, 0, 0, 0, 0, 0
 #endif
@@ -169,7 +175,7 @@ unsigned short letters[NUM_VOWEL_CODES][NUM_ACCENT_CODES] = {
 #endif
     },
     
-    { GREEK_CAPITAL_LETTER_IOTA, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA, GREEK_CAPITAL_LETTER_IOTA_WITH_OXIA, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI_AND_OXIA, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA_AND_OXIA, GREEK_CAPITAL_LETTER_IOTA_WITH_VARIA, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI_AND_VARIA, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA_AND_VARIA, 0/*GREEK_CAPITAL_LETTER_IOTA_WITH_PERISPOMENI*/, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA_AND_PERISPOMENI, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, GREEK_CAPITAL_LETTER_IOTA_WITH_DIALYTIKA, 0, 0, 0, 0
+    { GREEK_CAPITAL_LETTER_IOTA, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA, GREEK_CAPITAL_LETTER_IOTA_WITH_OXIA, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI_AND_OXIA, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA_AND_OXIA, GREEK_CAPITAL_LETTER_IOTA_WITH_VARIA, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI_AND_VARIA, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA_AND_VARIA, 0/*GREEK_CAPITAL_LETTER_IOTA_WITH_PERISPOMENI*/, GREEK_CAPITAL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI, GREEK_CAPITAL_LETTER_IOTA_WITH_DASIA_AND_PERISPOMENI, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, GREEK_CAPITAL_LETTER_IOTA_WITH_DIALYTIKA, 0, 0, 0, GREEK_CAPITAL_LETTER_IOTA_WITH_MACRON
 #ifdef ALLOW_PRIVATE_USE_AREA
         , 0, 0, 0, 0, 0, 0, 0, 0
 #endif
@@ -180,7 +186,7 @@ unsigned short letters[NUM_VOWEL_CODES][NUM_ACCENT_CODES] = {
 #endif
     },
     
-    { GREEK_CAPITAL_LETTER_UPSILON, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA, GREEK_CAPITAL_LETTER_UPSILON_WITH_OXIA, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI_AND_OXIA*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA_AND_OXIA, GREEK_CAPITAL_LETTER_UPSILON_WITH_VARIA, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI_AND_VARIA*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA_AND_VARIA, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PERISPOMENI*/, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI_AND_PERISPOMENI*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA_AND_PERISPOMENI, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, GREEK_CAPITAL_LETTER_UPSILON_WITH_DIALYTIKA, 0, 0, 0, 0
+    { GREEK_CAPITAL_LETTER_UPSILON, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA, GREEK_CAPITAL_LETTER_UPSILON_WITH_OXIA, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI_AND_OXIA*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA_AND_OXIA, GREEK_CAPITAL_LETTER_UPSILON_WITH_VARIA, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI_AND_VARIA*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA_AND_VARIA, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PERISPOMENI*/, 0/*GREEK_CAPITAL_LETTER_UPSILON_WITH_PSILI_AND_PERISPOMENI*/, GREEK_CAPITAL_LETTER_UPSILON_WITH_DASIA_AND_PERISPOMENI, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, GREEK_CAPITAL_LETTER_UPSILON_WITH_DIALYTIKA, 0, 0, 0, GREEK_CAPITAL_LETTER_UPSILON_WITH_MACRON
 #ifdef ALLOW_PRIVATE_USE_AREA
         , 0, 0, 0, 0, 0, 0, 0, 0
 #endif
@@ -200,7 +206,10 @@ bool analyzePrecomposedLetter(unsigned short letter, int *l, int *a)
         for (*a = 0; *a < NUM_ACCENT_CODES; (*a)++)
         {
             if (letter == letters[*l][*a])
+            {
+                //fprintf(stderr, "letter: %d, accent: %d", *l, *a);
                 return true;
+            }
         }
     }
     return false;
@@ -326,22 +335,22 @@ int precomposedIndexToBitMask(int precomposedIndex, int diacriticMask)
     return diacriticMask;
 }
 /*
-//for testing
-//http://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
-const char *byte_to_binary(int x)
-{
-    static char b[9];
-    b[0] = '\0';
-    
-    int z;
-    for (z = 128; z > 0; z >>= 1)
-    {
-        strcat(b, ((x & z) == z) ? "1" : "0");
-    }
-    
-    return b;
-}
-*/
+ //for testing
+ //http://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
+ const char *byte_to_binary(int x)
+ {
+ static char b[9];
+ b[0] = '\0';
+ 
+ int z;
+ for (z = 128; z > 0; z >>= 1)
+ {
+ strcat(b, ((x & z) == z) ? "1" : "0");
+ }
+ 
+ return b;
+ }
+ */
 //return 0 for invalid letter
 unsigned short getPrecomposedLetter(int letterIndex, int diacriticMask)
 {
@@ -484,6 +493,7 @@ bool isCombiningDiacritic(UCS2 l)
         case COMBINING_SMOOTH_BREATHING:
         case COMBINING_ROUGH_BREATHING:
         case COMBINING_DIAERESIS:
+        case COMBINING_BREVE:
             return true;
     }
     
@@ -500,6 +510,12 @@ bool isBareVowel(UCS2 l)
         case GREEK_SMALL_LETTER_IOTA:
         case GREEK_SMALL_LETTER_UPSILON:
         case GREEK_SMALL_LETTER_OMEGA:
+        case GREEK_CAPITAL_LETTER_ALPHA:
+        case GREEK_CAPITAL_LETTER_EPSILON:
+        case GREEK_CAPITAL_LETTER_ETA:
+        case GREEK_CAPITAL_LETTER_IOTA:
+        case GREEK_CAPITAL_LETTER_UPSILON:
+        case GREEK_CAPITAL_LETTER_OMEGA:
             return true;
     }
     
@@ -522,6 +538,20 @@ int ucs2ToLetterCode(UCS2 l)
         return UPSILON;
     else if (l == GREEK_SMALL_LETTER_OMEGA)
         return OMEGA;
+    else if (l == GREEK_CAPITAL_LETTER_ALPHA)
+        return ALPHA_CAP;
+    else if (l == GREEK_CAPITAL_LETTER_EPSILON)
+        return EPSILON_CAP;
+    else if (l == GREEK_CAPITAL_LETTER_ETA)
+        return ETA_CAP;
+    else if (l == GREEK_CAPITAL_LETTER_IOTA)
+        return IOTA_CAP;
+    else if (l == GREEK_CAPITAL_LETTER_OMICRON)
+        return OMICRON_CAP;
+    else if (l == GREEK_CAPITAL_LETTER_UPSILON)
+        return UPSILON_CAP;
+    else if (l == GREEK_CAPITAL_LETTER_OMEGA)
+        return OMEGA_CAP;
     else
         return 0;
 }
@@ -542,6 +572,20 @@ int letterCodeToUCS2(UCS2 l)
         return GREEK_SMALL_LETTER_UPSILON;
     else if (l == OMEGA)
         return GREEK_SMALL_LETTER_OMEGA;
+    else if (l == ALPHA_CAP)
+        return GREEK_CAPITAL_LETTER_ALPHA;
+    else if (l == EPSILON_CAP)
+        return GREEK_CAPITAL_LETTER_EPSILON;
+    else if (l == ETA_CAP)
+        return GREEK_CAPITAL_LETTER_ETA;
+    else if (l == IOTA_CAP)
+        return GREEK_CAPITAL_LETTER_IOTA;
+    else if (l == OMICRON_CAP)
+        return GREEK_CAPITAL_LETTER_OMICRON;
+    else if (l == UPSILON_CAP)
+        return GREEK_CAPITAL_LETTER_UPSILON;
+    else if (l == OMEGA_CAP)
+        return GREEK_CAPITAL_LETTER_OMEGA;
     else
         return 0;
 }
@@ -551,13 +595,19 @@ bool isLegalDiacriticForLetter(int letterCode, int accentToAdd)
     switch (accentToAdd)
     {
         case CIRCUMFLEX:
-            if (letterCode != ALPHA && letterCode != ETA && letterCode != IOTA && letterCode != UPSILON && letterCode != OMEGA)
+            if (letterCode != ALPHA && letterCode != ETA && letterCode != IOTA && letterCode != UPSILON && letterCode != OMEGA && letterCode != ALPHA_CAP && letterCode != ETA_CAP && letterCode != IOTA_CAP && letterCode != UPSILON_CAP && letterCode != OMEGA_CAP)
             {
                 return false;
             }
             break;
         case MACRON:
-            if (letterCode != ALPHA && letterCode != IOTA && letterCode != UPSILON)
+            if (letterCode != ALPHA && letterCode != IOTA && letterCode != UPSILON && letterCode != ALPHA_CAP && letterCode != IOTA_CAP && letterCode != UPSILON_CAP)
+            {
+                return false;
+            }
+            break;
+        case BREVE:
+            if (letterCode != ALPHA && letterCode != IOTA && letterCode != UPSILON && letterCode != ALPHA_CAP && letterCode != IOTA_CAP && letterCode != UPSILON_CAP)
             {
                 return false;
             }
@@ -611,6 +661,15 @@ int updateDiacritics(int letterCode, int accentToAdd, int accentBitMask, bool to
             else
                 accentBitMask |= _MACRON;
             accentBitMask &= ~_CIRCUMFLEX;
+            accentBitMask &= ~_BREVE;
+            break;
+        case BREVE:
+            if (toggleOff && (accentBitMask & _BREVE) == _BREVE)
+                accentBitMask &= ~_BREVE;
+            else
+                accentBitMask |= _BREVE;
+            accentBitMask &= ~_CIRCUMFLEX;
+            accentBitMask &= ~_MACRON;
             break;
         case ROUGH_BREATHING:
             if (toggleOff && (accentBitMask & _ROUGH) == _ROUGH)
@@ -690,6 +749,11 @@ int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accent
                 letterLen++;
                 *accentBitMask |= _MACRON;
             }
+            else if (ucs2String[i + j] == COMBINING_BREVE)
+            {
+                letterLen++;
+                *accentBitMask |= _BREVE;
+            }
             else if (ucs2String[i + j] == COMBINING_IOTA_SUBSCRIPT)
             {
                 letterLen++;
@@ -725,12 +789,16 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     
     //fallback if macron + one more diacritic
     bool precomposingFallbackToComposing = false;
-    if ((unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE &&  (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
+    if ((unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
     {
         if ((accentBitMask & ~_MACRON) != 0)//if any other bits set besides macron
         {
             precomposingFallbackToComposing = true;
         }
+    }
+    else if ((accentBitMask & _BREVE) == _BREVE)
+    {
+        precomposingFallbackToComposing = true;
     }
     else if (unicodeMode == PRECOMPOSED_HC_MODE && (accentBitMask & _MACRON) == _MACRON)
     {
@@ -742,6 +810,8 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     if (unicode_mode == COMBINING_ONLY_MODE || precomposingFallbackToComposing)
     {
         if ((accentBitMask & _MACRON) == _MACRON)
+            (*newLetterLen)++;
+        if ((accentBitMask & _BREVE) == _BREVE)
             (*newLetterLen)++;
         if ((accentBitMask & _SMOOTH) == _SMOOTH)
             (*newLetterLen)++;
@@ -757,7 +827,7 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
             (*newLetterLen)++;
         if ((accentBitMask & _DIAERESIS) == _DIAERESIS)
             (*newLetterLen)++;
-
+        
         ucs2String[i] = letterCodeToUCS2(letterCode); //set base letter
         
         unsigned char numAccents = 1;
@@ -765,6 +835,11 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
         for (int k = 0; k < NUM_COMBINING_ACCENTS; k++)
         {
             if (combiningAccents[k] == COMBINING_MACRON && (accentBitMask & _MACRON) == _MACRON)
+            {
+                ucs2String[i + numAccents] = combiningAccents[k];
+                numAccents++;
+            }
+            else if (combiningAccents[k] == COMBINING_BREVE && (accentBitMask & _BREVE) == _BREVE)
             {
                 ucs2String[i + numAccents] = combiningAccents[k];
                 numAccents++;
@@ -813,7 +888,7 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
         {
             (*newLetterLen)++;
         }
-
+        
         if (unicode_mode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
         {
             ucs2String[i+1] = COMBINING_IOTA_SUBSCRIPT;
@@ -835,13 +910,61 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     }
 }
 
+UCS2 getSpacingDiacritic(int diacritic)
+{
+    switch (diacritic)
+    {
+        case ACUTE:
+            return 0x00B4;
+            break;
+        case GRAVE:
+            return 0x0060;
+            break;
+        case CIRCUMFLEX:
+            return 0x005E;
+            break;
+        case MACRON:
+            return 0x00AF;
+            break;
+        case BREVE:
+            return 0x02D8;
+            break;
+        case DIAERESIS:
+            return 0x00A8;
+            break;
+        case ROUGH_BREATHING:
+            return 0x02BD;
+            break;
+        case SMOOTH_BREATHING:
+            return 0x02BC;
+            break;
+        case IOTA_SUBSCRIPT:
+            return 0x037A;
+            break;
+        default:
+            return 0;
+    }
+}
+
 //there should be room for a least MAX_COMBINING more characters at the end of ucs2String, in case it needs to grow
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode)
 {
+    if (unicodeMode != PRECOMPOSED_MODE && unicodeMode != PRECOMPOSED_WITH_PUA_MODE && unicodeMode != COMBINING_ONLY_MODE && unicodeMode != PRECOMPOSED_HC_MODE)
+    {
+        unicodeMode = PRECOMPOSED_MODE;
+    }
     unicode_mode = unicodeMode;
     
-    if (*len < 1)
+    if (*len < 1) {
+        if (addSpacingDiacriticIfNotLegal) {
+            UCS2 sd = getSpacingDiacritic(accentToAdd);
+            if (sd) {
+                ucs2String[i] = sd;
+                *len = 1;
+            }
+        }
         return;
+    }
     
     //1. handle consonants
     if (ucs2String[i] == GREEK_SMALL_LETTER_RHO && accentToAdd == ROUGH_BREATHING)
@@ -878,13 +1001,28 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
     int accentBitMask = 0;
     
     //this will be -1 on error
-    char letterLen = analyzeLetter(ucs2String, i, *len, &letterCode, &accentBitMask);
-    if (letterLen < 1)
+    int letterLen = analyzeLetter(ucs2String, i, *len, &letterCode, &accentBitMask);
+    if (letterLen < 1) {
+        if (addSpacingDiacriticIfNotLegal) {
+            UCS2 sd = getSpacingDiacritic(accentToAdd);
+            if (sd) {
+                ucs2String[i + 1] = sd;
+                *len += 1;
+            }
+        }
         return;
-    
+    }
     //2.5: return if this diacritic isn't legal for the letter it's being added to
-    if (!isLegalDiacriticForLetter(letterCode, accentToAdd))
+    if (!isLegalDiacriticForLetter(letterCode, accentToAdd)) {
+        if (addSpacingDiacriticIfNotLegal) {
+            UCS2 sd = getSpacingDiacritic(accentToAdd);
+            if (sd) {
+                ucs2String[i + 1] = sd;
+                *len += 1;
+            }
+        }
         return;
+    }
     
     //3. this changes old letter analysis to the one we want
     accentBitMask = updateDiacritics(letterCode, accentToAdd, accentBitMask, toggleOff);
@@ -896,10 +1034,10 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
         return;
     
     //5. make room for letter or decrease it if it is shrinking
-     if (newLetterLen > letterLen)
-         rightShiftFromOffsetSteps(ucs2String, i, newLetterLen - letterLen, len);
-     else if (letterLen > newLetterLen)
-         leftShiftFromOffsetSteps(ucs2String, i, letterLen - newLetterLen, len);
+    if (newLetterLen > letterLen)
+        rightShiftFromOffsetSteps(ucs2String, i, newLetterLen - letterLen, len);
+    else if (letterLen > newLetterLen)
+        leftShiftFromOffsetSteps(ucs2String, i, letterLen - newLetterLen, len);
     
     //6. add character to output
     for (int j = 0; j < newLetterLen; j++)
@@ -925,11 +1063,11 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
 
 //helper function to make it easier to import into swift
 /*
-void accentSyllable16(uint16_t *ucs2String, int i, int *len, int accent, bool toggleOff, int mode)
-{
-    accentSyllable2((UCS2*)ucs2String, i, len, accent, toggleOff, mode);
-}
-*/
+ void accentSyllable16(uint16_t *ucs2String, int i, int *len, int accent, bool toggleOff, int mode)
+ {
+ accentSyllable2((UCS2*)ucs2String, i, len, accent, toggleOff, mode);
+ }
+ */
 
 
 

@@ -39,6 +39,7 @@
 		3F85E8311ED27380007633D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F85E8301ED27380007633D2 /* Assets.xcassets */; };
 		3F85E8341ED27380007633D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F85E8321ED27380007633D2 /* LaunchScreen.storyboard */; };
 		3F9B9BE31EEF6E0500DF500E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B9BE21EEF6E0500DF500E /* Settings.bundle */; };
+		3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		3F85E8331ED27380007633D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F85E8351ED27380007633D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F9B9BE21EEF6E0500DF500E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				3F0D2E5F1EE48DDA00B34C62 /* HCSpaceButton.swift */,
 				3F0D2E601EE48DDA00B34C62 /* Info.plist */,
 				3F0D2E611EE48DDA00B34C62 /* KeyboardViewController.swift */,
+				3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */,
 				3F0D2E621EE48DDA00B34C62 /* libmorph */,
 			);
 			path = HCPolytonicGreekKB;
@@ -274,6 +277,7 @@
 				3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */,
 				3F0D2E6F1EE48DDA00B34C62 /* HCSpaceButton.swift in Sources */,
 				3F0D2E6B1EE48DDA00B34C62 /* HCDeleteButton.swift in Sources */,
+				3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */,
 				3F0D2E6E1EE48DDA00B34C62 /* HCPunctuationButton.swift in Sources */,
 				3F0D2E6D1EE48DDA00B34C62 /* HCGlobeButton.swift in Sources */,
 				3F0D2E6C1EE48DDA00B34C62 /* HCEnterButton.swift in Sources */,
@@ -355,7 +359,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -406,7 +410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -421,7 +425,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = philolog.us/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -437,7 +441,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = philolog.us/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";

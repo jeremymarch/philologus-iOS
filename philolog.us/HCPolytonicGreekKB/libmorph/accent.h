@@ -12,7 +12,6 @@
 #include <stdbool.h> //for bool type
 #include "utilities.h"
 
-
 enum {
     NO_ACCENT = 0,
     ACUTE,
@@ -23,7 +22,8 @@ enum {
     SMOOTH_BREATHING,
     IOTA_SUBSCRIPT,
     SURROUNDING_PARENTHESES,
-    DIAERESIS
+    DIAERESIS,
+    BREVE
 };
 
 //diacriticMask bit flags
@@ -35,8 +35,8 @@ enum {
     _GRAVE      = 1 << 4,
     _CIRCUMFLEX = 1 << 5,
     _IOTA_SUB   = 1 << 6,
-    _DIAERESIS  = 1 << 7//,
-    //_BREVE      = 1 << 8
+    _DIAERESIS  = 1 << 7,
+    _BREVE      = 1 << 8
 };
 
 enum {
@@ -46,6 +46,8 @@ enum {
     PRECOMPOSED_HC_MODE //this is legacy for the hoplite challenge app which uses combining macron even if no other diacritics
 };
 
+void allowSpacingDiacritics(bool val);
+
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode);
 
 int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accentBitMask);
@@ -53,3 +55,4 @@ int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accent
 bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentBitMask, int unicodeMode);
 
 #endif /* accent_h */
+
