@@ -44,7 +44,7 @@ class HCKeyboardView: UIInputView {
         let viewWidth:CGFloat = self.bounds.width
         let viewHeight:CGFloat = self.bounds.height
         
-        NSLog("layout subviews height: \(viewHeight)")
+        //NSLog("layout subviews height: \(viewHeight)")
         
         var maxColumns = 0
         for (_, row) in buttons.enumerated()

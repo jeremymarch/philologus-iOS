@@ -143,7 +143,7 @@ class KeyboardViewController: UIInputViewController {
     var widthMultiple:CGFloat = 0.0976
     
     var currentButton:UIButton?
-    var appExt:Bool = true
+    var appExt:Bool = false
     var buttons: Array<UIButton> = []
     var bCount:Int = 0
     

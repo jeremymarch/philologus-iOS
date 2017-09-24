@@ -179,7 +179,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        NSLog("rotate")
+        //NSLog("rotate")
         coordinator.animate(alongsideTransition: { _ in
             
             if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
@@ -726,7 +726,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
         if seq < 1 || seq > rowCount
         {
-            NSLog("Scroll out of bounds: %d", seq);
+            //NSLog("Scroll out of bounds: %d", seq);
             seq = rowCount;
         }
         

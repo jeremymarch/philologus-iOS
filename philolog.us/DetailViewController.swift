@@ -203,7 +203,7 @@ class DetailViewController: UIViewController {
             } else {
                 request.entity = NSEntityDescription.entity(forEntityName: "LatinDefs", in: delegate.managedObjectContext)
             }
-            NSLog("Find ID: %d", self.wordid)
+            //NSLog("Find ID: %d", self.wordid)
             let pred = NSPredicate(format: "(wordid = %d)", self.wordid)
             request.predicate = pred
             var results: [LatinDefs]? = nil
@@ -220,7 +220,6 @@ class DetailViewController: UIViewController {
             
             if results != nil && results!.count > 0
             {
-                NSLog("herehere1")
                 let match = results?[0]
                 let def2:String = match!.def!
                 //NSLog("res: %@", def2)
