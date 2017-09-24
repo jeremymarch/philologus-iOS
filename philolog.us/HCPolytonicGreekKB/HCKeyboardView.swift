@@ -8,7 +8,8 @@
 
 import UIKit
 
-class HCKeyboardView: UIView {
+//this is for iOS 8.4 and below: https://stackoverflow.com/questions/24756018/custom-inputview-with-dynamic-height-in-ios-8
+class HCKeyboardView: UIInputView {
     var buttons:[[UIButton]] = []
     /*
      // Only override draw() if you perform custom drawing.
@@ -17,11 +18,33 @@ class HCKeyboardView: UIView {
      // Drawing code
      }
      */
+    var intrinsicHeight: CGFloat = 174 {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+    
+    init() {
+        super.init(frame: CGRect(), inputViewStyle: .keyboard)
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIViewNoIntrinsicMetric, height: self.intrinsicHeight)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         let viewWidth:CGFloat = self.bounds.width
         let viewHeight:CGFloat = self.bounds.height
+        
+        NSLog("layout subviews height: \(viewHeight)")
         
         var maxColumns = 0
         for (_, row) in buttons.enumerated()

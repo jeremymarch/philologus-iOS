@@ -36,8 +36,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSLog("here1")
-        
         //to hide title
         let label = UILabel.init()
         self.navigationItem.titleView = label;
@@ -76,13 +74,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         
         tableView.separatorStyle = .none
-        NSLog("here2")
+
         searchTextField = UITextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
-        //searchTextField = UITextField(frame: navigationController!.navigationBar.bounds)
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
-        searchTextField?.inputView = kb?.view
+        searchTextField?.inputView = kb?.inputView
         searchTextField?.delegate = self
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad

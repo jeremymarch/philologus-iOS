@@ -214,18 +214,7 @@ class KeyboardViewController: UIInputViewController {
         
         //loadDefaults()
         //this makes sure the keyboard is right height when first loaded
-        if self.isLandscape()
-        {
-            NSLog("landscape: \(self.landscapeHeight)")
-            self.heightConstraint?.constant = self.landscapeHeight;
-            //self.inputView!.addConstraint(self.heightConstraint!)
-        }
-        else
-        {
-            NSLog("portrait: \(self.portraitHeight)")
-            self.heightConstraint?.constant = self.portraitHeight;
-            //self.inputView!.addConstraint(self.heightConstraint!)
-        }
+        //setupConstraints()
     }
     
     override func viewWillLayoutSubviews() {
@@ -275,30 +264,35 @@ class KeyboardViewController: UIInputViewController {
         NSLog("rotate")
         coordinator.animate(alongsideTransition: { _ in
             
-            if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
-            {
-                //self.inputView!.removeConstraint(self.heightConstraint!)
-                
-                //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
-                if self.isLandscape()
-                {
-                    NSLog("landscape: \(self.landscapeHeight)")
-                    self.heightConstraint?.constant = self.landscapeHeight;
-                    //self.inputView!.addConstraint(self.heightConstraint!)
-                }
-                else
-                {
-                    NSLog("portrait: \(self.portraitHeight)")
-                    self.heightConstraint?.constant = self.portraitHeight;
-                    //self.inputView!.addConstraint(self.heightConstraint!)
-                }
-                
-                self.globeButton?.setNeedsDisplay() //to redraw globe icon
-                self.capsLockButton?.setNeedsDisplay()
-                self.deleteButton?.setNeedsDisplay()
-            }
+            self.resetKBHeight()
             
         }, completion: nil)
+    }
+    
+    func resetKBHeight()
+    {/*
+        if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
+        {
+            //self.inputView!.removeConstraint(self.heightConstraint!)
+            
+            //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
+            if self.isLandscape()
+            {
+                NSLog("landscape: \(self.landscapeHeight)")
+                self.heightConstraint?.constant = self.landscapeHeight;
+                //self.inputView?.addConstraint(self.heightConstraint!)
+            }
+            else
+            {
+                NSLog("portrait: \(self.portraitHeight)")
+                self.heightConstraint?.constant = self.portraitHeight;
+                //self.inputView?.addConstraint(self.heightConstraint!)
+            }
+            
+            self.globeButton?.setNeedsDisplay() //to redraw globe icon
+            self.capsLockButton?.setNeedsDisplay()
+            self.deleteButton?.setNeedsDisplay()
+        }*/
     }
     
     func setupConstraints()
@@ -308,9 +302,9 @@ class KeyboardViewController: UIInputViewController {
         {
             kbHeight = landscapeHeight
         }
-        //NSLog("height: \(kbHeight)")
+        NSLog("kb height: \(kbHeight)")
         
-        heightConstraint = NSLayoutConstraint(item: self.view!,
+        heightConstraint = NSLayoutConstraint(item: self.inputView!,
                                               attribute: .height,
                                               relatedBy: .equal,
                                               toItem: nil,
@@ -319,7 +313,7 @@ class KeyboardViewController: UIInputViewController {
                                               constant: kbHeight)
         heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
         heightConstraint?.isActive = true
-        self.view.addConstraint(heightConstraint!)
+        self.inputView?.addConstraint(heightConstraint!)
         
         if #available(iOS 9.0, *)
         {
@@ -332,12 +326,16 @@ class KeyboardViewController: UIInputViewController {
         {
             // Fallback for ios 8.0
             let leftC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0)
+            leftC.isActive = true
             
             let topC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
+            topC.isActive = true
             
             let rightC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 0)
+            rightC.isActive = true
             
             let bottomC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0)
+            bottomC.isActive = true
             
             self.inputView?.addConstraints([leftC,topC,rightC,bottomC])
         }
@@ -387,18 +385,6 @@ class KeyboardViewController: UIInputViewController {
         //NSLog("Set unicode mode: \(unicodeMode)")
     }
     
-    func toggleLang()
-    {
-        if whichLang == 1
-        {
-            setLang(lang: 0)
-        }
-        else
-        {
-            setLang(lang: 1)
-        }
-    }
-    
     func setLang(lang:Int)
     {
         if lang == 0
@@ -413,6 +399,8 @@ class KeyboardViewController: UIInputViewController {
         }
         UserDefaults.standard.set(whichLang, forKey: "lang")
         UserDefaults.standard.synchronize()
+        
+        resetKBHeight()
     }
     
     override func viewDidLoad() {
@@ -423,7 +411,6 @@ class KeyboardViewController: UIInputViewController {
         allowSpacingDiacritics(true) //this sets variable in accent.c
         
         self.inputView?.autoresizingMask = [] //this is needed too???
-        
         //this must be true for app extension, false for embedded
         self.inputView?.translatesAutoresizingMaskIntoConstraints = appExt
         
@@ -433,11 +420,11 @@ class KeyboardViewController: UIInputViewController {
             self.inputView?.allowsSelfSizing = true
         }
         
-        self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = bgColor
         
         hv.translatesAutoresizingMaskIntoConstraints = false //req
-        self.view.addSubview(hv)
+        //self.view.addSubview(hv) //switched to below for iOS 8.0-8.4
+        self.inputView? = hv
         
         if UIDevice.current.userInterfaceIdiom == .pad
         {
@@ -449,7 +436,6 @@ class KeyboardViewController: UIInputViewController {
             //for iphone 5s and narrower
             if UIScreen.main.nativeBounds.width < 641
             {
-                buttonSpacing = 4.0
                 portraitHeight = 174.0
                 landscapeHeight = 174.0
             }
@@ -470,7 +456,7 @@ class KeyboardViewController: UIInputViewController {
         
         romanKeys = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
                                      ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-                                     ["Z", "X", "C", "V", "B", "N", "M", "BK" ]]
+                                     ["Z", "X", "C", "V", "B", "N", "M", "BK"]]
         
         keys = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·", "xxx"],
                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
@@ -648,8 +634,9 @@ class KeyboardViewController: UIInputViewController {
                 }
             }
         }
-        setupConstraints()
+        
         changeKeys(keys: keys)
+        setupConstraints()
     }
     
     override func didReceiveMemoryWarning() {
