@@ -144,8 +144,18 @@ class HCKeyboardView: UIInputView {
                         }
                         else
                         {
-                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonHeight, height: buttonHeight)
-                            xoff += buttonHSpacing + buttonHeight
+                            if UIScreen.main.nativeBounds.width < 641
+                            {
+                                let smallDelWidth:CGFloat = 43.0
+                                key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: smallDelWidth, height: buttonHeight)
+                                xoff += buttonHSpacing + smallDelWidth
+                                //NSLog("bwidth: \(buttonWidth * 1.4)")
+                            }
+                            else
+                            {
+                                key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonHeight, height: buttonHeight)
+                                xoff += buttonHSpacing + buttonHeight
+                            }
                         }
                     }
                     else if key.titleLabel?.text == "enter" || key.titleLabel?.text == "space"
