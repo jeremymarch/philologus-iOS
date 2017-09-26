@@ -158,13 +158,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         searchTextField?.leftView = langButton
         searchTextField?.leftViewMode = UITextFieldViewMode.always
-        
-        
+
         let infoButton = UIButton.init(type: .infoDark)
         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
         searchTextField?.rightView = infoButton
         searchTextField!.rightViewMode = .unlessEditing
-        
+
         searchTextField?.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //align lang button title for ios7.  Gives it some left padding
         //we also adjust the size in setLang

@@ -31,6 +31,14 @@ class DetailViewController: UIViewController {
         self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal
     }
 
+    @objc func showCredits()
+    {
+        //searchTextField?.resignFirstResponder()
+        //detailViewController?.performSegue(withIdentifier: "showDetail", sender: self)
+        //self.performSegue(withIdentifier: "showCredits", sender: self)
+        loadCredits()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,9 +51,21 @@ class DetailViewController: UIViewController {
             //configureView()
         }
     }
+    
+    /*
+     override func viewDidAppear(_ animated: Bool) {
+     
+     }
+     */
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = ""
+        /*
+        let infoButton = UIButton.init(type: .infoDark)
+        infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
+        let buttonItem = UIBarButtonItem.init(customView: infoButton)
+        navigationItem.rightBarButtonItem = buttonItem
+         */
         if wordid > 0
         {
             loadDef()
@@ -86,17 +106,17 @@ class DetailViewController: UIViewController {
         }
         
         let styles:[String] = ["color:black;","color:red;","color:blue;","color:green;","color:orange;","color:purple;","font-weight:bold;","font-style:italic;"]
-        
-        let enabled = UserDefaults.standard.object(forKey: "enableCustomColors") as? Bool
 
-        var authorStyle = ""
-        var titleStyle = ""
-        var bibscopeStyle = ""
-        var foreignStyle = ""
-        var quoteStyle = ""
-        var translationStyle = ""
+        var authorStyle = styles[0]
+        var titleStyle = styles[0]
+        var bibscopeStyle = styles[0]
+        var foreignStyle = styles[0]
+        var quoteStyle = styles[0]
+        var translationStyle = styles[0]
         let js = ""
-        if enabled == nil || !enabled!
+ 
+        let enabled = UserDefaults.standard.object(forKey: "enableCustomColors") as? Bool
+        if enabled == nil || enabled! == false
         {
             authorStyle = styles[1]
             titleStyle = styles[4]
@@ -107,16 +127,26 @@ class DetailViewController: UIViewController {
         }
         else
         {
-            let a = UserDefaults.standard.object(forKey: "authorStyle") as! Int
-            let titl = UserDefaults.standard.object(forKey: "titleStyle") as! Int
-            let bib = UserDefaults.standard.object(forKey: "bibScopeStyle") as! Int
-            let foreign = UserDefaults.standard.object(forKey: "foreignStyle") as! Int
-            let quote = UserDefaults.standard.object(forKey: "quoteStyle") as! Int
-            authorStyle = styles[a]
-            titleStyle = styles[titl]
-            bibscopeStyle = styles[bib]
-            foreignStyle = styles[foreign]
-            quoteStyle = styles[quote]
+            if let a = UserDefaults.standard.object(forKey: "authorStyle") as! Int?
+            {
+                authorStyle = styles[a]
+            }
+            if let titl = UserDefaults.standard.object(forKey: "titleStyle") as! Int?
+            {
+                titleStyle = styles[titl]
+            }
+            if let bib = UserDefaults.standard.object(forKey: "bibScopeStyle") as! Int?
+            {
+                bibscopeStyle = styles[bib]
+            }
+            if let foreign = UserDefaults.standard.object(forKey: "foreignStyle") as! Int?
+            {
+                foreignStyle = styles[foreign]
+            }
+            if let quote = UserDefaults.standard.object(forKey: "quoteStyle") as! Int?
+            {
+                quoteStyle = styles[quote]
+            }
             translationStyle = styles[6]
         }
         
