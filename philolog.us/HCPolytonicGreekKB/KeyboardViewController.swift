@@ -99,7 +99,7 @@ public enum UnicodeMode:Int32 {
     case CombiningOnly = 2
 }
 
-class KeyboardViewController: UIInputViewController {
+class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate{
     var whichLang:Int = 0
     let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
     let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";"]
@@ -166,16 +166,36 @@ class KeyboardViewController: UIInputViewController {
      }
      */
     
+    func resetButtons(button:UIButton?)
+    {
+        buttons.forEach { b in
+            if button == nil || b != button
+            {
+                b.sendActions(for: .touchUpOutside)
+            }
+        }
+    }
+    
     //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
-    func handleDrag(gestureRecognizer:UIPanGestureRecognizer)
+    @objc func handleDrag(gestureRecognizer:UIPanGestureRecognizer)
     {
         let point:CGPoint  = gestureRecognizer.location(in: self.view)
-        let draggedView = self.view.hitTest(point, with: nil)! as Any
+        let draggedView = self.view.hitTest(point, with: nil)
+        if draggedView == nil
+        {
+            if self.currentButton != nil
+            {
+                //self.currentButton?.sendActions(for: .touchUpOutside)
+                resetButtons(button: nil)
+                self.currentButton = nil;
+            }
+            return
+        }
         
         if gestureRecognizer.state == .changed
         {
             //NSLog("changed")
-            if draggedView is UIButton && self.currentButton == nil {
+            if draggedView is HCButton || draggedView is HCDeleteButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
                 if self.currentButton != nil
                 {
@@ -183,7 +203,8 @@ class KeyboardViewController: UIInputViewController {
                     NSLog("Enter: \(t)")
                 }
                 // send enter event to your button
-                self.currentButton?.sendActions(for: .touchDragEnter)
+                self.currentButton?.sendActions(for: .touchDown)
+                resetButtons(button: self.currentButton)
             }
             
             if self.currentButton != nil && !(self.currentButton?.isEqual(draggedView))!
@@ -195,7 +216,7 @@ class KeyboardViewController: UIInputViewController {
                 }
                 
                 // send exit event to your button
-                self.currentButton?.sendActions(for: .touchDragExit)
+                self.currentButton?.sendActions(for: .touchUpOutside)
                 self.currentButton = nil;
             }
         }
@@ -203,7 +224,11 @@ class KeyboardViewController: UIInputViewController {
         {
             if (self.currentButton != nil)
             {
-                self.currentButton?.sendActions(for: .touchDragExit)
+                self.currentButton?.sendActions(for: .touchUpInside)
+            }
+            else
+            {
+                resetButtons(button: nil)
             }
             self.currentButton = nil
         }
@@ -446,10 +471,10 @@ class KeyboardViewController: UIInputViewController {
             }
         }
         
-        //let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
-        //recognizer.delegate = self
-        //self.view.addGestureRecognizer(recognizer)
-        
+        let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
+        recognizer.delegate = self
+        self.view.addGestureRecognizer(recognizer)
+ 
         greekKeys = [["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π", "xxx","xxx"],
                                      ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                      ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
