@@ -100,6 +100,7 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate{
+    let dragOverButtons = true
     var whichLang:Int = 0
     let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
     let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";"]
@@ -183,12 +184,12 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         let draggedView = self.view.hitTest(point, with: nil)
         if draggedView == nil
         {
-            if self.currentButton != nil
-            {
+            //if self.currentButton != nil
+            //{
                 //self.currentButton?.sendActions(for: .touchUpOutside)
                 resetButtons(button: nil)
                 self.currentButton = nil;
-            }
+            //}
             return
         }
         
@@ -471,10 +472,12 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             }
         }
         
-        let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
-        recognizer.delegate = self
-        self.view.addGestureRecognizer(recognizer)
- 
+        if dragOverButtons == true
+        {
+            let recognizer = UIPanGestureRecognizer(target: self, action:#selector(handleDrag(gestureRecognizer:)))
+            recognizer.delegate = self
+            self.view.addGestureRecognizer(recognizer)
+        }
         greekKeys = [["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π", "xxx","xxx"],
                                      ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                      ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
