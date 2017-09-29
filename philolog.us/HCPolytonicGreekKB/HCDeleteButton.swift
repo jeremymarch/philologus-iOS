@@ -32,6 +32,9 @@ class HCDeleteButton: UIButton {
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside1(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDown)
+        
+        self.addTarget(self, action: #selector(touchDown1(sender:)), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(touchUpOutside1(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -63,8 +63,8 @@ class HCButton: UIButton {
         
         //these don't work, maybe this:
         //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
-        //self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
-        //self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchDragExit)
+        self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {

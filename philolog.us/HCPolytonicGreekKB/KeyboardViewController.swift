@@ -204,7 +204,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                     NSLog("Enter: \(t)")
                 }
                 // send enter event to your button
-                self.currentButton?.sendActions(for: .touchDown)
+                self.currentButton?.sendActions(for: .touchDragEnter)
                 resetButtons(button: self.currentButton)
             }
             
@@ -217,7 +217,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 }
                 
                 // send exit event to your button
-                self.currentButton?.sendActions(for: .touchUpOutside)
+                self.currentButton?.sendActions(for: .touchDragOutside)
                 self.currentButton = nil;
             }
         }
@@ -225,7 +225,15 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             if (self.currentButton != nil)
             {
-                self.currentButton?.sendActions(for: .touchUpInside)
+                if self.currentButton is HCButton
+                {
+                    self.currentButton?.sendActions(for: .touchUpInside)
+                }
+                else if self.currentButton is HCDeleteButton
+                {
+                    self.currentButton?.sendActions(for: .touchDown)
+                    self.currentButton?.sendActions(for: .touchUpOutside)
+                }
             }
             else
             {
