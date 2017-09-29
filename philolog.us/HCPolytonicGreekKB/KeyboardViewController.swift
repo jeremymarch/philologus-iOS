@@ -172,7 +172,21 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         buttons.forEach { b in
             if button == nil || b != button
             {
-                b.sendActions(for: .touchUpOutside)
+                if let a = b as? HCButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                else if let a = b as? HCDeleteButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                
             }
         }
     }
