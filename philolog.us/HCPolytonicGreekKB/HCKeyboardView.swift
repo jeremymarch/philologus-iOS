@@ -102,16 +102,22 @@ class HCKeyboardView: UIInputView {
             xoffstart = 0
             xoff = 0
             
-            buttonWidth = (viewWidth - (buttonHSpacing * CGFloat(maxColumns))) / CGFloat(maxColumns)
+            var sidePadding:CGFloat = buttonHSpacing / 2.0
+            if UIDevice.current.userInterfaceIdiom == .pad
+            {
+                sidePadding = viewWidth * 0.03
+            }
+            
+            buttonWidth = (viewWidth - (sidePadding * 2) - (buttonHSpacing * (CGFloat(maxColumns) - 1))) / CGFloat(maxColumns)
             buttonHeight = (viewHeight - (buttonVSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
             
             if c < maxColumns
             {
-                xoffstart = ((buttonWidth + buttonHSpacing) / 2.0) * CGFloat(maxColumns - c) + (buttonHSpacing / 2)
+                xoffstart = ((buttonWidth + buttonHSpacing) / 2.0) * CGFloat(maxColumns - c) + sidePadding
             }
             else
             {
-                xoffstart = (buttonHSpacing / 2)
+                xoffstart = sidePadding
             }
             xoff = xoffstart
             var x = false //skip one

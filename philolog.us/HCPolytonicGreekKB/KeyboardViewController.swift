@@ -170,7 +170,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     func resetButtons(button:UIButton?)
     {
         buttons.forEach { b in
-            if button == nil || b != button
+            if button == nil || b != button //for all except the one passed in, if any
             {
                 if let a = b as? HCButton
                 {
@@ -186,7 +186,6 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         b.sendActions(for: .touchUpOutside)
                     }
                 }
-                
             }
         }
     }
@@ -212,11 +211,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             //NSLog("changed")
             if draggedView is HCButton || draggedView is HCDeleteButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
+                /*
                 if self.currentButton != nil
                 {
                     let t = self.currentButton!.tag
                     NSLog("Enter: \(t)")
                 }
+                */
                 // send enter event to your button
                 self.currentButton?.sendActions(for: .touchDragEnter)
                 resetButtons(button: self.currentButton)
@@ -224,12 +225,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             
             if self.currentButton != nil && !(self.currentButton?.isEqual(draggedView))!
             {
+                /*
                 if self.currentButton != nil
                 {
                     let t = self.currentButton!.tag
                     NSLog("Exit: \(t)")
                 }
-                
+                */
                 // send exit event to your button
                 self.currentButton?.sendActions(for: .touchDragOutside)
                 self.currentButton = nil;
@@ -245,8 +247,8 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 }
                 else if self.currentButton is HCDeleteButton
                 {
-                    self.currentButton?.sendActions(for: .touchDown)
-                    self.currentButton?.sendActions(for: .touchUpOutside)
+                    self.currentButton?.sendActions(for: .touchDown) //to delete a character
+                    self.currentButton?.sendActions(for: .touchUpOutside) //to reset up state
                 }
             }
             else
