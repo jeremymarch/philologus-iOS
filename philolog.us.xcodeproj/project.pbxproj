@@ -39,6 +39,7 @@
 		3F85E8311ED27380007633D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F85E8301ED27380007633D2 /* Assets.xcassets */; };
 		3F85E8341ED27380007633D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F85E8321ED27380007633D2 /* LaunchScreen.storyboard */; };
 		3F9B9BE31EEF6E0500DF500E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B9BE21EEF6E0500DF500E /* Settings.bundle */; };
+		3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB004281F84DB44008891AC /* PHTitleView.swift */; };
 		3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		3F85E8331ED27380007633D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F85E8351ED27380007633D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F9B9BE21EEF6E0500DF500E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		3FB004281F84DB44008891AC /* PHTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTitleView.swift; sourceTree = "<group>"; };
 		3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,6 +181,7 @@
 				3F85E8321ED27380007633D2 /* LaunchScreen.storyboard */,
 				3F85E8351ED27380007633D2 /* Info.plist */,
 				3F85E8261ED27380007633D2 /* philolog_us.xcdatamodeld */,
+				3FB004281F84DB44008891AC /* PHTitleView.swift */,
 			);
 			path = philolog.us;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				3F0D2E6E1EE48DDA00B34C62 /* HCPunctuationButton.swift in Sources */,
 				3F0D2E6D1EE48DDA00B34C62 /* HCGlobeButton.swift in Sources */,
 				3F0D2E6C1EE48DDA00B34C62 /* HCEnterButton.swift in Sources */,
+				3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */,
 				3F85E82C1ED27380007633D2 /* DetailViewController.swift in Sources */,
 				3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */,
 				3F00F7641EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift in Sources */,

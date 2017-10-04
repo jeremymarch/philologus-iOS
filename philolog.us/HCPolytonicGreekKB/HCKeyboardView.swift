@@ -132,7 +132,7 @@ class HCKeyboardView: UIInputView {
                     xoff -= (buttonWidth * 2.6) - buttonWidth
                 }
             }
-            for (j, key) in row.enumerated()
+            for key in row
             {
                 if key.titleLabel?.text == "xxx"
                 {
@@ -141,7 +141,7 @@ class HCKeyboardView: UIInputView {
                 else
                 {
                     key.isHidden = false
-                    if i == 2 && j == 7 //delete
+                    if key is HCDeleteButton// i == 2 && j == 7 //delete
                     {
                         if UIDevice.current.userInterfaceIdiom == .pad
                         {

@@ -22,6 +22,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     let LATIN = 1
     var whichLang:Int = 0
     
+    let tv = PHTitleView()
     var searchTextField:UITextField?
     let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))// [UIButton
     
@@ -97,13 +98,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField?.autocapitalizationType = .none
         searchTextField?.autocorrectionType = .no
         searchTextField?.clearButtonMode = .always
-        searchTextField?.autoresizingMask = [.flexibleWidth]
+        //searchTextField?.autoresizingMask = [.flexibleWidth]
     
         //self.navigationItem.titleView?.addSubview(searchTextField!)
         //self.navigationController?.navigationBar.addSubview(searchTextField!)
         
-        self.navigationItem.titleView = searchTextField!
-        searchTextField?.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38)
+        tv.autoresizingMask = [.flexibleWidth]
+        tv.addSubview(searchTextField!)
+        
+        self.navigationItem.titleView = tv//searchTextField!
+        tv.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38)
         //self.navigationItem.titleView.
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
@@ -148,8 +152,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 34))// [UIButton buttonWithType:UIButtonTypeCustom];
         langButton.backgroundColor = UIColor.clear
         langButton.layer.cornerRadius = 10
-        langButton
-            .clipsToBounds = true
+        langButton.clipsToBounds = true
         langButton.setTitleColor(UIColor.black, for: .normal)
         langButton.setTitle("Greek:", for: .normal)
         langButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 16.0)
@@ -161,10 +164,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
         let infoButton = UIButton.init(type: .infoDark)
         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
-        searchTextField?.rightView = infoButton
-        searchTextField!.rightViewMode = .unlessEditing
-
-        searchTextField?.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
+        //searchTextField?.rightView = infoButton
+        //searchTextField!.rightViewMode = .unlessEditing
+        tv.addSubview(infoButton)
+        
+        //searchTextField?.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //align lang button title for ios7.  Gives it some left padding
         //we also adjust the size in setLang
         langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
@@ -184,7 +188,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
             {
                 let navBar = self.navigationController!.navigationBar
-                self.searchTextField?.frame = CGRect(x: navBar.bounds.origin.x, y: navBar.bounds.origin.y, width: navBar.bounds.size.width, height: 38)
+                self.tv.frame = CGRect(x: navBar.bounds.origin.x, y: navBar.bounds.origin.y, width: navBar.bounds.size.width, height: 38)
+                self.tv.setNeedsLayout()
             }
             
         }, completion: nil)
