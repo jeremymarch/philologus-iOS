@@ -41,6 +41,7 @@
 		3F9B9BE31EEF6E0500DF500E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B9BE21EEF6E0500DF500E /* Settings.bundle */; };
 		3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB004281F84DB44008891AC /* PHTitleView.swift */; };
 		3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */; };
+		3FCA15111F84EB6500FBA200 /* PHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA15101F84EB6500FBA200 /* PHTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		3F9B9BE21EEF6E0500DF500E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		3FB004281F84DB44008891AC /* PHTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTitleView.swift; sourceTree = "<group>"; };
 		3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
+		3FCA15101F84EB6500FBA200 /* PHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 		3F85E8181ED27380007633D2 = {
 			isa = PBXGroup;
 			children = (
+				3FCA15101F84EB6500FBA200 /* PHTextField.swift */,
 				3F85E8231ED27380007633D2 /* philolog.us */,
 				3F85E8221ED27380007633D2 /* Products */,
 			);
@@ -269,6 +272,7 @@
 				3F00F76B1EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift in Sources */,
 				3F00F7651EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift in Sources */,
 				3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */,
+				3FCA15111F84EB6500FBA200 /* PHTextField.swift in Sources */,
 				3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */,
 				3F0D2E711EE48DDA00B34C62 /* KeyboardViewController.swift in Sources */,
 				3F0D2E6A1EE48DDA00B34C62 /* HCCapsLockButton.swift in Sources */,

@@ -23,7 +23,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var whichLang:Int = 0
     
     let tv = PHTitleView()
-    var searchTextField:UITextField?
+    var searchTextField:PHTextField?
     let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))// [UIButton
     
     var selectedRow = -1
@@ -33,6 +33,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var tc:NSLayoutConstraint?
     var lc:NSLayoutConstraint?
     var rc:NSLayoutConstraint?
+    
+    let infoButton = UIButton.init(type: .infoDark)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +78,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         tableView.separatorStyle = .none
 
-        searchTextField = UITextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
+        searchTextField = PHTextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
@@ -98,6 +100,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField?.autocapitalizationType = .none
         searchTextField?.autocorrectionType = .no
         searchTextField?.clearButtonMode = .always
+    
         //searchTextField?.autoresizingMask = [.flexibleWidth]
     
         //self.navigationItem.titleView?.addSubview(searchTextField!)
@@ -162,12 +165,21 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField?.leftView = langButton
         searchTextField?.leftViewMode = UITextFieldViewMode.always
 
-        let infoButton = UIButton.init(type: .infoDark)
-        infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
-        //searchTextField?.rightView = infoButton
-        //searchTextField!.rightViewMode = .unlessEditing
-        tv.addSubview(infoButton)
-        
+        if false
+        {
+            infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
+            //searchTextField?.rightView = infoButton
+            //searchTextField!.rightViewMode = .unlessEditing
+            tv.addSubview(infoButton)
+        }
+        else
+        {
+            infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
+            self.tableView.addSubview(infoButton)
+            adjustFloater()
+            
+            //self.tableView.addObserver(self, forKeyPath: "frame", options: [], context: nil)
+        }
         //searchTextField?.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //align lang button title for ios7.  Gives it some left padding
         //we also adjust the size in setLang
@@ -180,6 +192,21 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //NSLog("Available fonts: %s", UIFont.familyNames);
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        adjustFloater()
+    }
+    
+    func adjustFloater()
+    {
+        var newFrame = self.infoButton.frame
+        
+        newFrame.origin.x = self.view.bounds.size.width - 30
+        newFrame.origin.y = self.tableView.contentOffset.y + self.tableView.bounds.size.height - self.infoButton.bounds.size.height - 10
+        
+        self.infoButton.frame = newFrame;
+        self.tableView.bringSubview(toFront: self.infoButton)
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         //NSLog("rotate")
@@ -190,6 +217,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                 let navBar = self.navigationController!.navigationBar
                 self.tv.frame = CGRect(x: navBar.bounds.origin.x, y: navBar.bounds.origin.y, width: navBar.bounds.size.width, height: 38)
                 self.tv.setNeedsLayout()
+                self.adjustFloater()
             }
             
         }, completion: nil)
@@ -332,6 +360,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        adjustFloater()
         //searchTextField?.isHidden = false
     }
 

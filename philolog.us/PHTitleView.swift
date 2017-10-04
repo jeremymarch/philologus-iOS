@@ -27,11 +27,19 @@ class PHTitleView: UIView {
         {
             if v is UITextField
             {
-                v.frame = CGRect(x: 0, y: 0, width: viewWidth - 40.0, height: viewHeight)
-
+                if subviews.count < 2
+                {
+                    v.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+                }
+                else
+                {
+                //v.frame = CGRect(x: 26, y: 0, width: viewWidth - 26.0, height: viewHeight)
+                    v.frame = CGRect(x: 0, y: 0, width: viewWidth - 44.0, height: viewHeight)
+                }
             }
             else if v is UIButton
             {
+                //v.frame = CGRect(x: -10, y: 0, width: 38.0, height: viewHeight)
                 v.frame = CGRect(x: viewWidth - 26.0, y: 0, width: 26.0, height: viewHeight)
             }
         }
