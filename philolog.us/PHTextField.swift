@@ -18,6 +18,6 @@ class PHTextField: UITextField {
     }
     */
     override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: self.bounds.size.width - 40, y: 0, width: 40, height: 38)
+        return CGRect(x: self.bounds.size.width - 36, y: 0, width: 40, height: 38)
     }
 }

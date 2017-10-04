@@ -174,8 +174,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         else
         {
+            //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
             infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
             self.tableView.addSubview(infoButton)
+            infoButton.tintColor = .black
             adjustFloater()
             
             //self.tableView.addObserver(self, forKeyPath: "frame", options: [], context: nil)
@@ -200,8 +202,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     {
         var newFrame = self.infoButton.frame
         
-        newFrame.origin.x = self.view.bounds.size.width - 30
-        newFrame.origin.y = self.tableView.contentOffset.y + self.tableView.bounds.size.height - self.infoButton.bounds.size.height - 10
+        newFrame.origin.x = self.view.bounds.size.width - 28
+        newFrame.origin.y = self.tableView.contentOffset.y + self.tableView.bounds.size.height - self.infoButton.bounds.size.height - 6
         
         self.infoButton.frame = newFrame;
         self.tableView.bringSubview(toFront: self.infoButton)

@@ -75,7 +75,7 @@ class HCKeyboardView: UIInputView {
         {
             if maxColumns > 9
             {
-                buttonHSpacing = 4.0
+                buttonHSpacing = 5.0
             }
             else
             {
