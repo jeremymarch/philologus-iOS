@@ -89,7 +89,14 @@ class DetailViewController: UIViewController {
         }
         else
         {
-            let iPhoneCredits = "<html><body style='font-family:helvetica;text-align:center;margin-top:0px;font-size:14pt;'><div style='font-size:24pt;font-weight:bold;'>philolog.us</div><div style='font-size:12pt;margin-top:8px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:8px;'>and</div><div style='margin-top:8px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:10px;'>courtesy of the</div><div style='margin-top:10px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div>Visit philolog.us on the web at<br><span style='color:blue;'>http://philolog.us</span></div></body></html>";
+            var realVersion = ""
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            {
+                //NSLog("Version: \(version)")
+                realVersion = "<br><div>Version: " + version + "</div>"
+            }
+            
+            let iPhoneCredits = String(format:"<html><body style='font-family:helvetica;text-align:center;margin-top:0px;font-size:14pt;'><div style='font-size:24pt;font-weight:bold;'>philolog.us</div><div style='font-size:12pt;margin-top:8px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:8px;'>and</div><div style='margin-top:8px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:10px;'>courtesy of the</div><div style='margin-top:10px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div>Visit philolog.us on the web at<br><span style='color:blue;'>http://philolog.us</span></div>%@</body></html>", realVersion);
             
             if let w = webView
             {
@@ -149,7 +156,7 @@ class DetailViewController: UIViewController {
             }
             translationStyle = styles[6]
         }
-        
+
         let h = "<HTML><head>%@<style>" +
             ".l1 { margin-left: 18px;position:relative;text-indent:-18px; } " +
             ".l2 { margin-left: 18px;position:relative;text-indent:-18px; } " +

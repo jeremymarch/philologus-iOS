@@ -240,7 +240,9 @@ class HCButton: UIButton {
         else
         {
             ctx?.setFillColor(vbgColor.cgColor)
+            //ctx?.setShadow(offset: CGSize(width: 0, height: 10), blur: 2.0, color: UIColor.black.cgColor)
         }
+
         ctx?.fillPath()
         ctx?.restoreGState()
         

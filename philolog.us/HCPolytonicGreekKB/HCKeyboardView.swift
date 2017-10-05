@@ -64,8 +64,8 @@ class HCKeyboardView: UIInputView {
             }
         }
         let maxRows = buttons.count
-        var buttonHSpacing:CGFloat = 5.0
-        let buttonVSpacing:CGFloat = 5.0
+        var buttonHSpacing:CGFloat = 6.0
+        let buttonVSpacing:CGFloat = 6.0
         
         if UIDevice.current.userInterfaceIdiom == .pad
         {
@@ -73,13 +73,21 @@ class HCKeyboardView: UIInputView {
         }
         else
         {
-            if maxColumns > 9
+            //for iphone 5s and narrower
+            if UIScreen.main.nativeBounds.width < 641
             {
-                buttonHSpacing = 5.0
+                buttonHSpacing = 4.0
             }
             else
             {
-                buttonHSpacing = 5.0
+                if maxColumns > 9
+                {
+                    buttonHSpacing = 6.0
+                }
+                else
+                {
+                    buttonHSpacing = 6.0
+                }
             }
         }
         var c = 0
