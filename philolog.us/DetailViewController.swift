@@ -80,7 +80,14 @@ class DetailViewController: UIViewController {
     {
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            let iPadCredits = "<html><body style='font-family:helvetica;text-align:center;margin-top:40px;font-size:20pt;'><div style='font-size:34pt;font-weight:bold;'>philolog.us</div><div style='font-size:14pt;margin-top:20px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:10px;'>and</div><div style='margin-top:10px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:16px;'>courtesy of the</div><div style='margin-top:16px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div style='font-size:14pt;'>Visit philolog.us on the web at<br><span style='color:blue;'>http://philolog.us</span></div></body></html>"
+            var realVersion = ""
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            {
+                //NSLog("Version: \(version)")
+                realVersion = "<br><div>Version: " + version + "</div>"
+            }
+            
+            let iPadCredits = String(format:"<html><body style='font-family:helvetica;text-align:center;margin-top:40px;font-size:20pt;'><div style='font-size:34pt;font-weight:bold;'>philolog.us</div><div style='font-size:14pt;margin-top:20px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:10px;'>and</div><div style='margin-top:10px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:16px;'>courtesy of the</div><div style='margin-top:16px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div style='font-size:14pt;'>Visit philolog.us on the web at<br><span style='color:blue;'>http://philolog.us</span></div>%@</body></html>", realVersion)
             
             if let w = webView
             {
