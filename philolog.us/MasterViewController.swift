@@ -165,23 +165,19 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField?.leftView = langButton
         searchTextField?.leftViewMode = UITextFieldViewMode.always
 
-        if false
-        {
-            infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
-            //searchTextField?.rightView = infoButton
-            //searchTextField!.rightViewMode = .unlessEditing
-            tv.addSubview(infoButton)
-        }
-        else
-        {
-            //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
-            infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
-            self.tableView.addSubview(infoButton)
-            infoButton.tintColor = .black
-            adjustFloater()
-            
-            //self.tableView.addObserver(self, forKeyPath: "frame", options: [], context: nil)
-        }
+        /*
+         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
+         //searchTextField?.rightView = infoButton
+         //searchTextField!.rightViewMode = .unlessEditing
+         tv.addSubview(infoButton)
+         */
+        //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
+        infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
+        self.tableView.addSubview(infoButton)
+        infoButton.tintColor = .black
+        adjustFloater()
+        //self.tableView.addObserver(self, forKeyPath: "frame", options: [], context: nil)
+        
         //searchTextField?.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //align lang button title for ios7.  Gives it some left padding
         //we also adjust the size in setLang
