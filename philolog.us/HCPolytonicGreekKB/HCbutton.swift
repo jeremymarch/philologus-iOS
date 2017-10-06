@@ -257,7 +257,7 @@ class HCButton: UIButton {
         {
             ctx?.saveGState()
             ctx?.addPath(createDepressedButtonForRect(rect: outerRect.insetBy(dx: 1.0, dy: 1.0), radius: buttonRadius + 2))
-            ctx?.setLineWidth(1.0)
+            ctx?.setLineWidth(0.5)
             ctx?.setStrokeColor(UIColor.lightGray.cgColor)
             ctx?.strokePath()
             ctx?.restoreGState()
