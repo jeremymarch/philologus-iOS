@@ -765,8 +765,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             seq = rowCount;
         }
         
-        let scrollIndexPath:IndexPath = NSIndexPath(row: (seq - 1), section: 0) as IndexPath
-        tableView.scrollToRow(at: scrollIndexPath as IndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+        let scrollIndexPath = NSIndexPath(row: (seq - 1), section: 0) as IndexPath
+            tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
     }
 
     /*

@@ -209,7 +209,7 @@ class HCButton: UIButton {
         var outerPath:CGPath
         if depressedPhoneButton
         {
-            outerPath = createDepressedButtonForRect(rect: outerRect, radius: buttonRadius + 2);
+            outerPath = createDepressedButtonForRect(rect: outerRect, radius: buttonRadius + 2)
         }
         else
         {
@@ -228,7 +228,14 @@ class HCButton: UIButton {
         ctx?.restoreGState()
         
         ctx?.saveGState()
-        ctx?.addPath(outerPath)
+        if depressedPhoneButton
+        {
+        ctx?.addPath(createDepressedButtonForRect(rect: outerRect.insetBy(dx: 1.5, dy: 1.5), radius: buttonRadius + 2))
+        }
+        else
+        {
+            ctx?.addPath(outerPath)
+        }
         if depressedPhoneButton
         {
             ctx?.setFillColor(vbgColor.cgColor)
@@ -249,7 +256,8 @@ class HCButton: UIButton {
         if depressedPhoneButton
         {
             ctx?.saveGState()
-            ctx?.addPath(outerPath)
+            ctx?.addPath(createDepressedButtonForRect(rect: outerRect.insetBy(dx: 1.0, dy: 1.0), radius: buttonRadius + 2))
+            ctx?.setLineWidth(1.0)
             ctx?.setStrokeColor(UIColor.lightGray.cgColor)
             ctx?.strokePath()
             ctx?.restoreGState()
