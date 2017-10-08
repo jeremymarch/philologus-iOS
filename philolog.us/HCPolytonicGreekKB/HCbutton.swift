@@ -272,7 +272,7 @@ class HCButton: UIButton {
         let offsetX:CGFloat = 8.0
         let deltaY:CGFloat = 14.0
         
-        let more:CGFloat = 6.0
+        let more:CGFloat = 12.0 //bigger radius for inner curves
         
         path.move(to: CGPoint(x: rect.midX, y: rect.minY))
         
