@@ -230,7 +230,7 @@ class HCButton: UIButton {
         ctx?.saveGState()
         if depressedPhoneButton
         {
-        ctx?.addPath(createDepressedButtonForRect(rect: outerRect.insetBy(dx: 1.5, dy: 1.5), radius: buttonRadius + 2))
+            ctx?.addPath(createDepressedButtonForRect(rect: outerRect.insetBy(dx: 1.5, dy: 1.5), radius: buttonRadius + 2))
         }
         else
         {
@@ -265,6 +265,43 @@ class HCButton: UIButton {
     }
     
     func createDepressedButtonForRect(rect:CGRect, radius:CGFloat ) -> CGMutablePath
+    {
+        let path:CGMutablePath = CGMutablePath()
+        
+        let offsetY:CGFloat = 60.0
+        let offsetX:CGFloat = 8.0
+        let deltaY:CGFloat = 14.0
+        
+        let more:CGFloat = 6.0
+        
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        
+        //line, then arc around toward second point
+        //first point is the destination of the line, second is where it arcs to
+        
+        //clockwise from top middle to right side, then curve down radius
+        path.addArc(tangent1End: CGPoint(x:rect.maxX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.maxY), radius: CGFloat(radius))
+        //right-most side
+        path.addArc(tangent1End: CGPoint(x:rect.maxX, y:rect.maxY - offsetY), tangent2End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY - offsetY + deltaY), radius: CGFloat(radius + more))
+        //xoffset towards middle
+        path.addArc(tangent1End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY - offsetY + deltaY), tangent2End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY + deltaY), radius: CGFloat(radius + more))
+        //yoffset down to bottom
+        path.addArc(tangent1End: CGPoint(x:rect.maxX - offsetX, y:rect.maxY), tangent2End: CGPoint(x:rect.minX, y:rect.maxY), radius: CGFloat(radius))
+        //bottom towards left side
+        path.addArc(tangent1End: CGPoint(x:rect.minX + offsetX, y:rect.maxY), tangent2End: CGPoint(x:rect.minX + offsetX, y:rect.maxY - offsetY + deltaY), radius: CGFloat(radius))
+        //yoffset up
+        path.addArc(tangent1End: CGPoint(x:rect.minX + offsetX, y:rect.maxY - offsetY + deltaY), tangent2End: CGPoint(x:rect.minX, y:rect.maxY - offsetY), radius: CGFloat(radius + more))
+        //xoffset to left side
+        path.addArc(tangent1End: CGPoint(x:rect.minX, y:rect.maxY - offsetY), tangent2End: CGPoint(x:rect.minX, y:rect.minY), radius: CGFloat(radius + more))
+        //left side up to top
+        path.addArc(tangent1End: CGPoint(x:rect.minX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.minY), radius: CGFloat(radius))
+        //close to middle
+        path.closeSubpath()
+        
+        return path
+    }
+    
+    func createDepressedButtonForRectOrig(rect:CGRect, radius:CGFloat ) -> CGMutablePath
     {
         let inset:CGFloat = 8
         let topHeight:CGFloat = rect.size.height / 2
