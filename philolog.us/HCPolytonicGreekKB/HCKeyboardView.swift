@@ -11,6 +11,7 @@ import UIKit
 //this is for iOS 8.4 and below: https://stackoverflow.com/questions/24756018/custom-inputview-with-dynamic-height-in-ios-8
 class HCKeyboardView: UIInputView {
     var buttons:[[UIButton]] = []
+    var buttonWidth:CGFloat = 0
     /*
      // Only override draw() if you perform custom drawing.
      // An empty implementation adversely affects performance during animation.
@@ -63,6 +64,7 @@ class HCKeyboardView: UIInputView {
                 maxColumns = c
             }
         }
+        //maxColumns = 10
         let maxRows = buttons.count
         var buttonHSpacing:CGFloat = 6.0
         let buttonVSpacing:CGFloat = 6.0
@@ -93,7 +95,7 @@ class HCKeyboardView: UIInputView {
         var c = 0
         var xoffstart:CGFloat = 0
         var xoff:CGFloat = 0
-        var buttonWidth:CGFloat = 0
+        buttonWidth = 0
         var buttonHeight:CGFloat = 0
         
         for (i, row) in buttons.enumerated()
@@ -192,9 +194,10 @@ class HCKeyboardView: UIInputView {
                         if buttonDown
                         {
                             let aa = key as! HCButton
-                            let width2 = buttonWidth * aa.buttonDownWidthFactor
+                            
                             let height2 = (buttonHeight * aa.buttonDownHeightFactor) + aa.buttonTail
-                            let x2 = xoff - (((buttonWidth * aa.buttonDownWidthFactor) - buttonWidth) / 2)
+                            let width2 = height2 * aa.widthPerHeight
+                            let x2 = xoff - ((width2 - buttonWidth) / 2)
                             let y2 = ((CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing) - height2 + buttonHeight + aa.buttonTail
                             
                             key.frame = CGRect(x: x2, y: y2, width: width2, height: height2)
@@ -215,4 +218,3 @@ class HCKeyboardView: UIInputView {
         }
     }
 }
-

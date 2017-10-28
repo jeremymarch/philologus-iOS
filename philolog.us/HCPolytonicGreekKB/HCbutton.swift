@@ -24,6 +24,7 @@ class HCButton: UIButton {
     var vtextDownColor = UIColor.black
     
     let buttonRadius:CGFloat = 4.0
+    let widthPerHeight:CGFloat = 0.5
     
     let fontSize:CGFloat = 24.0
     let downFontSize:CGFloat = 36.0
@@ -94,8 +95,10 @@ class HCButton: UIButton {
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
             {
-                let width = self.frame.size.width / buttonDownWidthFactor
+                
                 let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
+                let width = height / widthPerHeight //self.frame.size.width / buttonDownWidthFactor
+                
                 let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
                 let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
                 
@@ -131,8 +134,9 @@ class HCButton: UIButton {
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
             {
-                let width = self.frame.size.width / buttonDownWidthFactor
                 let height = (self.frame.size.height - buttonTail) / buttonDownHeightFactor
+                let width = height / widthPerHeight //self.frame.size.width / buttonDownWidthFactor
+                
                 let x = self.frame.origin.x + ((self.frame.size.width - (self.frame.size.width / buttonDownWidthFactor)) / 2)
                 let y = self.frame.origin.y + (self.frame.size.height - height - buttonTail)
                 
@@ -175,12 +179,15 @@ class HCButton: UIButton {
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
             {
-                let width = self.frame.size.width * buttonDownWidthFactor
+                
                 let height = (self.frame.size.height * buttonDownHeightFactor) + buttonTail
-                let x = self.frame.origin.x - (((self.frame.size.width * buttonDownWidthFactor) - self.frame.size.width) / 2)
+                let awidth = height * widthPerHeight
+                NSLog("downdownaaa")
+                
+                let x = self.frame.origin.x - (((awidth) - self.frame.size.width) / 2)
                 let y = self.frame.origin.y - height + self.frame.size.height + buttonTail
                 
-                let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
+                let buttonFrame = CGRect(x:x, y:y, width:awidth, height:height)
                 self.frame = buttonFrame
                 
                 self.titleEdgeInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
@@ -249,7 +256,7 @@ class HCButton: UIButton {
             ctx?.setFillColor(vbgColor.cgColor)
             //ctx?.setShadow(offset: CGSize(width: 0, height: 10), blur: 2.0, color: UIColor.black.cgColor)
         }
-
+        
         ctx?.fillPath()
         ctx?.restoreGState()
         
@@ -269,7 +276,9 @@ class HCButton: UIButton {
         let path:CGMutablePath = CGMutablePath()
         
         let offsetY:CGFloat = 60.0
-        let offsetX:CGFloat = 8.0
+        let a = superview as! HCKeyboardView
+        let offsetX:CGFloat = (rect.maxX - a.buttonWidth) / 2// 10.0
+        NSLog("\(offsetX) abc \(rect.maxX) - \(rect.maxY / widthPerHeight)")
         let deltaY:CGFloat = 14.0
         
         let more:CGFloat = 12.0 //bigger radius for inner curves
@@ -332,4 +341,3 @@ class HCButton: UIButton {
         return path;
     }
 }
-
