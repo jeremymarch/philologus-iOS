@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3F85E8201ED27380007633D2"
-               BuildableName = "philolog.us.app"
-               BlueprintName = "philolog.us"
-               ReferencedContainer = "container:philolog.us.xcodeproj">
+               BuildableName = "philologus.app"
+               BlueprintName = "philologus"
+               ReferencedContainer = "container:philologus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3F85E8201ED27380007633D2"
-            BuildableName = "philolog.us.app"
-            BlueprintName = "philolog.us"
-            ReferencedContainer = "container:philolog.us.xcodeproj">
+            BuildableName = "philologus.app"
+            BlueprintName = "philologus"
+            ReferencedContainer = "container:philologus.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3F85E8201ED27380007633D2"
-            BuildableName = "philolog.us.app"
-            BlueprintName = "philolog.us"
-            ReferencedContainer = "container:philolog.us.xcodeproj">
+            BuildableName = "philologus.app"
+            BlueprintName = "philologus"
+            ReferencedContainer = "container:philologus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3F85E8201ED27380007633D2"
-            BuildableName = "philolog.us.app"
-            BlueprintName = "philolog.us"
-            ReferencedContainer = "container:philolog.us.xcodeproj">
+            BuildableName = "philologus.app"
+            BlueprintName = "philologus"
+            ReferencedContainer = "container:philologus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
