@@ -403,7 +403,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                 {
                     let object = latinFetchedResultsController.object(at: indexPath)
                     wordid = Int(object.wordid)
-
                 }
                 //NSLog("Find word1b: %d", wordid)
                 controller.wordid = wordid
@@ -411,7 +410,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
-            
         }
         else if segue.identifier == "showCredits"
         {
