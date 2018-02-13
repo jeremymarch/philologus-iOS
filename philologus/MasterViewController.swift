@@ -17,6 +17,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var kb:KeyboardViewController? = nil
+    var highlightSelectedRow = true
     
     let GREEK = 0
     let LATIN = 1
@@ -760,7 +761,24 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         
         let scrollIndexPath = NSIndexPath(row: (seq - 1), section: 0) as IndexPath
+        if highlightSelectedRow
+        {
+            if seq == 1
+            {
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    tableView.deselectRow(at: indexPath, animated: animatedScroll)
+                }
+            }
+            else
+            {
+                tableView.selectRow(at: scrollIndexPath, animated: animatedScroll, scrollPosition: UITableViewScrollPosition.middle)
+            }
+        }
+        else
+        {
             tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+        }
     }
 
     /*
