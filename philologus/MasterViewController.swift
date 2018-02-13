@@ -17,7 +17,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var kb:KeyboardViewController? = nil
+    
     var highlightSelectedRow = true
+    let highlightedRowBGColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
     
     let GREEK = 0
     let LATIN = 1
@@ -535,7 +537,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
+        bgColorView.backgroundColor = highlightedRowBGColor
         cell.selectedBackgroundView = bgColorView
     }
     
@@ -547,7 +549,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
-                bgColorView.backgroundColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
+        bgColorView.backgroundColor = highlightedRowBGColor
         cell.selectedBackgroundView = bgColorView
     }
 
