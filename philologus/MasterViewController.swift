@@ -19,7 +19,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var kb:KeyboardViewController? = nil
     
     var highlightSelectedRow = true
-    let highlightedRowBGColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
+    //let highlightedRowBGColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
+    let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    //427fed
     
     let GREEK = 0
     let LATIN = 1
@@ -38,9 +40,28 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var rc:NSLayoutConstraint?
     
     let infoButton = UIButton.init(type: .infoDark)
+    
+    @objc func defaultsChanged()
+    {
+        let defaults = UserDefaults.standard
+        let b = defaults.object(forKey: "highlightrow")
+        if (b != nil)
+        {
+            highlightSelectedRow = b as! Bool
+        }
+        else
+        {
+            highlightSelectedRow = true
+            defaults.set(highlightSelectedRow, forKey: "highlightrow")
+            defaults.synchronize()
+        }
+        //NSLog("defaults changed: \(highlightSelectedRow)")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
         
         //to hide title
         let label = UILabel.init()
@@ -241,7 +262,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         rc?.isActive = true
         searchTextField?.isHidden = false
  */
-        
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -427,6 +447,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchTextField?.resignFirstResponder()
     }
+    
+    /*
+     //does nothing--was hoping it would deselect row when touching other row than one currently highlighted.
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: animatedScroll)
+        }
+        return indexPath
+    }
+    */
     
     @objc func showCredits()
     {
@@ -763,6 +793,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         
         let scrollIndexPath = NSIndexPath(row: (seq - 1), section: 0) as IndexPath
+        //NSLog("scroll to: \(highlightSelectedRow)")
         if highlightSelectedRow
         {
             if seq == 1
