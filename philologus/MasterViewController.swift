@@ -99,6 +99,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             defaults.set(whichLang, forKey: "lang")
             defaults.synchronize()
         }
+        defaultsChanged() //check once at start
         
         tableView.separatorStyle = .none
 
