@@ -416,6 +416,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        searchTextField?.resignFirstResponder() //works for pad and phone
         if segue.identifier == "showDetail" {
             var wordid = -1
             let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
