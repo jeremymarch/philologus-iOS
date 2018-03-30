@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
         d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
-        d.setOption(["journal_mode": "delete"] as NSObject!, forKey: NSSQLitePragmasOption)
+        d.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
         container.persistentStoreDescriptions = [d]
         
         //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
@@ -154,7 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         var failureReason = "There was an error creating or loading the application's saved data."
         
         let opt = [ NSReadOnlyPersistentStoreOption: true as NSObject,
-                    NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject!,
+                    NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject?,
                     NSMigratePersistentStoresAutomaticallyOption:false as NSObject,
                     NSInferMappingModelAutomaticallyOption:false as NSObject]
         

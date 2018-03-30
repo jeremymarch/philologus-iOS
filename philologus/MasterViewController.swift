@@ -21,6 +21,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var highlightSelectedRow = true
     //let highlightedRowBGColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    //let highlightedRowBGColor = UIColor.init(red: 233/255.0, green: 253/255.0, blue: 233/255.0, alpha: 1.0)
+
     //427fed
     
     let GREEK = 0
@@ -443,10 +445,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchTextField?.resignFirstResponder()
     }
     
     /*
