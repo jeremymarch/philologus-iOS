@@ -63,21 +63,22 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
+        tableView.separatorStyle = .none
         
         //to hide title
         let label = UILabel.init()
         self.navigationItem.titleView = label;
         
-        // Do any additional setup after loading the view, typically from a nib.
-        //navigationItem.leftBarButtonItem = editButtonItem
-
-        //let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        //navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
+        //decreases width on ipad in landscape and fixes issue of titleview being sized incorrectly
+        //when the app is closed and reopened.
+        self.splitViewController?.maximumPrimaryColumnWidth = 320
+        
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.isTranslucent = false
@@ -86,8 +87,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //remove navigation bar bottom border
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        
-        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         
         let defaults = UserDefaults.standard
         let a = defaults.object(forKey: "lang")
@@ -102,8 +101,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             defaults.synchronize()
         }
         defaultsChanged() //check once at start
-        
-        tableView.separatorStyle = .none
 
         searchTextField = PHTextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
         
@@ -123,63 +120,26 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField?.layer.borderColor = UIColor.black.cgColor
         searchTextField?.layer.borderWidth = 2.0
         searchTextField?.layer.cornerRadius = 15.5
-        searchTextField?.delegate = self
+
         searchTextField?.autocapitalizationType = .none
         searchTextField?.autocorrectionType = .no
         searchTextField?.clearButtonMode = .always
-    
-        //searchTextField?.autoresizingMask = [.flexibleWidth]
-    
-        //self.navigationItem.titleView?.addSubview(searchTextField!)
-        //self.navigationController?.navigationBar.addSubview(searchTextField!)
         
-        tv.autoresizingMask = [.flexibleWidth]
+        tv.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        tv.contentMode = .scaleAspectFit
+        tv.translatesAutoresizingMaskIntoConstraints = true
+        
         tv.addSubview(searchTextField!)
-        
-        self.navigationItem.titleView = tv//searchTextField!
+        self.navigationItem.titleView?.autoresizesSubviews = true
+        self.navigationItem.titleView = tv
         tv.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38)
-        //self.navigationItem.titleView.
+
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
         
-        //self.navigationItem.titleView?.autoresizingMask = [.flexibleWidth]
-        
-        //let screenSize = UIScreen.main.bounds
-        //let screenWidth = screenSize.width
-        //let screenHeight = screenSize.height
-        
-        /*
-         UIView* ctrl = [[UIView alloc] initWithFrame:navController.navigationBar.bounds];
-         ctrl.backgroundColor = [UIColor yellowColor];
-         ctrl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-         [navController.navigationBar addSubview:ctrl];
- */
-        
-        //searchTextField?.frame = CGRect(x: 0, y: 0, width: (self.navigationItem.titleView?.frame.size.width)!, height: 38)
-
-        //searchTextField.frame = CGRect(x: 0, y: 0, width: navFrame.width*3, height: 38)
-
-        
-//        let myView = UIView(frame: CGRect(x: 0, y: 0, width: navFrame.width*3, height: navFrame.height))
-
-        //NSLog("nb width: %f, %f, %f", (self.navigationController?.navigationBar.frame.size.width)!, screenWidth,tableView.frame.size.width)
-        
         searchTextField?.autoresizingMask = [.flexibleWidth]
         searchTextField?.translatesAutoresizingMaskIntoConstraints = true
-        //searchTextField?.contentMode = .redraw
 
-        /*
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
-        tc = searchTextField.topAnchor.constraint(equalTo: (searchTextField.superview!.topAnchor))
-        lc = searchTextField.leftAnchor.constraint(equalTo: (searchTextField.superview!.leftAnchor))
-        rc = searchTextField.rightAnchor.constraint(equalTo: (searchTextField.superview!.rightAnchor))
-        tc?.isActive = true
-        lc?.isActive = true
-        rc?.isActive = true
-        searchTextField.heightAnchor.constraint(equalToConstant: 34.0).isActive = true
-        */
-        
-        //let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 34))// [UIButton buttonWithType:UIButtonTypeCustom];
         langButton.backgroundColor = UIColor.clear
         langButton.layer.cornerRadius = 10
         langButton.clipsToBounds = true
@@ -193,7 +153,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField?.leftViewMode = UITextFieldViewMode.always
 
         /*
-         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
          //searchTextField?.rightView = infoButton
          //searchTextField!.rightViewMode = .unlessEditing
          tv.addSubview(infoButton)
@@ -203,18 +162,32 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         self.tableView.addSubview(infoButton)
         infoButton.tintColor = .black
         adjustFloater()
-        //self.tableView.addObserver(self, forKeyPath: "frame", options: [], context: nil)
-        
-        //searchTextField?.rightView?.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
-        //align lang button title for ios7.  Gives it some left padding
+
         //we also adjust the size in setLang
         langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
         
         setLanguage(language: whichLang)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
-        //NSLog("here3")
-        //NSLog("Available fonts: %s", UIFont.familyNames);
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
+
+        
+        /*
+        let leftC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0)
+        leftC.isActive = true
+        
+        let topC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
+        topC.isActive = true
+        
+        let rightC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 0)
+        rightC.isActive = true
+        
+        let bottomC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0)
+        bottomC.isActive = true
+        
+        tv.addConstraints([leftC,topC,rightC,bottomC])
+        */
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -265,6 +238,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         rc?.isActive = true
         searchTextField?.isHidden = false
  */
+
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -384,6 +358,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        //navigationController?.navigationBar.titleView.layoutSubviews()
         adjustFloater()
         //searchTextField?.isHidden = false
     }

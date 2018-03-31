@@ -22,7 +22,7 @@ class PHTitleView: UIView {
         
         let viewWidth:CGFloat = self.bounds.width
         let viewHeight:CGFloat = self.bounds.height
-        
+
         for v in subviews
         {
             if v is UITextField
