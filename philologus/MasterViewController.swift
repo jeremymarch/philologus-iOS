@@ -31,7 +31,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     
     let tv = PHTitleView()
     var searchTextField:PHTextField?
-    let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))// [UIButton
+    let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))
     
     var selectedRow = -1
     var selectedId = -1
@@ -57,7 +57,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             defaults.set(highlightSelectedRow, forKey: "highlightrow")
             defaults.synchronize()
         }
-        //NSLog("defaults changed: \(highlightSelectedRow)")
     }
 
     override func viewDidLoad() {
