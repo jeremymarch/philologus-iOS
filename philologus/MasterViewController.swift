@@ -62,9 +62,35 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             defaults.synchronize()
         }
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardHeight = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.2, animations: {
+            // For some reason adding inset in keyboardWillShow is animated by itself but removing is not, that's why we have to use animateWithDuration here
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        })
+    }
+    
+    //because of table bottom/keyboard code below
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //move bottom of table up when keyboard shows, so we can access bottom rows and
+        //also so selected row is in middle of screen - keyboard height.
+        //https://stackoverflow.com/questions/594181/making-a-uitableview-scroll-when-text-field-is-selected/41040630#41040630
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+
+        
         //tableView.estimatedRowHeight = 44.0
         tableView.separatorStyle = .none
         tableView.delegate = self
