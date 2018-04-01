@@ -61,7 +61,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //tableView.estimatedRowHeight = 44.0
         tableView.separatorStyle = .none
         
         //to hide title
@@ -123,6 +123,17 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         searchTextField?.autocapitalizationType = .none
         searchTextField?.autocorrectionType = .no
         searchTextField?.clearButtonMode = .always
+        let searchFont = UIFont(name: "HelveticaNeue", size: 20.0)
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            searchTextField?.font = fontMetrics.scaledFont(for: searchFont!)
+            searchTextField?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            searchTextField?.font = searchFont
+        }
         
         tv.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         tv.contentMode = .scaleAspectFit
@@ -136,18 +147,34 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
         
-        searchTextField?.autoresizingMask = [.flexibleWidth]
+        searchTextField?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         searchTextField?.translatesAutoresizingMaskIntoConstraints = true
-
+        
         langButton.backgroundColor = UIColor.clear
         langButton.layer.cornerRadius = 10
         langButton.clipsToBounds = true
         langButton.setTitleColor(UIColor.black, for: .normal)
+        langButton.titleLabel?.textAlignment = .right
         langButton.setTitle("Greek:", for: .normal)
-        langButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 16.0)
+        let titleFont = UIFont(name: "Helvetica-Bold", size: 16.0) //abcdef
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            langButton.titleLabel?.font = fontMetrics.scaledFont(for: titleFont!)
+            langButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            langButton.titleLabel?.font = titleFont
+        }
         
         langButton.addTarget(self, action: #selector(toggleLanguage), for: .touchDown)
         
+        //langButton.frame = CGRect(x: 0, y: 0, width: 58, height: 38)
+        //var constW:NSLayoutConstraint = NSLayoutConstraint(item: langButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: new_view, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0);
+        
+
+        langButton.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         searchTextField?.leftView = langButton
         searchTextField?.leftViewMode = UITextFieldViewMode.always
 
@@ -170,7 +197,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
-
         
         /*
         let leftC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0)
@@ -353,10 +379,73 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //print(textView.text ?? "abc")
         scrollToWord()
     }
+    
+    @objc func textSizeDidChange(_ notification: Notification) {
+        //guard let textView = notification.object as? UITextField else { return }
+        //print(textView.text ?? "abc")
+        if #available(iOS 11.0, *) {
+            var w = 0
+            if self.traitCollection.preferredContentSizeCategory == .extraSmall
+            {
+                w = 60
+                print("extrasmall")
+            }
+            else if self.traitCollection.preferredContentSizeCategory == .small
+            {
+                w = 60
+                print("small")
+            }
+            else if self.traitCollection.preferredContentSizeCategory == .medium
+            {
+                w = 66
+                print("medium")
+            }
+            else if self.traitCollection.preferredContentSizeCategory == .large
+            {
+                w = 66
+                print("large")
+            }
+            else if self.traitCollection.preferredContentSizeCategory == .extraLarge
+            {
+                w = 70
+                print("extralarge")
+            }
+            else if self.traitCollection.preferredContentSizeCategory == .extraExtraLarge
+            {
+                w = 72
+                print("extraextralarge")
+            }
+            else if self.traitCollection.preferredContentSizeCategory == .extraExtraExtraLarge
+            {
+                w = 80
+                print("extraextraextralarge")
+            }
+            else
+            {
+                w = 90
+                print("nothing")
+            }
+            //langButton.frame = CGRect(x: 0, y: 0, width: w, height: 38)
+            setLanguage(language: whichLang)
+            langButton.superview?.layoutSubviews()
+            langButton.contentMode = .redraw
+            //langButton.translatesAutoresizingMaskIntoConstraints = false
+            //langButton.sizeToFit()
+        }
+        
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(textSizeDidChange), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+        /*
+        [[NSNotificationCenter defaultCenter] addObserver:self
+            selector:@selector(contentSizeCategoryDidChangeNotification:)
+            name:UIContentSizeCategoryDidChangeNotification
+            object:nil];
+        */
         //navigationController?.navigationBar.titleView.layoutSubviews()
         adjustFloater()
         //searchTextField?.isHidden = false
@@ -537,7 +626,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //cell.textLabel!.text = event.timestamp!.description
         cell.textLabel!.text = gw.word!.description
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
-        cell.textLabel?.font = greekFont
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            cell.textLabel?.font = fontMetrics.scaledFont(for: greekFont!)
+            cell.textLabel?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            cell.textLabel?.font = greekFont
+        }
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
@@ -548,8 +646,17 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     func latinConfigureCell(_ cell: UITableViewCell, withEvent gw: LatinWords) {
         //cell.textLabel!.text = event.timestamp!.description
         cell.textLabel!.text = removeMacronsBreves(string: gw.word!.description)
-        let greekFont = UIFont(name: "Helvetica-Light", size: 22.0)
-        cell.textLabel?.font = greekFont
+        let latinFont = UIFont(name: "Helvetica-Light", size: 22.0)
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            cell.textLabel?.font = fontMetrics.scaledFont(for: latinFont!)
+            cell.textLabel?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            cell.textLabel?.font = latinFont
+        }
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
