@@ -12,8 +12,12 @@
 import UIKit
 import CoreData
 
-class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
-
+class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
+    @IBOutlet var tableView:UITableView!
+    @IBOutlet var langButton:UIButton!
+    @IBOutlet var searchTextField:PHTextField!
+    @IBOutlet var searchView:UIView!
+    
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var kb:KeyboardViewController? = nil
@@ -30,8 +34,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     var whichLang:Int = 0
     
     let tv = PHTitleView()
-    var searchTextField:PHTextField?
-    let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))
+    //var searchTextField:PHTextField?
+    //let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))
     
     var selectedRow = -1
     var selectedId = -1
@@ -63,6 +67,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         super.viewDidLoad()
         //tableView.estimatedRowHeight = 44.0
         tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
         
         //to hide title
         let label = UILabel.init()
@@ -101,7 +107,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         defaultsChanged() //check once at start
 
-        searchTextField = PHTextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
+        //searchTextField = PHTextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
@@ -115,14 +121,20 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             item.leadingBarButtonGroups = []
             item.trailingBarButtonGroups = []
         }
+
+        searchView.layer.borderColor = UIColor.black.cgColor
+        searchView.layer.borderWidth = 2.0
+        searchView.layer.cornerRadius = 15.5
         
-        searchTextField?.layer.borderColor = UIColor.black.cgColor
-        searchTextField?.layer.borderWidth = 2.0
-        searchTextField?.layer.cornerRadius = 15.5
+        //searchTextField?.layer.borderColor = UIColor.blue.cgColor
+        //searchTextField?.layer.borderWidth = 2.0
+        //searchTextField?.layer.cornerRadius = 15.5
 
         searchTextField?.autocapitalizationType = .none
         searchTextField?.autocorrectionType = .no
         searchTextField?.clearButtonMode = .always
+        searchTextField.contentVerticalAlignment = .center
+        
         let searchFont = UIFont(name: "HelveticaNeue", size: 20.0)
         if #available(iOS 11.0, *) {
             //dynamic type
@@ -139,7 +151,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         tv.contentMode = .scaleAspectFit
         tv.translatesAutoresizingMaskIntoConstraints = true
         
-        tv.addSubview(searchTextField!)
+        //tv.addSubview(searchTextField!)
         self.navigationItem.titleView?.autoresizesSubviews = true
         self.navigationItem.titleView = tv
         tv.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38)
@@ -147,11 +159,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
         
-        searchTextField?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        searchTextField?.translatesAutoresizingMaskIntoConstraints = true
+        //searchTextField?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        //searchTextField?.translatesAutoresizingMaskIntoConstraints = true
         
         langButton.backgroundColor = UIColor.clear
-        langButton.layer.cornerRadius = 10
+        //langButton.layer.cornerRadius = 10
         langButton.clipsToBounds = true
         langButton.setTitleColor(UIColor.black, for: .normal)
         langButton.titleLabel?.textAlignment = .right
@@ -174,9 +186,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //var constW:NSLayoutConstraint = NSLayoutConstraint(item: langButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: new_view, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0);
         
 
-        langButton.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        searchTextField?.leftView = langButton
-        searchTextField?.leftViewMode = UITextFieldViewMode.always
+        //langButton.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        //searchTextField?.leftView = langButton
+        //searchTextField?.leftViewMode = UITextFieldViewMode.always
 
         /*
          //searchTextField?.rightView = infoButton
@@ -190,7 +202,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         adjustFloater()
 
         //we also adjust the size in setLang
-        langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+        //langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+        
+        //add padding around button label
+        langButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 2.0)
         
         setLanguage(language: whichLang)
         
@@ -215,7 +230,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         */
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         adjustFloater()
     }
     
@@ -266,7 +281,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchTextField?.resignFirstResponder()
     }
     
@@ -383,6 +398,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     @objc func textSizeDidChange(_ notification: Notification) {
         //guard let textView = notification.object as? UITextField else { return }
         //print(textView.text ?? "abc")
+        /*
         if #available(iOS 11.0, *) {
             var w = 0
             if self.traitCollection.preferredContentSizeCategory == .extraSmall
@@ -425,21 +441,18 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                 w = 90
                 print("nothing")
             }
-            //langButton.frame = CGRect(x: 0, y: 0, width: w, height: 38)
-            setLanguage(language: whichLang)
-            langButton.superview?.layoutSubviews()
-            langButton.contentMode = .redraw
-            //langButton.translatesAutoresizingMaskIntoConstraints = false
-            //langButton.sizeToFit()
+
         }
-        
+        */
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        //clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
-        
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        /*
         NotificationCenter.default.addObserver(self, selector: #selector(textSizeDidChange), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+ */
         /*
         [[NSNotificationCenter defaultCenter] addObserver:self
             selector:@selector(contentSizeCategoryDidChangeNotification:)
@@ -531,7 +544,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     // MARK: - Table View
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if whichLang == GREEK
         {
             return fetchedResultsController.sections?.count ?? 0
@@ -542,7 +555,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var sectionInfo:NSFetchedResultsSectionInfo? = nil
         if whichLang == GREEK
         {
@@ -555,7 +568,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         return sectionInfo!.numberOfObjects
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         if whichLang == GREEK
         {
@@ -571,12 +584,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 /*
             let context = fetchedResultsController.managedObjectContext
