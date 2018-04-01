@@ -150,7 +150,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
         searchView.layer.borderColor = UIColor.black.cgColor
         searchView.layer.borderWidth = 2.0
-        searchView.layer.cornerRadius = 15.5
+        searchView.layer.cornerRadius = 20
         
         //searchTextField?.layer.borderColor = UIColor.blue.cgColor
         //searchTextField?.layer.borderWidth = 2.0
