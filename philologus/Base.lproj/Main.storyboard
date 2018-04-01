@@ -127,7 +127,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wc9-yj-re0" customClass="PHTextField" customModule="philologus" customModuleProvider="target">
                                         <rect key="frame" x="163" y="0.0" width="200" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="260" id="Pq5-uB-btT"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="Pq5-uB-btT"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
