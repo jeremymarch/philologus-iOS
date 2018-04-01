@@ -138,13 +138,13 @@
                                 <constraints>
                                     <constraint firstItem="AD1-nu-B0J" firstAttribute="leading" secondItem="mPb-8p-uRG" secondAttribute="leading" id="0jY-EK-Onr"/>
                                     <constraint firstItem="Wc9-yj-re0" firstAttribute="leading" secondItem="AD1-nu-B0J" secondAttribute="trailing" constant="4" id="4he-An-lfZ"/>
+                                    <constraint firstAttribute="height" constant="50" id="5Us-6E-1xF"/>
                                     <constraint firstItem="AD1-nu-B0J" firstAttribute="top" secondItem="mPb-8p-uRG" secondAttribute="top" id="ARM-Dj-Ixz"/>
                                     <constraint firstAttribute="bottom" secondItem="AD1-nu-B0J" secondAttribute="bottom" id="Sp5-9t-XK4"/>
                                     <constraint firstAttribute="trailing" secondItem="Wc9-yj-re0" secondAttribute="trailing" id="ang-Nk-k23"/>
                                     <constraint firstItem="Wc9-yj-re0" firstAttribute="leading" secondItem="AD1-nu-B0J" secondAttribute="trailing" constant="4" id="d5a-Iy-ngG"/>
                                     <constraint firstItem="Wc9-yj-re0" firstAttribute="top" secondItem="mPb-8p-uRG" secondAttribute="top" id="ds1-7E-tYc"/>
                                     <constraint firstAttribute="bottom" secondItem="Wc9-yj-re0" secondAttribute="bottom" id="svL-De-iq5"/>
-                                    <constraint firstAttribute="height" constant="50" id="vBF-Gs-UMi"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -156,7 +156,7 @@
                             <constraint firstItem="mPb-8p-uRG" firstAttribute="top" secondItem="c53-tt-gjW" secondAttribute="top" constant="20" id="EwM-Jb-ody"/>
                             <constraint firstItem="mPb-8p-uRG" firstAttribute="leading" secondItem="c53-tt-gjW" secondAttribute="leading" constant="6" id="QUT-qM-Rl4"/>
                             <constraint firstItem="r7i-6Z-zg0" firstAttribute="leading" secondItem="c53-tt-gjW" secondAttribute="leading" id="cRg-kV-nT7"/>
-                            <constraint firstItem="r7i-6Z-zg0" firstAttribute="top" secondItem="c53-tt-gjW" secondAttribute="top" constant="70" id="mwx-Cg-vbQ"/>
+                            <constraint firstItem="r7i-6Z-zg0" firstAttribute="top" secondItem="mPb-8p-uRG" secondAttribute="bottom" id="mwx-Cg-vbQ"/>
                             <constraint firstItem="r7i-6Z-zg0" firstAttribute="top" secondItem="mPb-8p-uRG" secondAttribute="bottom" id="nP8-S3-TNn"/>
                         </constraints>
                     </view>
