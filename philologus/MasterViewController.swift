@@ -194,7 +194,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         langButton.setTitleColor(UIColor.black, for: .normal)
         langButton.titleLabel?.textAlignment = .right
         langButton.setTitle("Greek:", for: .normal)
-        let titleFont = UIFont(name: "Helvetica-Bold", size: 16.0) //abcdef
+        let titleFont = UIFont(name: "Helvetica-Bold", size: 18.0) //abcdef
         if #available(iOS 11.0, *) {
             //dynamic type
             let fontMetrics = UIFontMetrics(forTextStyle: .body)
