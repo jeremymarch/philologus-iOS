@@ -596,6 +596,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        if #available(iOS 11.0, *) {
+            cell.textLabel?.adjustsFontForContentSizeCategory = true
+        }
+        
         if whichLang == GREEK
         {
             let event = fetchedResultsController.object(at: indexPath)
@@ -669,7 +673,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             //dynamic type
             let fontMetrics = UIFontMetrics(forTextStyle: .body)
             cell.textLabel?.font = fontMetrics.scaledFont(for: greekFont!)
-            cell.textLabel?.adjustsFontForContentSizeCategory = true
+            //cell.textLabel?.adjustsFontForContentSizeCategory = true
         }
         else
         {
@@ -690,7 +694,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             //dynamic type
             let fontMetrics = UIFontMetrics(forTextStyle: .body)
             cell.textLabel?.font = fontMetrics.scaledFont(for: latinFont!)
-            cell.textLabel?.adjustsFontForContentSizeCategory = true
+            //cell.textLabel?.adjustsFontForContentSizeCategory = true
         }
         else
         {

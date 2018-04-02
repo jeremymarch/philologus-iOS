@@ -12,7 +12,6 @@
         <!--Master-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
                 <navigationController title="Master" id="RMx-3f-FxP" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
@@ -24,6 +23,7 @@
                         <segue destination="F75-xO-sSQ" kind="relationship" relationship="rootViewController" id="mY4-67-o05"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-38" y="-630"/>
         </scene>
@@ -100,10 +100,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="Arm-wq-HPj">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <fontDescription key="fontDescription" pointSize="0.0"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
@@ -120,15 +120,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPb-8p-uRG">
                                 <rect key="frame" x="6" y="20" width="363" height="48"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AD1-nu-B0J">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="48"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AD1-nu-B0J">
+                                        <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
                                         <state key="normal" title="Greek:"/>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wc9-yj-re0" customClass="PHTextField" customModule="philologus" customModuleProvider="target">
-                                        <rect key="frame" x="44" y="0.0" width="319" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="Pq5-uB-btT"/>
-                                        </constraints>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wc9-yj-re0" customClass="PHTextField" customModule="philologus" customModuleProvider="target">
+                                        <rect key="frame" x="58" y="0.0" width="305" height="48"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
