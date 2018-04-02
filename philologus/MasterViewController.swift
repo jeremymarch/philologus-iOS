@@ -231,7 +231,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         
         //add padding around button label
-        langButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 2.0)
+        langButton.contentEdgeInsets = UIEdgeInsets(top: 13.0, left: 8.0, bottom: 13.0, right: 2.0)
         
         setLanguage(language: whichLang)
         
