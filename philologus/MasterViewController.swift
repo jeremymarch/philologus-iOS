@@ -27,23 +27,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     //let highlightedRowBGColor = UIColor.init(red: 233/255.0, green: 253/255.0, blue: 233/255.0, alpha: 1.0)
 
-    //427fed
+    //hex color 427fed
     
     let GREEK = 0
     let LATIN = 1
     var whichLang:Int = 0
-    
-    let tv = PHTitleView()
-    //var searchTextField:PHTextField?
-    //let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))
-    
     var selectedRow = -1
     var selectedId = -1
     var animatedScroll = false
-    
-    var tc:NSLayoutConstraint?
-    var lc:NSLayoutConstraint?
-    var rc:NSLayoutConstraint?
     
     let infoButton = UIButton.init(type: .infoDark)
     
@@ -64,9 +55,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardHeight = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-            tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
-        }
+        //if let keyboardHeight = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as?
+        //    NSValue)?.cgRectValue.height {
+        
+            //the above doesn't work on ipad because we change the height later
+        let keyboardHeight = (kb?.portraitHeight)! //this works
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
+        //}
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -90,15 +85,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
 
-        
-        //tableView.estimatedRowHeight = 44.0
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //to hide title
-        let label = UILabel.init()
-        self.navigationItem.titleView = label;
         
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -132,8 +121,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             defaults.synchronize()
         }
         defaultsChanged() //check once at start
-
-        //searchTextField = PHTextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
@@ -151,10 +138,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         searchView.layer.borderColor = UIColor.black.cgColor
         searchView.layer.borderWidth = 2.0
         searchView.layer.cornerRadius = 20
-        
-        //searchTextField?.layer.borderColor = UIColor.blue.cgColor
-        //searchTextField?.layer.borderWidth = 2.0
-        //searchTextField?.layer.cornerRadius = 15.5
 
         searchTextField?.autocapitalizationType = .none
         searchTextField?.autocorrectionType = .no
@@ -173,23 +156,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             searchTextField?.font = searchFont
         }
         
-        tv.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        tv.contentMode = .scaleAspectFit
-        tv.translatesAutoresizingMaskIntoConstraints = true
-        
-        //tv.addSubview(searchTextField!)
-        self.navigationItem.titleView?.autoresizesSubviews = true
-        self.navigationItem.titleView = tv
-        tv.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38)
-
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = nil
-        
-        //searchTextField?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        //searchTextField?.translatesAutoresizingMaskIntoConstraints = true
-        
         langButton.backgroundColor = UIColor.clear
-        //langButton.layer.cornerRadius = 10
         langButton.clipsToBounds = true
         langButton.setTitleColor(UIColor.black, for: .normal)
         langButton.titleLabel?.textAlignment = .right
@@ -207,14 +174,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         }
         
         langButton.addTarget(self, action: #selector(toggleLanguage), for: .touchDown)
-        
-        //langButton.frame = CGRect(x: 0, y: 0, width: 58, height: 38)
-        //var constW:NSLayoutConstraint = NSLayoutConstraint(item: langButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: new_view, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0);
-        
-
-        //langButton.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        //searchTextField?.leftView = langButton
-        //searchTextField?.leftViewMode = UITextFieldViewMode.always
 
         /*
          //searchTextField?.rightView = infoButton
@@ -226,11 +185,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.addSubview(infoButton)
         infoButton.tintColor = .black
         adjustFloater()
-
-        //we also adjust the size in setLang
-        //langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         
         //add padding around button label
+        //could also set a equal to or greater than height constraint on button and make vertical values smaller.
         langButton.contentEdgeInsets = UIEdgeInsets(top: 13.0, left: 8.0, bottom: 13.0, right: 2.0)
         
         setLanguage(language: whichLang)
@@ -238,22 +195,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
-        
-        /*
-        let leftC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0)
-        leftC.isActive = true
-        
-        let topC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
-        topC.isActive = true
-        
-        let rightC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 0)
-        rightC.isActive = true
-        
-        let bottomC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0)
-        bottomC.isActive = true
-        
-        tv.addConstraints([leftC,topC,rightC,bottomC])
-        */
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -274,37 +215,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         //NSLog("rotate")
-        coordinator.animate(alongsideTransition: { _ in
-            
-            if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
-            {
-                let navBar = self.navigationController!.navigationBar
-                self.tv.frame = CGRect(x: navBar.bounds.origin.x, y: navBar.bounds.origin.y, width: navBar.bounds.size.width, height: 38)
-                self.tv.setNeedsLayout()
-                self.adjustFloater()
-            }
-            
-        }, completion: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //searchTextField?.isHidden = true
-        /*
-        searchTextField.isHidden = true
-        tc?.isActive = false
-        lc?.isActive = false
-        rc?.isActive = false
- */
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        /*
-        tc?.isActive = true
-        lc?.isActive = true
-        rc?.isActive = true
-        searchTextField?.isHidden = false
- */
 
+        self.adjustFloater()
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -346,73 +258,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             let scrollIndexPath:IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
             tableView.scrollToRow(at: scrollIndexPath as IndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
         }
-        
-        /*
-    UIButton *b = self.langButton;
-    b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    b.contentEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
-    b.titleLabel.textAlignment = UITextAlignmentLeft;
-    
-    int ios7Adjustment = 0;
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
-    {
-    ios7Adjustment = 2;
-    }
-    
-    
-    if ( language == LATIN )
-    {
-    self->lang = LATIN;
-    self.wordTable = @"LatinWords";
-    self.defTable = @"LatinDefs";
-    //if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    [self.keyboard setButtons:LATIN];
-    
-    if (self->mode == TAGS)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"L&S > Tag:" forState:UIControlStateNormal];
-    }
-    else if (self->mode == HISTORY)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"L&S > History:" forState:UIControlStateNormal];
-    }
-    else
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 53.0 + ios7Adjustment, 34.0)];
-    [b setTitle:@"Latin:" forState:UIControlStateNormal];
-    }
-    self.title = @"Latin";
-    self.navigationItem.backBarButtonItem.title = @"Latin";
-    }
-    else
-    {
-    self->lang = GREEK;
-    self.wordTable = @"GreekWords";
-    self.defTable = @"GreekDefs";
-    //if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    [self.keyboard setButtons:GREEK];
-    
-    if (self->mode == TAGS)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"LSJ > Tag:" forState:UIControlStateNormal];
-    }
-    else if (self->mode == HISTORY)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"LSJ > History:" forState:UIControlStateNormal];
-    }
-    else
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 60.0+ ios7Adjustment, 34.0)];
-    [b setTitle:@"Greek:" forState:UIControlStateNormal];
-    }
-    self.title = @"Greek";
-    self.navigationItem.backBarButtonItem.title = @"Greek";
-    }
-        */
     }
     
     @objc func textDidChange(_ notification: Notification) {
@@ -420,74 +265,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //print(textView.text ?? "abc")
         scrollToWord()
     }
-    
-    @objc func textSizeDidChange(_ notification: Notification) {
-        //guard let textView = notification.object as? UITextField else { return }
-        //print(textView.text ?? "abc")
-        /*
-        if #available(iOS 11.0, *) {
-            var w = 0
-            if self.traitCollection.preferredContentSizeCategory == .extraSmall
-            {
-                w = 60
-                print("extrasmall")
-            }
-            else if self.traitCollection.preferredContentSizeCategory == .small
-            {
-                w = 60
-                print("small")
-            }
-            else if self.traitCollection.preferredContentSizeCategory == .medium
-            {
-                w = 66
-                print("medium")
-            }
-            else if self.traitCollection.preferredContentSizeCategory == .large
-            {
-                w = 66
-                print("large")
-            }
-            else if self.traitCollection.preferredContentSizeCategory == .extraLarge
-            {
-                w = 70
-                print("extralarge")
-            }
-            else if self.traitCollection.preferredContentSizeCategory == .extraExtraLarge
-            {
-                w = 72
-                print("extraextralarge")
-            }
-            else if self.traitCollection.preferredContentSizeCategory == .extraExtraExtraLarge
-            {
-                w = 80
-                print("extraextraextralarge")
-            }
-            else
-            {
-                w = 90
-                print("nothing")
-            }
-
-        }
-        */
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         //clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
-        /*
-        NotificationCenter.default.addObserver(self, selector: #selector(textSizeDidChange), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
- */
-        /*
-        [[NSNotificationCenter defaultCenter] addObserver:self
-            selector:@selector(contentSizeCategoryDidChangeNotification:)
-            name:UIContentSizeCategoryDidChangeNotification
-            object:nil];
-        */
-        //navigationController?.navigationBar.titleView.layoutSubviews()
+
         adjustFloater()
-        //searchTextField?.isHidden = false
     }
 
     override func didReceiveMemoryWarning() {
