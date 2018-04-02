@@ -447,8 +447,6 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             whichLang = 1
             changeKeys(keys:romanKeys)
         }
-        UserDefaults.standard.set(whichLang, forKey: "lang")
-        UserDefaults.standard.synchronize()
         
         resetKBHeight()
     }

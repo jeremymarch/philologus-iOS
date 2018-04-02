@@ -58,7 +58,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //if let keyboardHeight = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as?
         //    NSValue)?.cgRectValue.height {
         
-            //the above doesn't work on ipad because we change the height later
+            //the above doesn't work on ipad because we change the kb height later
         let keyboardHeight = (kb?.portraitHeight)! //this works
         tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
         //}
@@ -109,17 +109,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         navigationController?.navigationBar.shadowImage = UIImage()
         
         let defaults = UserDefaults.standard
-        let a = defaults.object(forKey: "lang")
-        if (a != nil)
-        {
-            whichLang = a as! Int
-        }
-        else
-        {
-            whichLang = 0
-            defaults.set(whichLang, forKey: "lang")
-            defaults.synchronize()
-        }
+        whichLang = defaults.integer(forKey: "lang") //defaults to 0 (Greek), if doesn't exist
+                
         defaultsChanged() //check once at start
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
@@ -249,7 +240,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             langButton.setTitle("Latin:", for: .normal)
             title = "Latin"
         }
+        UserDefaults.standard.set(language, forKey: "lang")
+        UserDefaults.standard.synchronize()
+        
         kb?.setLang(lang: language)
+        
         tableView.reloadData()
         
         //scroll to top
