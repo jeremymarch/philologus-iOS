@@ -78,12 +78,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //move bottom of table up when keyboard shows, so we can access bottom rows and
-        //also so selected row is in middle of screen - keyboard height.
-        //https://stackoverflow.com/questions/594181/making-a-uitableview-scroll-when-text-field-is-selected/41040630#41040630
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
 
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -107,24 +101,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //remove navigation bar bottom border
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        
-        let defaults = UserDefaults.standard
-        whichLang = defaults.integer(forKey: "lang") //defaults to 0 (Greek), if doesn't exist
-                
-        defaultsChanged() //check once at start
-        
-        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
-        kb?.appExt = false
-        searchTextField?.inputView = kb?.inputView
-        searchTextField?.delegate = self
-        
-        //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
-        if #available(iOS 9.0, *)
-        {
-            let item: UITextInputAssistantItem = searchTextField!.inputAssistantItem
-            item.leadingBarButtonGroups = []
-            item.trailingBarButtonGroups = []
-        }
 
         searchView.layer.borderColor = UIColor.black.cgColor
         searchView.layer.borderWidth = 2.0
@@ -166,26 +142,46 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         langButton.addTarget(self, action: #selector(toggleLanguage), for: .touchDown)
 
-        /*
-         //searchTextField?.rightView = infoButton
-         //searchTextField!.rightViewMode = .unlessEditing
-         tv.addSubview(infoButton)
-         */
+        //add padding around button label
+        //could also set a equal to or greater than height constraint on button and make vertical values smaller.
+        langButton.contentEdgeInsets = UIEdgeInsets(top: 13.0, left: 8.0, bottom: 13.0, right: 2.0)
+        
         //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
         self.tableView.addSubview(infoButton)
         infoButton.tintColor = .black
         adjustFloater()
         
-        //add padding around button label
-        //could also set a equal to or greater than height constraint on button and make vertical values smaller.
-        langButton.contentEdgeInsets = UIEdgeInsets(top: 13.0, left: 8.0, bottom: 13.0, right: 2.0)
+        let defaults = UserDefaults.standard
+        whichLang = defaults.integer(forKey: "lang") //defaults to 0 (Greek), if doesn't exist
+        
+        defaultsChanged() //check once at start
+        
+        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb?.appExt = false
+        searchTextField?.inputView = kb?.inputView
+        searchTextField?.delegate = self
+        
+        //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
+        if #available(iOS 9.0, *)
+        {
+            let item: UITextInputAssistantItem = searchTextField!.inputAssistantItem
+            item.leadingBarButtonGroups = []
+            item.trailingBarButtonGroups = []
+        }
         
         setLanguage(language: whichLang)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
+        
+        //move bottom of table up when keyboard shows, so we can access bottom rows and
+        //also so selected row is in middle of screen - keyboard height.
+        //https://stackoverflow.com/questions/594181/making-a-uitableview-scroll-when-text-field-is-selected/41040630#41040630
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
