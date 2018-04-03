@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,17 +41,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ArR-Fb-JOY">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="301.5" width="375" height="301.5"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
                             </webView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8K7-af-XrC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ArR-Fb-JOY" firstAttribute="top" secondItem="svH-Pt-448" secondAttribute="top" id="0id-JV-B8O"/>
                             <constraint firstItem="ArR-Fb-JOY" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="81Q-pW-LXR"/>
+                            <constraint firstItem="8K7-af-XrC" firstAttribute="bottom" secondItem="svH-Pt-448" secondAttribute="bottom" multiplier="0.5" identifier="DetailTextViewBottom" id="Bhp-ML-IY2"/>
+                            <constraint firstItem="8K7-af-XrC" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="L4a-YH-U7W"/>
+                            <constraint firstItem="ArR-Fb-JOY" firstAttribute="top" secondItem="8K7-af-XrC" secondAttribute="bottom" id="aEB-I8-V9y"/>
                             <constraint firstAttribute="trailing" secondItem="ArR-Fb-JOY" secondAttribute="trailing" id="e4Z-6s-iJg"/>
                             <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="ArR-Fb-JOY" secondAttribute="bottom" id="eJl-ro-pUQ"/>
+                            <constraint firstAttribute="trailing" secondItem="8K7-af-XrC" secondAttribute="trailing" id="faB-Hw-aKx"/>
+                            <constraint firstItem="8K7-af-XrC" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="kbh-lq-iBz"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
