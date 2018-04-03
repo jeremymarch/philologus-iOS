@@ -71,6 +71,7 @@
                     <navigationItem key="navigationItem" id="mOI-FS-AaM"/>
                     <connections>
                         <outlet property="textView" destination="8K7-af-XrC" id="w7e-d8-kvP"/>
+                        <outlet property="textViewHeight" destination="KgD-3B-x0r" id="mZi-uG-qcd"/>
                         <outlet property="webView" destination="ArR-Fb-JOY" id="LXp-bM-uQD"/>
                     </connections>
                 </viewController>
