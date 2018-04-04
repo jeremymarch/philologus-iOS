@@ -102,7 +102,7 @@ class HCKeyboardView: UIInputView {
         if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
         {
             //extra bottom padding for iPhone X
-            bottomPadding = 20.0
+            bottomPadding = 30.0
         }
         
         for (i, row) in buttons.enumerated()

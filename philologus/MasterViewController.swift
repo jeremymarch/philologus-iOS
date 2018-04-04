@@ -155,7 +155,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
         {
             //extra bottom padding for iPhone X
-            infoButtonPadding = 38.0
+            infoButtonPadding = 44.0
         }
         infoButtonFrame.origin.x = self.view.bounds.size.width - infoButtonPadding
         infoButtonFrame.origin.y = self.view.bounds.size.height - infoButtonPadding

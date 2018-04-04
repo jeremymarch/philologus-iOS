@@ -484,7 +484,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             //iPhone X
             if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
-                portraitHeight = 204.0
+                portraitHeight = 214.0
                 landscapeHeight = portraitHeight
             }
             else if UIScreen.main.nativeBounds.width < 641
