@@ -56,7 +56,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGD-R7-Pxs">
                                         <rect key="frame" x="294" y="8" width="73" height="34"/>
-                                        <color key="backgroundColor" red="0.60070986675126903" green="0.60070986675126903" blue="0.60070986675126903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.6668868196772002" green="0.82655765706826523" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="contentEdgeInsets" minX="12" minY="8" maxX="12" maxY="8"/>
                                         <state key="normal" title="Submit">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
