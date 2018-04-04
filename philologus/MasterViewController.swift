@@ -78,8 +78,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("\(UIScreen.main.nativeBounds.height) x \(UIScreen.main.nativeBounds.width)")
 
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -150,9 +148,19 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
-        self.tableView.addSubview(infoButton)
+        self.view.addSubview(infoButton)
         infoButton.tintColor = .black
-        adjustFloater()
+        var infoButtonFrame = self.infoButton.frame
+        var infoButtonPadding:CGFloat = 28.0
+        if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+        {
+            //extra bottom padding for iPhone X
+            infoButtonPadding = 38.0
+        }
+        infoButtonFrame.origin.x = self.view.bounds.size.width - infoButtonPadding
+        infoButtonFrame.origin.y = self.view.bounds.size.height - infoButtonPadding
+        self.infoButton.frame = infoButtonFrame;
+        self.tableView.bringSubview(toFront: self.infoButton)
         
         let defaults = UserDefaults.standard
         whichLang = defaults.integer(forKey: "lang") //defaults to 0 (Greek), if doesn't exist
@@ -184,28 +192,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        adjustFloater()
-    }
-    
-    func adjustFloater()
-    {
-        var newFrame = self.infoButton.frame
-        
-        newFrame.origin.x = self.view.bounds.size.width - 28
-        newFrame.origin.y = self.tableView.contentOffset.y + self.tableView.bounds.size.height - self.infoButton.bounds.size.height - 6
-        
-        self.infoButton.frame = newFrame;
-        self.tableView.bringSubview(toFront: self.infoButton)
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        //NSLog("rotate")
-
-        self.adjustFloater()
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -263,8 +249,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
-
-        adjustFloater()
     }
 
     override func didReceiveMemoryWarning() {
