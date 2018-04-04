@@ -66,7 +66,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.34354553650000003" green="0.34897833909999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.25882352941176467" green="0.49803921568627452" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="lGD-R7-Pxs" firstAttribute="leading" secondItem="ibZ-E5-12O" secondAttribute="trailing" priority="999" constant="8" id="0Oy-OO-28W"/>
                                     <constraint firstAttribute="height" constant="301" id="6cs-lm-Xep"/>
