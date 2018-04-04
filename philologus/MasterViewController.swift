@@ -78,6 +78,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("\(UIScreen.main.nativeBounds.height) x \(UIScreen.main.nativeBounds.width)")
 
         tableView.separatorStyle = .none
         tableView.delegate = self

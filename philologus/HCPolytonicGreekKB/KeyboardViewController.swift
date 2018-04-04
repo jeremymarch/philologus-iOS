@@ -361,7 +361,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                                               attribute: .notAnAttribute,
                                               multiplier: 1.0,
                                               constant: kbHeight)
-        heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
+        heightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
         heightConstraint?.isActive = true
         self.inputView?.addConstraint(heightConstraint!)
         
@@ -481,9 +481,15 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         else
         {
-            //for iphone 5s and narrower
-            if UIScreen.main.nativeBounds.width < 641
+            //iPhone X
+            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
+                portraitHeight = 200.0
+                landscapeHeight = 200.0
+            }
+            else if UIScreen.main.nativeBounds.width < 641
+            {
+                //for iphone 5s and narrower
                 portraitHeight = 174.0
                 landscapeHeight = 174.0
             }
