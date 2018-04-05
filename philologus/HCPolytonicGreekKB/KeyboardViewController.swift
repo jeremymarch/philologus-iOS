@@ -130,7 +130,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     var heightConstraint:NSLayoutConstraint?
     var widthConstraints:[NSLayoutConstraint?] = []
     
-    let fontSize:CGFloat = 24.0
+    var fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
     
     var portraitHeight:CGFloat = 250.0
@@ -453,6 +453,11 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            fontSize = 28.0
+        }
         
         loadDefaults()
         

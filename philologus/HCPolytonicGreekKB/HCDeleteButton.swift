@@ -111,18 +111,17 @@ class HCDeleteButton: UIButton {
         let delWidth:CGFloat = self.bounds.size.width;
         var topPadding:CGFloat?
         //var sidePadding:CGFloat?
-        var xIconPadding:CGFloat?
+        
         if self.device == 2
         {
             topPadding = self.bounds.size.height / 2.8;
             //sidePadding = self.bounds.size.width / 3.0;
-            xIconPadding = self.bounds.size.width / 15.5;//6.0f;
         }
         else
         {
             topPadding = self.bounds.size.height / 4.0;
             //sidePadding = self.bounds.size.width / 5.0;
-            xIconPadding = 4.0;
+
         }
         //NSLog(@"H: %f, W: %f", self.bounds.size.height, self.bounds.size.width);
         
@@ -167,16 +166,16 @@ class HCDeleteButton: UIButton {
         context!.saveGState();
         let xFrame:CGRect = CGRect(x:delSidePadding + iconPointWidth,y:topPadding!,width:iconBodyWidth, height:delHeight - (topPadding! * 2))
         
-        drawX(context:context!, rect1:xFrame, offset:xIconPadding!, color:xColor!);
+        drawX(context:context!, rect1:xFrame, color:xColor!);
         
         context!.restoreGState();
     }
     
-    func drawX(context:CGContext, rect1:CGRect, offset:CGFloat, color:CGColor)
+    func drawX(context:CGContext, rect1:CGRect, color:CGColor)
     {
         var rect:CGRect = rect1
         //center and make the rect square
-        if rect.size.width > rect.size.height
+        if false //rect.size.width > rect.size.height
         {
             rect.origin.x += (rect.size.width - rect.size.height) / 2;
             rect.size.width = rect.size.height;
@@ -187,8 +186,15 @@ class HCDeleteButton: UIButton {
             rect.size.height = rect.size.width;
         }
         
+        let offset = rect.size.height  / 6.0
+        
+        //print("height: \(rect.size.height  / 9.0)")
+        
+        //21.6666 = 2.5
+        //34.9555 =
+        
         context.saveGState();
-        context.setLineWidth(2.5);
+        context.setLineWidth(rect.size.height / 8.8);
         context.setStrokeColor(color);
         context.move(to: CGPoint(x:rect.minX + offset, y: rect.minY + offset))
         context.addLine(to: CGPoint(x:rect.maxX - offset, y:rect.maxY - offset))
