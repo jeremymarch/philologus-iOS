@@ -101,7 +101,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         //let storeUrl = self.applicationDocumentsDirectory.appendingPathComponent("app_name.sqlite")
         //let storeURL = [[NSBundle mainBundle] URLForResource:@"philologus" withExtension:@"sqlite"];
-        let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
+        //let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
+        let storeURL = self.applicationDocumentsDirectory.appendingPathComponent(appName + ".sqlite")
       /*
         if !FileManager.default.fileExists(atPath: (storeURL?.path)!) {
             let seededDataUrl = Bundle.main.url(forResource: seededData, withExtension: "sqlite")
@@ -109,16 +110,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             
         }
  */
-        print(storeURL!)
+        print(storeURL)
         //var options = NSMutableDictionary()
         //options[NSReadOnlyPersistentStoreOption] = true
         
         //container.persistentStoreCoordinator.addPersistentStore(ofType: <#T##String#>, configurationName: <#T##String?#>, at: <#T##URL?#>, options: <#T##[AnyHashable : Any]?#>)
         
-        let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
-        d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+        let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL)
+        d.setOption(false as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         d.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
-        container.persistentStoreDescriptions = [d]
+        
+        let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
+        
+        let d2:NSPersistentStoreDescription = NSPersistentStoreDescription(url: userDataURL)
+        d2.setOption(false as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+        d2.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
+        
+        container.persistentStoreDescriptions = [d,d2]
         
         //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         //container.persistentStoreCoordinator.
@@ -149,17 +157,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        //let url = self.applicationDocumentsDirectory.appendingPathComponent("philolog_us.sqlite")
-        let url = Bundle.main.url(forResource: "philolog_us", withExtension: "sqlite")!
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("philolog_us.sqlite")
+        //let url = Bundle.main.url(forResource: "philolog_us", withExtension: "sqlite")!
+        let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
+
         var failureReason = "There was an error creating or loading the application's saved data."
         
-        let opt = [ NSReadOnlyPersistentStoreOption: true as NSObject,
+        let opt = [ NSReadOnlyPersistentStoreOption: false as NSObject,
                     NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject?,
-                    NSMigratePersistentStoresAutomaticallyOption:false as NSObject,
-                    NSInferMappingModelAutomaticallyOption:false as NSObject]
+                    NSMigratePersistentStoresAutomaticallyOption:true as NSObject,
+                    NSInferMappingModelAutomaticallyOption:true as NSObject]
         
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: opt as Any as? [AnyHashable : Any])
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "Default", at: url, options: opt as Any as? [AnyHashable : Any])
+        } catch {
+            // Report any error we got.
+            var dict = [String: AnyObject]()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
+            
+            dict[NSUnderlyingErrorKey] = error as NSError
+            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            // Replace this with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+            abort()
+        }
+        
+        do {
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "userData", at: userDataURL, options: opt as Any as? [AnyHashable : Any])
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
