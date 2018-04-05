@@ -31,6 +31,8 @@
 		3F0D2E711EE48DDA00B34C62 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E611EE48DDA00B34C62 /* KeyboardViewController.swift */; };
 		3F0D2E721EE48DDA00B34C62 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E631EE48DDA00B34C62 /* accent.c */; };
 		3F0D2E731EE48DDA00B34C62 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E661EE48DDA00B34C62 /* utilities.c */; };
+		3F1D1EB12075DD3800E38D60 /* RequestQueue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1D1EAF2075DD3800E38D60 /* RequestQueue+CoreDataClass.swift */; };
+		3F1D1EB22075DD3800E38D60 /* RequestQueue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1D1EB02075DD3800E38D60 /* RequestQueue+CoreDataProperties.swift */; };
 		3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8241ED27380007633D2 /* AppDelegate.swift */; };
 		3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8261ED27380007633D2 /* philolog_us.xcdatamodeld */; };
 		3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8291ED27380007633D2 /* MasterViewController.swift */; };
@@ -74,6 +76,8 @@
 		3F0D2E651EE48DDA00B34C62 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekUnicode.h; sourceTree = "<group>"; };
 		3F0D2E661EE48DDA00B34C62 /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utilities.c; sourceTree = "<group>"; };
 		3F0D2E671EE48DDA00B34C62 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
+		3F1D1EAF2075DD3800E38D60 /* RequestQueue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestQueue+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F1D1EB02075DD3800E38D60 /* RequestQueue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestQueue+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F4E57AF1FA648C700FE1C45 /* philologus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = philologus.entitlements; sourceTree = "<group>"; };
 		3F85E8211ED27380007633D2 /* philologus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = philologus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F85E8241ED27380007633D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */,
+				3F1D1EAF2075DD3800E38D60 /* RequestQueue+CoreDataClass.swift */,
+				3F1D1EB02075DD3800E38D60 /* RequestQueue+CoreDataProperties.swift */,
 				3F00F75D1EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift */,
 				3F00F75E1EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift */,
 				3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */,
@@ -295,6 +301,7 @@
 				3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */,
 				3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */,
 				3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */,
+				3F1D1EB12075DD3800E38D60 /* RequestQueue+CoreDataClass.swift in Sources */,
 				3F0D2E6F1EE48DDA00B34C62 /* HCSpaceButton.swift in Sources */,
 				3F0D2E6B1EE48DDA00B34C62 /* HCDeleteButton.swift in Sources */,
 				3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */,
@@ -306,6 +313,7 @@
 				3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */,
 				3F00F7641EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift in Sources */,
 				3F0D2E681EE48DDA00B34C62 /* HCAccentButton.swift in Sources */,
+				3F1D1EB22075DD3800E38D60 /* RequestQueue+CoreDataProperties.swift in Sources */,
 				3F00F7671EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift in Sources */,
 				3F00F7661EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift in Sources */,
 			);

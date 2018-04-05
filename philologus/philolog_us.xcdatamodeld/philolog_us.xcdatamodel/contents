@@ -44,7 +44,7 @@
             <fetchIndexElement property="unaccentedWord" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="RequestQueue" representedClassName="RequestQueue" syncable="YES" codeGenerationType="class">
+    <entity name="RequestQueue" representedClassName=".RequestQueue" syncable="YES">
         <attribute name="data" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <configuration name="bundleData">
