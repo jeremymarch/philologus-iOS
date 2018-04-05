@@ -10,9 +10,25 @@ import UIKit
 import CoreData
 
 /*
- /Users/jeremy/Library/Developer/CoreSimulator/Devices/3A765A42-5B22-45D9-88CD-5B1A7A54AC5E/data/Containers/Data/Application/0B3F219C-9BF0-4A56-9682-9DD7FFE3E03A/Library/Application Supports
+ updating core data model.
+ best done on iOS simulator for earliest iOS version supported
+ change bundle db to point to app directory so it can create a new db.
+ change options for that db to disable readonly
+ have it print path to where the db is stored in simulator
+ stop simulator
+ in terminal cd to new db path retrieved above
+ from this location in terminal open paradigm db (with orig data) in sqlite3
+ now in sqlite3:
+ sqlite> attach 'philolog_us.sqlite' as newdb;
+ sqlite> INSERT INTO newdb.ZGREEKDEFS SELECT * FROM ZGREEKDEFS;
+ sqlite> INSERT INTO newdb.ZGREEKWORDS SELECT * FROM ZGREEKWORDS;
+ sqlite> INSERT INTO newdb.ZLATINWORDS SELECT * FROM ZLATINWORDS;
+ sqlite> INSERT INTO newdb.ZLATINDEFS SELECT * FROM ZLATINDEFS;
+ sqlite> vacuum;
+ sqlite> .exit
  
- INSERT INTO A.ZGREEKWORDS VALUES () FROM B.ZGREEKWORDS;
+ in terminal copy db from simulator back to xcode project in orig location
+ change store to point back to the bundle and enable readonly
  */
 
 @UIApplicationMain
