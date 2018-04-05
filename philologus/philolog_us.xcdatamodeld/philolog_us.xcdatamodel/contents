@@ -47,6 +47,12 @@
     <entity name="RequestQueue" representedClassName="RequestQueue" syncable="YES" codeGenerationType="class">
         <attribute name="data" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <configuration name="bundleData">
+        <memberEntity name="GreekDefs"/>
+        <memberEntity name="GreekWords"/>
+        <memberEntity name="LatinDefs"/>
+        <memberEntity name="LatinWords"/>
+    </configuration>
     <configuration name="userData">
         <memberEntity name="RequestQueue"/>
     </configuration>

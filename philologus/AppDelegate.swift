@@ -101,8 +101,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         //let storeUrl = self.applicationDocumentsDirectory.appendingPathComponent("app_name.sqlite")
         //let storeURL = [[NSBundle mainBundle] URLForResource:@"philologus" withExtension:@"sqlite"];
-        //let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
-        let storeURL = self.applicationDocumentsDirectory.appendingPathComponent(appName + ".sqlite")
+        let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
+        //let storeURL = self.applicationDocumentsDirectory.appendingPathComponent(appName + ".sqlite")
       /*
         if !FileManager.default.fileExists(atPath: (storeURL?.path)!) {
             let seededDataUrl = Bundle.main.url(forResource: seededData, withExtension: "sqlite")
@@ -110,14 +110,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             
         }
  */
-        print(storeURL)
+        print(storeURL!)
         //var options = NSMutableDictionary()
         //options[NSReadOnlyPersistentStoreOption] = true
         
         //container.persistentStoreCoordinator.addPersistentStore(ofType: <#T##String#>, configurationName: <#T##String?#>, at: <#T##URL?#>, options: <#T##[AnyHashable : Any]?#>)
         
-        let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL)
-        d.setOption(false as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+        let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
+        d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         d.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
         
         let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
@@ -159,17 +159,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.appendingPathComponent("philolog_us.sqlite")
         //let url = Bundle.main.url(forResource: "philolog_us", withExtension: "sqlite")!
+        print(url)
         let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
 
         var failureReason = "There was an error creating or loading the application's saved data."
         
         let opt = [ NSReadOnlyPersistentStoreOption: false as NSObject,
                     NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject?,
-                    NSMigratePersistentStoresAutomaticallyOption:true as NSObject,
-                    NSInferMappingModelAutomaticallyOption:true as NSObject]
+                    NSMigratePersistentStoresAutomaticallyOption:false as NSObject,
+                    NSInferMappingModelAutomaticallyOption:false as NSObject]
         
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "Default", at: url, options: opt as Any as? [AnyHashable : Any])
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "bundleData", at: url, options: opt as Any as? [AnyHashable : Any])
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
@@ -184,8 +185,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             abort()
         }
         
+        let opt2 = [ NSReadOnlyPersistentStoreOption: false as NSObject,
+                    NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject?,
+                    NSMigratePersistentStoresAutomaticallyOption:false as NSObject,
+                    NSInferMappingModelAutomaticallyOption:false as NSObject]
+        
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "userData", at: userDataURL, options: opt as Any as? [AnyHashable : Any])
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "userData", at: userDataURL, options: opt2 as Any as? [AnyHashable : Any])
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
