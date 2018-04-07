@@ -45,6 +45,7 @@
 		3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */; };
 		3FCA15111F84EB6500FBA200 /* PHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA15101F84EB6500FBA200 /* PHTextField.swift */; };
 		3FFFB61020767ABC00ADEE53 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFB60F20767ABC00ADEE53 /* DataManager.swift */; };
+		3FFFB61220792E4000ADEE53 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFB61120792E4000ADEE53 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 		3FCA15101F84EB6500FBA200 /* PHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTextField.swift; sourceTree = "<group>"; };
 		3FFFB60F20767ABC00ADEE53 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		3FFFB61120792E4000ADEE53 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				3FCA15101F84EB6500FBA200 /* PHTextField.swift */,
 				3FB004281F84DB44008891AC /* PHTitleView.swift */,
 				3FFFB60F20767ABC00ADEE53 /* DataManager.swift */,
+				3FFFB61120792E4000ADEE53 /* NetworkManager.swift */,
 			);
 			path = philologus;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				3F0D2E731EE48DDA00B34C62 /* utilities.c in Sources */,
 				3F0D2E721EE48DDA00B34C62 /* accent.c in Sources */,
 				3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */,
+				3FFFB61220792E4000ADEE53 /* NetworkManager.swift in Sources */,
 				3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */,
 				3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */,
 				3F1D1EB12075DD3800E38D60 /* RequestQueue+CoreDataClass.swift in Sources */,
