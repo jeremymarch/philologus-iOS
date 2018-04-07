@@ -44,6 +44,7 @@
 		3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB004281F84DB44008891AC /* PHTitleView.swift */; };
 		3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */; };
 		3FCA15111F84EB6500FBA200 /* PHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA15101F84EB6500FBA200 /* PHTextField.swift */; };
+		3FFFB61020767ABC00ADEE53 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFB60F20767ABC00ADEE53 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		3FB004281F84DB44008891AC /* PHTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTitleView.swift; sourceTree = "<group>"; };
 		3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 		3FCA15101F84EB6500FBA200 /* PHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTextField.swift; sourceTree = "<group>"; };
+		3FFFB60F20767ABC00ADEE53 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				3F85E8261ED27380007633D2 /* philolog_us.xcdatamodeld */,
 				3FCA15101F84EB6500FBA200 /* PHTextField.swift */,
 				3FB004281F84DB44008891AC /* PHTitleView.swift */,
+				3FFFB60F20767ABC00ADEE53 /* DataManager.swift */,
 			);
 			path = philologus;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FFFB61020767ABC00ADEE53 /* DataManager.swift in Sources */,
 				3F00F76B1EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift in Sources */,
 				3F00F7651EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift in Sources */,
 				3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */,

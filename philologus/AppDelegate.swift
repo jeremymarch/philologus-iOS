@@ -60,10 +60,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let controller = masterNavigationController.topViewController as! MasterViewController
         if #available(iOS 10.0, *) {
             controller.managedObjectContext = self.persistentContainer.viewContext
+            DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
+            DataManager.shared.mainContext = self.persistentContainer.viewContext
         }
         else
         {
             controller.managedObjectContext = managedObjectContext
+            DataManager.shared.backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            DataManager.shared.backgroundContext?.persistentStoreCoordinator = managedObjectContext.persistentStoreCoordinator
+            DataManager.shared.mainContext = managedObjectContext
         }
         return true
     }
@@ -135,12 +140,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
         d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         d.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
+        d.configuration = "bundleData"
         
         let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
         
         let d2:NSPersistentStoreDescription = NSPersistentStoreDescription(url: userDataURL)
         d2.setOption(false as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         d2.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
+        d2.configuration = "userData"
         
         container.persistentStoreDescriptions = [d,d2]
         

@@ -75,10 +75,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
