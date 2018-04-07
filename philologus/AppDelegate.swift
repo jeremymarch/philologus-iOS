@@ -180,14 +180,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.appendingPathComponent("philolog_us.sqlite")
-        //let url = Bundle.main.url(forResource: "philolog_us", withExtension: "sqlite")!
+        //let url = self.applicationDocumentsDirectory.appendingPathComponent("philolog_us.sqlite")
+        let url = Bundle.main.url(forResource: "philolog_us", withExtension: "sqlite")!
         print(url)
         let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
 
         var failureReason = "There was an error creating or loading the application's saved data."
         
-        let opt = [ NSReadOnlyPersistentStoreOption: false as NSObject,
+        let opt = [ NSReadOnlyPersistentStoreOption: true as NSObject,
                     NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject?,
                     NSMigratePersistentStoresAutomaticallyOption:false as NSObject,
                     NSInferMappingModelAutomaticallyOption:false as NSObject]

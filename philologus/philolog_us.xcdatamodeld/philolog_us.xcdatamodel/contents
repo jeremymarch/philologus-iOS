@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Event" representedClassName="Event" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date">
-            <userInfo/>
-        </attribute>
-        <userInfo/>
-    </entity>
-    <entity name="GreekDefs" representedClassName="GreekDefs" syncable="YES">
+    <entity name="GreekDefs" representedClassName=".GreekDefs" syncable="YES">
         <attribute name="def" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wordid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <fetchIndex name="byWordidIndex">
+        <fetchIndex name="byWordId">
             <fetchIndexElement property="wordid" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
@@ -25,10 +19,18 @@
             <fetchIndexElement property="unaccentedWord" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="LatinDefs" representedClassName="LatinDefs" syncable="YES">
+    <entity name="History" representedClassName=".History" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lang" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wordid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <fetchIndex name="bydate">
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="LatinDefs" representedClassName=".LatinDefs" syncable="YES">
         <attribute name="def" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wordid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <fetchIndex name="byWordidIndex">
+        <fetchIndex name="byWordId">
             <fetchIndexElement property="wordid" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
@@ -44,24 +46,59 @@
             <fetchIndexElement property="unaccentedWord" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
+    <entity name="Notes" representedClassName=".Notes" syncable="YES">
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noteid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wordid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <fetchIndex name="bywordid">
+            <fetchIndexElement property="wordid" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
     <entity name="RequestQueue" representedClassName=".RequestQueue" syncable="YES">
         <attribute name="data" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Tags" representedClassName=".Tags" syncable="YES" codeGenerationType="class">
+        <attribute name="parentid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tagid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tagname" optional="YES" attributeType="String" syncable="YES"/>
+        <fetchIndex name="byTagid">
+            <fetchIndexElement property="tagid" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="TagsXWords" representedClassName=".TagsXWords" syncable="YES">
+        <attribute name="lang" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tagid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wordid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <fetchIndex name="byword">
+            <fetchIndexElement property="wordid" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="bytag">
+            <fetchIndexElement property="tagid" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <configuration name="bundleData">
-        <memberEntity name="GreekDefs"/>
         <memberEntity name="GreekWords"/>
-        <memberEntity name="LatinDefs"/>
         <memberEntity name="LatinWords"/>
+        <memberEntity name="LatinDefs"/>
+        <memberEntity name="GreekDefs"/>
     </configuration>
     <configuration name="userData">
         <memberEntity name="RequestQueue"/>
+        <memberEntity name="Tags"/>
+        <memberEntity name="TagsXWords"/>
+        <memberEntity name="Notes"/>
+        <memberEntity name="History"/>
     </configuration>
     <elements>
-        <element name="Event" positionX="297" positionY="261" width="128" height="60"/>
         <element name="GreekDefs" positionX="288" positionY="270" width="128" height="75"/>
         <element name="GreekWords" positionX="261" positionY="216" width="128" height="105"/>
+        <element name="History" positionX="288" positionY="261" width="128" height="90"/>
         <element name="LatinDefs" positionX="306" positionY="279" width="128" height="75"/>
         <element name="LatinWords" positionX="270" positionY="243" width="128" height="105"/>
-        <element name="RequestQueue" positionX="306" positionY="279" width="128" height="60"/>
+        <element name="Notes" positionX="306" positionY="288" width="128" height="90"/>
+        <element name="RequestQueue" positionX="306" positionY="279" width="128" height="75"/>
+        <element name="Tags" positionX="297" positionY="270" width="128" height="90"/>
+        <element name="TagsXWords" positionX="315" positionY="297" width="128" height="90"/>
     </elements>
 </model>
