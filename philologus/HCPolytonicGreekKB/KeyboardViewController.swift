@@ -115,7 +115,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     let playClick:Bool = true
     var capsLockOn:Bool = false
     var miscLockOn:Bool = false
-    let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
+    let bgColor = UIColor.init(red: 210/255.0, green: 213/255.0, blue: 219/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
     let useAnimation:Bool = false
     var deleteHoldTimer:Timer? = nil

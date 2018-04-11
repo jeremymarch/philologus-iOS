@@ -135,12 +135,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         //var options = NSMutableDictionary()
         //options[NSReadOnlyPersistentStoreOption] = true
         
-        //container.persistentStoreCoordinator.addPersistentStore(ofType: <#T##String#>, configurationName: <#T##String?#>, at: <#T##URL?#>, options: <#T##[AnyHashable : Any]?#>)
+        //container.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "bundleData", at: storeURL, options: nil)
         
         let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
         d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         d.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
         d.configuration = "bundleData"
+        d.isReadOnly = true
         
         let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
         
@@ -148,11 +149,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         d2.setOption(false as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         d2.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
         d2.configuration = "userData"
+        d2.isReadOnly = false
         
         container.persistentStoreDescriptions = [d,d2]
         
-        //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
-        //container.persistentStoreCoordinator.
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
                 

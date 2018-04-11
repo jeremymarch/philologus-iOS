@@ -175,16 +175,16 @@ class HCDeleteButton: UIButton {
     {
         var rect:CGRect = rect1
         //center and make the rect square
-        if false //rect.size.width > rect.size.height
+        /*if false //rect.size.width > rect.size.height
         {
             rect.origin.x += (rect.size.width - rect.size.height) / 2;
             rect.size.width = rect.size.height;
         }
         else
-        {
+        {*/
             rect.origin.y += (rect.size.height - rect.size.width) / 2;
             rect.size.height = rect.size.width;
-        }
+        //}
         
         let offset = rect.size.height  / 6.0
         
