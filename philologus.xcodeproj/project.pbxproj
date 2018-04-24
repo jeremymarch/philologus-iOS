@@ -11,14 +11,10 @@
 		3F00F7571EDE6DCC002DBE9E /* philolog_us.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3F00F7561EDE6DCC002DBE9E /* philolog_us.sqlite */; };
 		3F00F75A1EDE6FD2002DBE9E /* philolog_us.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 3F00F7581EDE6FD2002DBE9E /* philolog_us.sqlite-wal */; };
 		3F00F75B1EDE6FD2002DBE9E /* philolog_us.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 3F00F7591EDE6FD2002DBE9E /* philolog_us.sqlite-shm */; };
-		3F00F7641EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */; };
-		3F00F7651EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75D1EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift */; };
 		3F00F7661EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75E1EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift */; };
 		3F00F7671EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */; };
 		3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */; };
 		3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */; };
-		3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */; };
-		3F00F76B1EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */; };
 		3F0D2E681EE48DDA00B34C62 /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E561EE48DDA00B34C62 /* HCAccentButton.swift */; };
 		3F0D2E691EE48DDA00B34C62 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E571EE48DDA00B34C62 /* HCbutton.swift */; };
 		3F0D2E6A1EE48DDA00B34C62 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E581EE48DDA00B34C62 /* HCCapsLockButton.swift */; };
@@ -31,6 +27,12 @@
 		3F0D2E711EE48DDA00B34C62 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E611EE48DDA00B34C62 /* KeyboardViewController.swift */; };
 		3F0D2E721EE48DDA00B34C62 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E631EE48DDA00B34C62 /* accent.c */; };
 		3F0D2E731EE48DDA00B34C62 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D2E661EE48DDA00B34C62 /* utilities.c */; };
+		3F7B7E18207982C3008A846A /* LatinDefs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7B7E16207982C3008A846A /* LatinDefs+CoreDataClass.swift */; };
+		3F7B7E19207982C3008A846A /* LatinDefs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7B7E17207982C3008A846A /* LatinDefs+CoreDataProperties.swift */; };
+		3F7B7E1C207982E0008A846A /* GreekDefs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7B7E1A207982E0008A846A /* GreekDefs+CoreDataClass.swift */; };
+		3F7B7E1D207982E0008A846A /* GreekDefs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7B7E1B207982E0008A846A /* GreekDefs+CoreDataProperties.swift */; };
+		3F7B7E202079CB4F008A846A /* RequestQueue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7B7E1E2079CB4F008A846A /* RequestQueue+CoreDataClass.swift */; };
+		3F7B7E212079CB4F008A846A /* RequestQueue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7B7E1F2079CB4F008A846A /* RequestQueue+CoreDataProperties.swift */; };
 		3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8241ED27380007633D2 /* AppDelegate.swift */; };
 		3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8261ED27380007633D2 /* philolog_us.xcdatamodeld */; };
 		3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85E8291ED27380007633D2 /* MasterViewController.swift */; };
@@ -42,6 +44,8 @@
 		3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB004281F84DB44008891AC /* PHTitleView.swift */; };
 		3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */; };
 		3FCA15111F84EB6500FBA200 /* PHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA15101F84EB6500FBA200 /* PHTextField.swift */; };
+		3FFFB61020767ABC00ADEE53 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFB60F20767ABC00ADEE53 /* DataManager.swift */; };
+		3FFFB61220792E4000ADEE53 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFB61120792E4000ADEE53 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,14 +53,10 @@
 		3F00F7561EDE6DCC002DBE9E /* philolog_us.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = philolog_us.sqlite; sourceTree = "<group>"; };
 		3F00F7581EDE6FD2002DBE9E /* philolog_us.sqlite-wal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "philolog_us.sqlite-wal"; sourceTree = "<group>"; };
 		3F00F7591EDE6FD2002DBE9E /* philolog_us.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "philolog_us.sqlite-shm"; sourceTree = "<group>"; };
-		3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinDefs+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3F00F75D1EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinDefs+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F00F75E1EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekWords+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekWords+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinWords+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LatinWords+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F0D2E561EE48DDA00B34C62 /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
 		3F0D2E571EE48DDA00B34C62 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
 		3F0D2E581EE48DDA00B34C62 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCCapsLockButton.swift; sourceTree = "<group>"; };
@@ -75,6 +75,12 @@
 		3F0D2E661EE48DDA00B34C62 /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utilities.c; sourceTree = "<group>"; };
 		3F0D2E671EE48DDA00B34C62 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
 		3F4E57AF1FA648C700FE1C45 /* philologus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = philologus.entitlements; sourceTree = "<group>"; };
+		3F7B7E16207982C3008A846A /* LatinDefs+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LatinDefs+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F7B7E17207982C3008A846A /* LatinDefs+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LatinDefs+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F7B7E1A207982E0008A846A /* GreekDefs+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F7B7E1B207982E0008A846A /* GreekDefs+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GreekDefs+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F7B7E1E2079CB4F008A846A /* RequestQueue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestQueue+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3F7B7E1F2079CB4F008A846A /* RequestQueue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestQueue+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F85E8211ED27380007633D2 /* philologus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = philologus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F85E8241ED27380007633D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F85E8271ED27380007633D2 /* philolog_us.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = philolog_us.xcdatamodel; sourceTree = "<group>"; };
@@ -88,6 +94,8 @@
 		3FB004281F84DB44008891AC /* PHTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTitleView.swift; sourceTree = "<group>"; };
 		3FC05D331F75C68F007BBFBA /* HCKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 		3FCA15101F84EB6500FBA200 /* PHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTextField.swift; sourceTree = "<group>"; };
+		3FFFB60F20767ABC00ADEE53 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		3FFFB61120792E4000ADEE53 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,14 +145,16 @@
 		3F0D2E741EE4962500B34C62 /* CoreDataClasses */ = {
 			isa = PBXGroup;
 			children = (
-				3F00F75C1EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift */,
-				3F00F75D1EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift */,
+				3F7B7E1E2079CB4F008A846A /* RequestQueue+CoreDataClass.swift */,
+				3F7B7E1F2079CB4F008A846A /* RequestQueue+CoreDataProperties.swift */,
+				3F7B7E1A207982E0008A846A /* GreekDefs+CoreDataClass.swift */,
+				3F7B7E1B207982E0008A846A /* GreekDefs+CoreDataProperties.swift */,
+				3F7B7E16207982C3008A846A /* LatinDefs+CoreDataClass.swift */,
+				3F7B7E17207982C3008A846A /* LatinDefs+CoreDataProperties.swift */,
 				3F00F75E1EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift */,
 				3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */,
 				3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */,
 				3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */,
-				3F00F7621EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift */,
-				3F00F7631EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift */,
 			);
 			name = CoreDataClasses;
 			path = ..;
@@ -187,6 +197,8 @@
 				3F85E8261ED27380007633D2 /* philolog_us.xcdatamodeld */,
 				3FCA15101F84EB6500FBA200 /* PHTextField.swift */,
 				3FB004281F84DB44008891AC /* PHTitleView.swift */,
+				3FFFB60F20767ABC00ADEE53 /* DataManager.swift */,
+				3FFFB61120792E4000ADEE53 /* NetworkManager.swift */,
 			);
 			path = philologus;
 			sourceTree = "<group>";
@@ -282,29 +294,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F00F76B1EE0ADE2002DBE9E /* GreekDefs+CoreDataProperties.swift in Sources */,
-				3F00F7651EE0ADE2002DBE9E /* LatinDefs+CoreDataProperties.swift in Sources */,
+				3F7B7E1D207982E0008A846A /* GreekDefs+CoreDataProperties.swift in Sources */,
+				3F7B7E212079CB4F008A846A /* RequestQueue+CoreDataProperties.swift in Sources */,
+				3FFFB61020767ABC00ADEE53 /* DataManager.swift in Sources */,
 				3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */,
 				3FCA15111F84EB6500FBA200 /* PHTextField.swift in Sources */,
 				3F85E8251ED27380007633D2 /* AppDelegate.swift in Sources */,
 				3F0D2E711EE48DDA00B34C62 /* KeyboardViewController.swift in Sources */,
 				3F0D2E6A1EE48DDA00B34C62 /* HCCapsLockButton.swift in Sources */,
+				3F7B7E19207982C3008A846A /* LatinDefs+CoreDataProperties.swift in Sources */,
 				3F0D2E691EE48DDA00B34C62 /* HCbutton.swift in Sources */,
 				3F0D2E731EE48DDA00B34C62 /* utilities.c in Sources */,
 				3F0D2E721EE48DDA00B34C62 /* accent.c in Sources */,
 				3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */,
-				3F00F76A1EE0ADE2002DBE9E /* GreekDefs+CoreDataClass.swift in Sources */,
+				3FFFB61220792E4000ADEE53 /* NetworkManager.swift in Sources */,
 				3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */,
 				3F0D2E6F1EE48DDA00B34C62 /* HCSpaceButton.swift in Sources */,
 				3F0D2E6B1EE48DDA00B34C62 /* HCDeleteButton.swift in Sources */,
 				3FC05D341F75C68F007BBFBA /* HCKeyboardView.swift in Sources */,
 				3F0D2E6E1EE48DDA00B34C62 /* HCPunctuationButton.swift in Sources */,
+				3F7B7E18207982C3008A846A /* LatinDefs+CoreDataClass.swift in Sources */,
 				3F0D2E6D1EE48DDA00B34C62 /* HCGlobeButton.swift in Sources */,
 				3F0D2E6C1EE48DDA00B34C62 /* HCEnterButton.swift in Sources */,
 				3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */,
+				3F7B7E1C207982E0008A846A /* GreekDefs+CoreDataClass.swift in Sources */,
+				3F7B7E202079CB4F008A846A /* RequestQueue+CoreDataClass.swift in Sources */,
 				3F85E82C1ED27380007633D2 /* DetailViewController.swift in Sources */,
 				3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */,
-				3F00F7641EE0ADE2002DBE9E /* LatinDefs+CoreDataClass.swift in Sources */,
 				3F0D2E681EE48DDA00B34C62 /* HCAccentButton.swift in Sources */,
 				3F00F7671EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift in Sources */,
 				3F00F7661EE0ADE2002DBE9E /* GreekWords+CoreDataClass.swift in Sources */,

@@ -12,8 +12,12 @@
 import UIKit
 import CoreData
 
-class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
-
+class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
+    @IBOutlet var tableView:UITableView!
+    @IBOutlet var langButton:UIButton!
+    @IBOutlet var searchTextField:PHTextField!
+    @IBOutlet var searchView:UIView!
+    
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var kb:KeyboardViewController? = nil
@@ -23,23 +27,14 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     //let highlightedRowBGColor = UIColor.init(red: 233/255.0, green: 253/255.0, blue: 233/255.0, alpha: 1.0)
 
-    //427fed
+    //hex color 427fed
     
     let GREEK = 0
     let LATIN = 1
     var whichLang:Int = 0
-    
-    let tv = PHTitleView()
-    var searchTextField:PHTextField?
-    let langButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 38))
-    
     var selectedRow = -1
     var selectedId = -1
     var animatedScroll = false
-    
-    var tc:NSLayoutConstraint?
-    var lc:NSLayoutConstraint?
-    var rc:NSLayoutConstraint?
     
     let infoButton = UIButton.init(type: .infoDark)
     
@@ -58,15 +53,37 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             defaults.synchronize()
         }
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        //if let keyboardHeight = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as?
+        //    NSValue)?.cgRectValue.height {
+        
+            //the above doesn't work on ipad because we change the kb height later
+        let keyboardHeight = (kb?.portraitHeight)! //this works
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
+        //}
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.2, animations: {
+            // For some reason adding inset in keyboardWillShow is animated by itself but removing is not, that's why we have to use animateWithDuration here
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        })
+    }
+    
+    //because of table bottom/keyboard code below
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.separatorStyle = .none
-        
-        //to hide title
-        let label = UILabel.init()
-        self.navigationItem.titleView = label;
+        tableView.delegate = self
+        tableView.dataSource = self
         
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -86,22 +103,71 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //remove navigation bar bottom border
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
+
+        searchView.layer.borderColor = UIColor.black.cgColor
+        searchView.layer.borderWidth = 2.0
+        searchView.layer.cornerRadius = 20
+
+        searchTextField?.autocapitalizationType = .none
+        searchTextField?.autocorrectionType = .no
+        searchTextField?.clearButtonMode = .always
+        searchTextField.contentVerticalAlignment = .center
         
-        let defaults = UserDefaults.standard
-        let a = defaults.object(forKey: "lang")
-        if (a != nil)
-        {
-            whichLang = a as! Int
+        let searchFont = UIFont(name: "HelveticaNeue", size: 20.0)
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            searchTextField?.font = fontMetrics.scaledFont(for: searchFont!)
+            searchTextField?.adjustsFontForContentSizeCategory = true
         }
         else
         {
-            whichLang = 0
-            defaults.set(whichLang, forKey: "lang")
-            defaults.synchronize()
+            searchTextField?.font = searchFont
         }
-        defaultsChanged() //check once at start
+        
+        langButton.backgroundColor = UIColor.clear
+        langButton.clipsToBounds = true
+        langButton.setTitleColor(UIColor.black, for: .normal)
+        langButton.titleLabel?.textAlignment = .right
+        langButton.setTitle("Greek:", for: .normal)
+        let titleFont = UIFont(name: "Helvetica-Bold", size: 18.0) //abcdef
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            langButton.titleLabel?.font = fontMetrics.scaledFont(for: titleFont!)
+            langButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            langButton.titleLabel?.font = titleFont
+        }
+        
+        langButton.addTarget(self, action: #selector(toggleLanguage), for: .touchDown)
 
-        searchTextField = PHTextField(frame: CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38))
+        //add padding around button label
+        //could also set a equal to or greater than height constraint on button and make vertical values smaller.
+        langButton.contentEdgeInsets = UIEdgeInsets(top: 13.0, left: 8.0, bottom: 13.0, right: 2.0)
+        
+        //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
+        infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
+        self.view.addSubview(infoButton)
+        infoButton.tintColor = .black
+        var infoButtonFrame = self.infoButton.frame
+        var infoButtonPadding:CGFloat = 28.0
+        if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+        {
+            //extra bottom padding for iPhone X
+            infoButtonPadding = 44.0
+        }
+        infoButtonFrame.origin.x = self.view.bounds.size.width - infoButtonPadding
+        infoButtonFrame.origin.y = self.view.bounds.size.height - infoButtonPadding
+        self.infoButton.frame = infoButtonFrame;
+        self.tableView.bringSubview(toFront: self.infoButton)
+        
+        let defaults = UserDefaults.standard
+        whichLang = defaults.integer(forKey: "lang") //defaults to 0 (Greek), if doesn't exist
+        
+        defaultsChanged() //check once at start
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
@@ -116,131 +182,21 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             item.trailingBarButtonGroups = []
         }
         
-        searchTextField?.layer.borderColor = UIColor.black.cgColor
-        searchTextField?.layer.borderWidth = 2.0
-        searchTextField?.layer.cornerRadius = 15.5
-
-        searchTextField?.autocapitalizationType = .none
-        searchTextField?.autocorrectionType = .no
-        searchTextField?.clearButtonMode = .always
-        
-        tv.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        tv.contentMode = .scaleAspectFit
-        tv.translatesAutoresizingMaskIntoConstraints = true
-        
-        tv.addSubview(searchTextField!)
-        self.navigationItem.titleView?.autoresizesSubviews = true
-        self.navigationItem.titleView = tv
-        tv.frame = CGRect(x: navigationController!.navigationBar.bounds.origin.x, y: navigationController!.navigationBar.bounds.origin.y, width: navigationController!.navigationBar.bounds.size.width, height: 38)
-
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = nil
-        
-        searchTextField?.autoresizingMask = [.flexibleWidth]
-        searchTextField?.translatesAutoresizingMaskIntoConstraints = true
-
-        langButton.backgroundColor = UIColor.clear
-        langButton.layer.cornerRadius = 10
-        langButton.clipsToBounds = true
-        langButton.setTitleColor(UIColor.black, for: .normal)
-        langButton.setTitle("Greek:", for: .normal)
-        langButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 16.0)
-        
-        langButton.addTarget(self, action: #selector(toggleLanguage), for: .touchDown)
-        
-        searchTextField?.leftView = langButton
-        searchTextField?.leftViewMode = UITextFieldViewMode.always
-
-        /*
-         //searchTextField?.rightView = infoButton
-         //searchTextField!.rightViewMode = .unlessEditing
-         tv.addSubview(infoButton)
-         */
-        //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
-        infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
-        self.tableView.addSubview(infoButton)
-        infoButton.tintColor = .black
-        adjustFloater()
-
-        //we also adjust the size in setLang
-        langButton.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
-        
         setLanguage(language: whichLang)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
-
         
-        /*
-        let leftC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0)
-        leftC.isActive = true
+        //move bottom of table up when keyboard shows, so we can access bottom rows and
+        //also so selected row is in middle of screen - keyboard height.
+        //https://stackoverflow.com/questions/594181/making-a-uitableview-scroll-when-text-field-is-selected/41040630#41040630
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
-        let topC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
-        topC.isActive = true
-        
-        let rightC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 0)
-        rightC.isActive = true
-        
-        let bottomC = NSLayoutConstraint(item: searchTextField!, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: tv, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0)
-        bottomC.isActive = true
-        
-        tv.addConstraints([leftC,topC,rightC,bottomC])
-        */
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        adjustFloater()
-    }
-    
-    func adjustFloater()
-    {
-        var newFrame = self.infoButton.frame
-        
-        newFrame.origin.x = self.view.bounds.size.width - 28
-        newFrame.origin.y = self.tableView.contentOffset.y + self.tableView.bounds.size.height - self.infoButton.bounds.size.height - 6
-        
-        self.infoButton.frame = newFrame;
-        self.tableView.bringSubview(toFront: self.infoButton)
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        //NSLog("rotate")
-        coordinator.animate(alongsideTransition: { _ in
-            
-            if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
-            {
-                let navBar = self.navigationController!.navigationBar
-                self.tv.frame = CGRect(x: navBar.bounds.origin.x, y: navBar.bounds.origin.y, width: navBar.bounds.size.width, height: 38)
-                self.tv.setNeedsLayout()
-                self.adjustFloater()
-            }
-            
-        }, completion: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //searchTextField?.isHidden = true
-        /*
-        searchTextField.isHidden = true
-        tc?.isActive = false
-        lc?.isActive = false
-        rc?.isActive = false
- */
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        /*
-        tc?.isActive = true
-        lc?.isActive = true
-        rc?.isActive = true
-        searchTextField?.isHidden = false
- */
-
-    }
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchTextField?.resignFirstResponder()
     }
     
@@ -270,7 +226,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             langButton.setTitle("Latin:", for: .normal)
             title = "Latin"
         }
+        UserDefaults.standard.set(language, forKey: "lang")
+        UserDefaults.standard.synchronize()
+        
         kb?.setLang(lang: language)
+        
         tableView.reloadData()
         
         //scroll to top
@@ -279,73 +239,6 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             let scrollIndexPath:IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
             tableView.scrollToRow(at: scrollIndexPath as IndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
         }
-        
-        /*
-    UIButton *b = self.langButton;
-    b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    b.contentEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
-    b.titleLabel.textAlignment = UITextAlignmentLeft;
-    
-    int ios7Adjustment = 0;
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
-    {
-    ios7Adjustment = 2;
-    }
-    
-    
-    if ( language == LATIN )
-    {
-    self->lang = LATIN;
-    self.wordTable = @"LatinWords";
-    self.defTable = @"LatinDefs";
-    //if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    [self.keyboard setButtons:LATIN];
-    
-    if (self->mode == TAGS)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"L&S > Tag:" forState:UIControlStateNormal];
-    }
-    else if (self->mode == HISTORY)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"L&S > History:" forState:UIControlStateNormal];
-    }
-    else
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 53.0 + ios7Adjustment, 34.0)];
-    [b setTitle:@"Latin:" forState:UIControlStateNormal];
-    }
-    self.title = @"Latin";
-    self.navigationItem.backBarButtonItem.title = @"Latin";
-    }
-    else
-    {
-    self->lang = GREEK;
-    self.wordTable = @"GreekWords";
-    self.defTable = @"GreekDefs";
-    //if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    [self.keyboard setButtons:GREEK];
-    
-    if (self->mode == TAGS)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"LSJ > Tag:" forState:UIControlStateNormal];
-    }
-    else if (self->mode == HISTORY)
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 120.0, 34.0)];
-    [b setTitle:@"LSJ > History:" forState:UIControlStateNormal];
-    }
-    else
-    {
-    [b setFrame:CGRectMake(b.frame.origin.x, b.frame.origin.y, 60.0+ ios7Adjustment, 34.0)];
-    [b setTitle:@"Greek:" forState:UIControlStateNormal];
-    }
-    self.title = @"Greek";
-    self.navigationItem.backBarButtonItem.title = @"Greek";
-    }
-        */
     }
     
     @objc func textDidChange(_ notification: Notification) {
@@ -355,11 +248,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        //clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
-        //navigationController?.navigationBar.titleView.layoutSubviews()
-        adjustFloater()
-        //searchTextField?.isHidden = false
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -442,7 +333,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     // MARK: - Table View
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if whichLang == GREEK
         {
             return fetchedResultsController.sections?.count ?? 0
@@ -453,7 +344,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var sectionInfo:NSFetchedResultsSectionInfo? = nil
         if whichLang == GREEK
         {
@@ -466,8 +357,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         return sectionInfo!.numberOfObjects
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        if #available(iOS 11.0, *) {
+            cell.textLabel?.adjustsFontForContentSizeCategory = true
+        }
+        
         if whichLang == GREEK
         {
             let event = fetchedResultsController.object(at: indexPath)
@@ -482,12 +377,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 /*
             let context = fetchedResultsController.managedObjectContext
@@ -537,7 +432,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         //cell.textLabel!.text = event.timestamp!.description
         cell.textLabel!.text = gw.word!.description
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
-        cell.textLabel?.font = greekFont
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            cell.textLabel?.font = fontMetrics.scaledFont(for: greekFont!)
+            //cell.textLabel?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            cell.textLabel?.font = greekFont
+        }
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
@@ -548,8 +452,17 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     func latinConfigureCell(_ cell: UITableViewCell, withEvent gw: LatinWords) {
         //cell.textLabel!.text = event.timestamp!.description
         cell.textLabel!.text = removeMacronsBreves(string: gw.word!.description)
-        let greekFont = UIFont(name: "Helvetica-Light", size: 22.0)
-        cell.textLabel?.font = greekFont
+        let latinFont = UIFont(name: "Helvetica-Light", size: 22.0)
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            cell.textLabel?.font = fontMetrics.scaledFont(for: latinFont!)
+            //cell.textLabel?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            cell.textLabel?.font = latinFont
+        }
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()

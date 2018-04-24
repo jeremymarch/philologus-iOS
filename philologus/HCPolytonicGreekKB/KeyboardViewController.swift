@@ -115,7 +115,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     let playClick:Bool = true
     var capsLockOn:Bool = false
     var miscLockOn:Bool = false
-    let bgColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
+    let bgColor = UIColor.init(red: 210/255.0, green: 213/255.0, blue: 219/255.0, alpha: 1.0)
     let keyTextColor = UIColor.black
     let useAnimation:Bool = false
     var deleteHoldTimer:Timer? = nil
@@ -130,7 +130,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     var heightConstraint:NSLayoutConstraint?
     var widthConstraints:[NSLayoutConstraint?] = []
     
-    let fontSize:CGFloat = 24.0
+    var fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
     
     var portraitHeight:CGFloat = 250.0
@@ -361,7 +361,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                                               attribute: .notAnAttribute,
                                               multiplier: 1.0,
                                               constant: kbHeight)
-        heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
+        heightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
         heightConstraint?.isActive = true
         self.inputView?.addConstraint(heightConstraint!)
         
@@ -447,14 +447,17 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             whichLang = 1
             changeKeys(keys:romanKeys)
         }
-        UserDefaults.standard.set(whichLang, forKey: "lang")
-        UserDefaults.standard.synchronize()
         
         resetKBHeight()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            fontSize = 28.0
+        }
         
         loadDefaults()
         
@@ -483,16 +486,22 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         else
         {
-            //for iphone 5s and narrower
-            if UIScreen.main.nativeBounds.width < 641
+            //iPhone X
+            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
+                portraitHeight = 214.0
+                landscapeHeight = portraitHeight
+            }
+            else if UIScreen.main.nativeBounds.width < 641
+            {
+                //for iphone 5s and narrower
                 portraitHeight = 174.0
-                landscapeHeight = 174.0
+                landscapeHeight = portraitHeight
             }
             else //larger iPhones
             {
                 portraitHeight = 174.0
-                landscapeHeight = 174.0
+                landscapeHeight = portraitHeight
             }
         }
         

@@ -1,9 +1,10 @@
 //
 //  LatinDefs+CoreDataProperties.swift
-//  philolog.us
+//  philologus
 //
-//  Created by Jeremy March on 6/1/17.
-//  Copyright © 2017 Jeremy March. All rights reserved.
+//  Created by Jeremy March on 4/7/18.
+//  Copyright © 2018 Jeremy March. All rights reserved.
+//
 //
 
 import Foundation

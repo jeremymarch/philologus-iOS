@@ -97,6 +97,13 @@ class HCKeyboardView: UIInputView {
         var xoff:CGFloat = 0
         buttonWidth = 0
         var buttonHeight:CGFloat = 0
+
+        var bottomPadding:CGFloat = 0.0 //buttonVSpacing will be added to this for total bottom padding
+        if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+        {
+            //extra bottom padding for iPhone X
+            bottomPadding = 30.0
+        }
         
         for (i, row) in buttons.enumerated()
         {
@@ -119,7 +126,7 @@ class HCKeyboardView: UIInputView {
             }
             
             buttonWidth = (viewWidth - (sidePadding * 2) - (buttonHSpacing * (CGFloat(maxColumns) - 1))) / CGFloat(maxColumns)
-            buttonHeight = (viewHeight - (buttonVSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
+            buttonHeight = (viewHeight - bottomPadding - (buttonVSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
             
             if c < maxColumns
             {

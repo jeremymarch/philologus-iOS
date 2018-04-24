@@ -10,9 +10,25 @@ import UIKit
 import CoreData
 
 /*
- /Users/jeremy/Library/Developer/CoreSimulator/Devices/3A765A42-5B22-45D9-88CD-5B1A7A54AC5E/data/Containers/Data/Application/0B3F219C-9BF0-4A56-9682-9DD7FFE3E03A/Library/Application Supports
+ updating core data model.
+ best done on iOS simulator for earliest iOS version supported
+ change bundle db to point to app directory so it can create a new db.
+ change options for that db to disable readonly
+ have it print path to where the db is stored in simulator
+ stop simulator
+ in terminal cd to new db path retrieved above
+ from this location in terminal open paradigm db (with orig data) in sqlite3
+ now in sqlite3:
+ sqlite> attach 'philolog_us.sqlite' as newdb;
+ sqlite> INSERT INTO newdb.ZGREEKDEFS SELECT * FROM ZGREEKDEFS;
+ sqlite> INSERT INTO newdb.ZGREEKWORDS SELECT * FROM ZGREEKWORDS;
+ sqlite> INSERT INTO newdb.ZLATINWORDS SELECT * FROM ZLATINWORDS;
+ sqlite> INSERT INTO newdb.ZLATINDEFS SELECT * FROM ZLATINDEFS;
+ sqlite> vacuum;
+ sqlite> .exit
  
- INSERT INTO A.ZGREEKWORDS VALUES () FROM B.ZGREEKWORDS;
+ in terminal copy db from simulator back to xcode project in orig location
+ change store to point back to the bundle and enable readonly
  */
 
 @UIApplicationMain
@@ -44,10 +60,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let controller = masterNavigationController.topViewController as! MasterViewController
         if #available(iOS 10.0, *) {
             controller.managedObjectContext = self.persistentContainer.viewContext
+            DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
+            DataManager.shared.mainContext = self.persistentContainer.viewContext
         }
         else
         {
             controller.managedObjectContext = managedObjectContext
+            DataManager.shared.backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            DataManager.shared.backgroundContext?.persistentStoreCoordinator = managedObjectContext.persistentStoreCoordinator
+            DataManager.shared.mainContext = managedObjectContext
         }
         return true
     }
@@ -102,6 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         //let storeUrl = self.applicationDocumentsDirectory.appendingPathComponent("app_name.sqlite")
         //let storeURL = [[NSBundle mainBundle] URLForResource:@"philologus" withExtension:@"sqlite"];
         let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
+        //let storeURL = self.applicationDocumentsDirectory.appendingPathComponent(appName + ".sqlite")
       /*
         if !FileManager.default.fileExists(atPath: (storeURL?.path)!) {
             let seededDataUrl = Bundle.main.url(forResource: seededData, withExtension: "sqlite")
@@ -113,15 +135,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         //var options = NSMutableDictionary()
         //options[NSReadOnlyPersistentStoreOption] = true
         
-        //container.persistentStoreCoordinator.addPersistentStore(ofType: <#T##String#>, configurationName: <#T##String?#>, at: <#T##URL?#>, options: <#T##[AnyHashable : Any]?#>)
+        //container.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "bundleData", at: storeURL, options: nil)
         
         let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
         d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
         d.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
-        container.persistentStoreDescriptions = [d]
+        d.configuration = "bundleData"
+        d.isReadOnly = true
         
-        //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
-        //container.persistentStoreCoordinator.
+        let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
+        
+        let d2:NSPersistentStoreDescription = NSPersistentStoreDescription(url: userDataURL)
+        d2.setOption(false as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+        d2.setOption(["journal_mode": "delete"] as NSObject?, forKey: NSSQLitePragmasOption)
+        d2.configuration = "userData"
+        d2.isReadOnly = false
+        
+        container.persistentStoreDescriptions = [d,d2]
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
                 
@@ -151,6 +182,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         //let url = self.applicationDocumentsDirectory.appendingPathComponent("philolog_us.sqlite")
         let url = Bundle.main.url(forResource: "philolog_us", withExtension: "sqlite")!
+        print(url)
+        let userDataURL = self.applicationDocumentsDirectory.appendingPathComponent("userData.sqlite")
+
         var failureReason = "There was an error creating or loading the application's saved data."
         
         let opt = [ NSReadOnlyPersistentStoreOption: true as NSObject,
@@ -159,7 +193,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     NSInferMappingModelAutomaticallyOption:false as NSObject]
         
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: opt as Any as? [AnyHashable : Any])
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "bundleData", at: url, options: opt as Any as? [AnyHashable : Any])
+        } catch {
+            // Report any error we got.
+            var dict = [String: AnyObject]()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
+            
+            dict[NSUnderlyingErrorKey] = error as NSError
+            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            // Replace this with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+            abort()
+        }
+        
+        let opt2 = [ NSReadOnlyPersistentStoreOption: false as NSObject,
+                    NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject?,
+                    NSMigratePersistentStoresAutomaticallyOption:false as NSObject,
+                    NSInferMappingModelAutomaticallyOption:false as NSObject]
+        
+        do {
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "userData", at: userDataURL, options: opt2 as Any as? [AnyHashable : Any])
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
