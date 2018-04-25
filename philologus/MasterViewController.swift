@@ -171,6 +171,36 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
+        var portraitHeight:CGFloat = 250.0
+        var landscapeHeight:CGFloat = 250.0
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            portraitHeight = 266.0
+            landscapeHeight = 266.0
+        }
+        else
+        {
+            //iPhone X
+            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+            {
+                portraitHeight = 214.0
+                landscapeHeight = portraitHeight
+            }
+            else if UIScreen.main.nativeBounds.width < 641
+            {
+                //for iphone 5s and narrower
+                portraitHeight = 174.0
+                landscapeHeight = portraitHeight
+            }
+            else //larger iPhones
+            {
+                portraitHeight = 174.0
+                landscapeHeight = portraitHeight
+            }
+        }
+        kb?.heightOverride = portraitHeight
+        kb?.forceLowercase = true
+        
         searchTextField?.inputView = kb?.inputView
         searchTextField?.delegate = self
         
@@ -216,20 +246,33 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func setLanguage(language:Int)
     {
+        let greekKeys = [["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
+                     ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
+                     ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
+        
+        let romanKeys = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+                     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+                     ["Z", "X", "C", "V", "B", "N", "M", "BK"]]
+
+        var keys = greekKeys
+        
         if language == GREEK
         {
             langButton.setTitle("Greek:", for: .normal)
             title = "Greek"
+            keys = greekKeys
         }
         else
         {
             langButton.setTitle("Latin:", for: .normal)
             title = "Latin"
+            keys = romanKeys
         }
         UserDefaults.standard.set(language, forKey: "lang")
         UserDefaults.standard.synchronize()
         
-        kb?.setLang(lang: language)
+        //kb?.setLang(lang: language)
+        kb?.setButtons(keys: keys)
         
         tableView.reloadData()
         
