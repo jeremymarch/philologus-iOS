@@ -172,11 +172,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
         var portraitHeight:CGFloat = 250.0
-        var landscapeHeight:CGFloat = 250.0
+        //var landscapeHeight:CGFloat = 250.0
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             portraitHeight = 266.0
-            landscapeHeight = 266.0
+            //landscapeHeight = 266.0
         }
         else
         {
@@ -184,18 +184,18 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
                 portraitHeight = 214.0
-                landscapeHeight = portraitHeight
+                //landscapeHeight = portraitHeight
             }
             else if UIScreen.main.nativeBounds.width < 641
             {
                 //for iphone 5s and narrower
                 portraitHeight = 174.0
-                landscapeHeight = portraitHeight
+                //landscapeHeight = portraitHeight
             }
             else //larger iPhones
             {
                 portraitHeight = 174.0
-                landscapeHeight = portraitHeight
+                //landscapeHeight = portraitHeight
             }
         }
         kb?.heightOverride = portraitHeight
