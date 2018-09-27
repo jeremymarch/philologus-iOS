@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -94,7 +94,7 @@
                             <constraint firstItem="raT-95-sbP" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" id="8nF-kQ-kn5"/>
                             <constraint firstItem="raT-95-sbP" firstAttribute="bottom" secondItem="ArR-Fb-JOY" secondAttribute="top" id="Qp9-Bf-Q53"/>
                             <constraint firstAttribute="trailing" secondItem="ArR-Fb-JOY" secondAttribute="trailing" id="e4Z-6s-iJg"/>
-                            <constraint firstItem="ArR-Fb-JOY" firstAttribute="bottom" secondItem="svH-Pt-448" secondAttribute="bottom" id="eJl-ro-pUQ"/>
+                            <constraint firstItem="ArR-Fb-JOY" firstAttribute="bottom" secondItem="GAO-Cl-Wes" secondAttribute="top" id="eJl-ro-pUQ"/>
                             <constraint firstItem="ArR-Fb-JOY" firstAttribute="top" secondItem="raT-95-sbP" secondAttribute="bottom" id="yHb-OD-cTz"/>
                             <constraint firstItem="raT-95-sbP" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="zbs-5X-Xsz"/>
                         </constraints>
