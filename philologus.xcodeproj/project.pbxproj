@@ -18,7 +18,6 @@
 		3F48807C208ECDB30093924A /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488067208ECDB30093924A /* HCEnterButton.swift */; };
 		3F48807D208ECDB30093924A /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488069208ECDB30093924A /* HCbutton.swift */; };
 		3F48807E208ECDB30093924A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F48806A208ECDB30093924A /* LICENSE */; };
-		3F48807F208ECDB30093924A /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F48806B208ECDB30093924A /* newathu5.ttf */; };
 		3F488080208ECDB30093924A /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48806C208ECDB30093924A /* HCCapsLockButton.swift */; };
 		3F488081208ECDB30093924A /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F48806F208ECDB30093924A /* accent.c */; };
 		3F488082208ECDB30093924A /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F488071208ECDB30093924A /* utilities.c */; };
@@ -26,7 +25,6 @@
 		3F488084208ECDB30093924A /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488075208ECDB30093924A /* KeyboardViewController.swift */; };
 		3F488085208ECDB30093924A /* HCSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488076208ECDB30093924A /* HCSpaceButton.swift */; };
 		3F488086208ECDB30093924A /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488077208ECDB30093924A /* HCAccentButton.swift */; };
-		3F488087208ECDB30093924A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F488078208ECDB30093924A /* Info.plist */; };
 		3F488088208ECDB30093924A /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488079208ECDB30093924A /* HCDeleteButton.swift */; };
 		3F488089208ECDB30093924A /* HCPunctuationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48807A208ECDB30093924A /* HCPunctuationButton.swift */; };
 		3F48808A208ECDB30093924A /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48807B208ECDB30093924A /* HCKeyboardView.swift */; };
@@ -284,12 +282,10 @@
 				3F85E8341ED27380007633D2 /* LaunchScreen.storyboard in Resources */,
 				3F00F7571EDE6DCC002DBE9E /* philolog_us.sqlite in Resources */,
 				3F00F7511EDB44DC002DBE9E /* newathu5.ttf in Resources */,
-				3F48807F208ECDB30093924A /* newathu5.ttf in Resources */,
 				3F85E8311ED27380007633D2 /* Assets.xcassets in Resources */,
 				3F00F75A1EDE6FD2002DBE9E /* philolog_us.sqlite-wal in Resources */,
 				3F00F75B1EDE6FD2002DBE9E /* philolog_us.sqlite-shm in Resources */,
 				3F48807E208ECDB30093924A /* LICENSE in Resources */,
-				3F488087208ECDB30093924A /* Info.plist in Resources */,
 				3F9B9BE31EEF6E0500DF500E /* Settings.bundle in Resources */,
 				3F85E82F1ED27380007633D2 /* Main.storyboard in Resources */,
 			);
