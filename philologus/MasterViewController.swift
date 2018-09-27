@@ -60,14 +60,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
             //the above doesn't work on ipad because we change the kb height later
         let keyboardHeight = (kb?.portraitHeight)! //this works
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
         //}
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.2, animations: {
             // For some reason adding inset in keyboardWillShow is animated by itself but removing is not, that's why we have to use animateWithDuration here
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         })
     }
     
@@ -90,7 +90,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         
-        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
+        self.splitViewController?.preferredDisplayMode = UISplitViewController.DisplayMode.allVisible
         //decreases width on ipad in landscape and fixes issue of titleview being sized incorrectly
         //when the app is closed and reopened.
         self.splitViewController?.maximumPrimaryColumnWidth = 320
@@ -162,7 +162,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         infoButtonFrame.origin.x = self.view.bounds.size.width - infoButtonPadding
         infoButtonFrame.origin.y = self.view.bounds.size.height - infoButtonPadding
         self.infoButton.frame = infoButtonFrame;
-        self.tableView.bringSubview(toFront: self.infoButton)
+        self.tableView.bringSubviewToFront(self.infoButton)
         
         let defaults = UserDefaults.standard
         whichLang = defaults.integer(forKey: "lang") //defaults to 0 (Greek), if doesn't exist
@@ -214,16 +214,16 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         setLanguage(language: whichLang)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
         
         //move bottom of table up when keyboard shows, so we can access bottom rows and
         //also so selected row is in middle of screen - keyboard height.
         //https://stackoverflow.com/questions/594181/making-a-uitableview-scroll-when-text-field-is-selected/41040630#41040630
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -280,7 +280,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         if tableView.numberOfRows(inSection: 0) > 0
         {
             let scrollIndexPath:IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
-            tableView.scrollToRow(at: scrollIndexPath as IndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+            tableView.scrollToRow(at: scrollIndexPath as IndexPath, at: UITableView.ScrollPosition.middle, animated: animatedScroll)
         }
     }
     
@@ -425,7 +425,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         return false
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    private func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 /*
             let context = fetchedResultsController.managedObjectContext
@@ -728,19 +728,19 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         {
             if seq == 1
             {
-                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableView.ScrollPosition.middle, animated: animatedScroll)
                 if let indexPath = tableView.indexPathForSelectedRow {
                     tableView.deselectRow(at: indexPath, animated: animatedScroll)
                 }
             }
             else
             {
-                tableView.selectRow(at: scrollIndexPath, animated: animatedScroll, scrollPosition: UITableViewScrollPosition.middle)
+                tableView.selectRow(at: scrollIndexPath, animated: animatedScroll, scrollPosition: UITableView.ScrollPosition.middle)
             }
         }
         else
         {
-            tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+            tableView.scrollToRow(at: scrollIndexPath, at: UITableView.ScrollPosition.middle, animated: animatedScroll)
         }
     }
 
