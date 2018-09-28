@@ -154,9 +154,19 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         infoButton.tintColor = .black
         var infoButtonFrame = self.infoButton.frame
         var infoButtonPadding:CGFloat = 28.0
-        if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+        if UIScreen.main.nativeBounds.height == 2688.0 && UIScreen.main.nativeBounds.width == 1242.0
         {
-            //extra bottom padding for iPhone X
+            //extra bottom padding for iPhone XS Max
+            infoButtonPadding = 44.0
+        }
+        else if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+        {
+            //extra bottom padding for iPhone X, XS
+            infoButtonPadding = 44.0
+        }
+        else if UIScreen.main.nativeBounds.height == 1792.0 && UIScreen.main.nativeBounds.width == 828.0
+        {
+            //extra bottom padding for iPhone XR
             infoButtonPadding = 44.0
         }
         infoButtonFrame.origin.x = self.view.bounds.size.width - infoButtonPadding
@@ -180,9 +190,21 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else
         {
-            //iPhone X
-            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+            if UIScreen.main.nativeBounds.height == 2688.0 && UIScreen.main.nativeBounds.width == 1242.0
             {
+                //iPhone XS Max
+                portraitHeight = 224.0
+                landscapeHeight = portraitHeight
+            }
+            else if UIScreen.main.nativeBounds.height == 1792.0 && UIScreen.main.nativeBounds.width == 828.0
+            {
+                //iPhone XR 1792 x 828
+                portraitHeight = 214.0
+                landscapeHeight = portraitHeight
+            }
+            else if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+            {
+                //iPhone X, XS
                 portraitHeight = 214.0
                 landscapeHeight = portraitHeight
             }
