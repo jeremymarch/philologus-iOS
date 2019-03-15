@@ -45,7 +45,6 @@
 		3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB004281F84DB44008891AC /* PHTitleView.swift */; };
 		3FCA15111F84EB6500FBA200 /* PHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCA15101F84EB6500FBA200 /* PHTextField.swift */; };
 		3FFFB61020767ABC00ADEE53 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFB60F20767ABC00ADEE53 /* DataManager.swift */; };
-		3FFFB61220792E4000ADEE53 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFB61120792E4000ADEE53 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,7 +96,6 @@
 		3FB004281F84DB44008891AC /* PHTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTitleView.swift; sourceTree = "<group>"; };
 		3FCA15101F84EB6500FBA200 /* PHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHTextField.swift; sourceTree = "<group>"; };
 		3FFFB60F20767ABC00ADEE53 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		3FFFB61120792E4000ADEE53 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,7 +200,6 @@
 				3FCA15101F84EB6500FBA200 /* PHTextField.swift */,
 				3FB004281F84DB44008891AC /* PHTitleView.swift */,
 				3FFFB60F20767ABC00ADEE53 /* DataManager.swift */,
-				3FFFB61120792E4000ADEE53 /* NetworkManager.swift */,
 			);
 			path = philologus;
 			sourceTree = "<group>";
@@ -313,7 +310,6 @@
 				3F7B7E19207982C3008A846A /* LatinDefs+CoreDataProperties.swift in Sources */,
 				3F85E8281ED27380007633D2 /* philolog_us.xcdatamodeld in Sources */,
 				3F48808A208ECDB30093924A /* HCKeyboardView.swift in Sources */,
-				3FFFB61220792E4000ADEE53 /* NetworkManager.swift in Sources */,
 				3F48807C208ECDB30093924A /* HCEnterButton.swift in Sources */,
 				3F85E82A1ED27380007633D2 /* MasterViewController.swift in Sources */,
 				3F7B7E18207982C3008A846A /* LatinDefs+CoreDataClass.swift in Sources */,
