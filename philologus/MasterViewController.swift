@@ -5,9 +5,11 @@
 //  Created by Jeremy March on 5/21/17.
 //  Copyright © 2017 Jeremy March. All rights reserved.
 //
-/*
-/Users/jeremy/Library/Developer/CoreSimulator/Devices/3A765A42-5B22-45D9-88CD-5B1A7A54AC5E/data/Containers/Data/Application/0B3F219C-9BF0-4A56-9682-9DD7FFE3E03A/Library/Application Support
-*/
+
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
 
 import UIKit
 import CoreData
