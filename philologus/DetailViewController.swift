@@ -11,9 +11,16 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import UIKit
+import WebKit
 import CoreData
 
 class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDelegate {
+    //https://www.hackingwithswift.com/example-code/wkwebview/whats-the-difference-between-uiwebview-and-wkwebview
+    //https://www.hackingwithswift.com/articles/112/the-ultimate-guide-to-wkwebview
+    
+    //https://stackoverflow.com/questions/50537421/wkwebview-in-ios-app-takes-a-long-time-to-load
+    static let webView = WKWebView()
+    
     let suggestionCharLimit = 1024
     var wordid = -1
     var word:String?
@@ -21,18 +28,23 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
     var fontSize = 14
     let allowReportButton = false
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var xwebView: UIWebView!
     @IBOutlet weak var textViewHeight: NSLayoutConstraint!
     var reportNavButton:UIBarButtonItem?
 
+    override func loadView() {
+        self.view = DetailViewController.webView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        DetailViewController.webView.contentScaleFactor = 2.0
+        /*
         textViewHeight.constant = 0.0
         textView.delegate = self
         textView.layer.borderColor = UIColor.black.cgColor
         textView.text = ""
-        
+        */
         navigationController?.setNavigationBarHidden(false, animated: true)
         //to hide title
         let label = UILabel.init()
@@ -41,11 +53,11 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
         //self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.title = ""
         
-        self.webView.scrollView.decelerationRate = UIScrollView.DecelerationRate.normal
+        DetailViewController.webView.scrollView.decelerationRate = UIScrollView.DecelerationRate.normal
         
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            self.webView.scrollView.delegate = self
+            DetailViewController.webView.scrollView.delegate = self
         }
         
          //button to report mistakes, make suggestions
@@ -244,11 +256,11 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
                 realVersion = "<br><div>Version: " + version + "</div>"
             }
             
-            let iPadCredits = String(format:"<html><body style='font-family:helvetica;text-align:center;margin-top:40px;font-size:20pt;'><div style='font-size:34pt;font-weight:bold;'>philolog.us</div><div style='font-size:14pt;margin-top:20px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:10px;'>and</div><div style='margin-top:10px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:16px;'>courtesy of the</div><div style='margin-top:16px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div style='font-size:14pt;'>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", realVersion)
+            let iPadCredits = String(format:"<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no shrink-to-fit=no'/></head><body style='font-family:helvetica;text-align:center;margin-top:40px;font-size:20pt;'><div style='font-size:34pt;font-weight:bold;'>philolog.us</div><div style='font-size:14pt;margin-top:20px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:10px;'>and</div><div style='margin-top:10px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:16px;'>courtesy of the</div><div style='margin-top:16px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div style='font-size:14pt;'>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", realVersion)
             
-            if let w = webView
+            if true //let w = webView
             {
-                w.loadHTMLString(iPadCredits, baseURL: nil)
+                DetailViewController.webView.loadHTMLString(iPadCredits, baseURL: Bundle.main.resourceURL)
             }
         }
         else
@@ -260,11 +272,11 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
                 realVersion = "<br><div>Version: " + version + "</div>"
             }
             
-            let iPhoneCredits = String(format:"<html><body style='font-family:helvetica;text-align:center;margin-top:0px;font-size:14pt;'><div style='font-size:24pt;font-weight:bold;'>philolog.us</div><div style='font-size:12pt;margin-top:8px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:8px;'>and</div><div style='margin-top:8px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:10px;'>courtesy of the</div><div style='margin-top:10px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", realVersion);
+            let iPhoneCredits = String(format:"<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no shrink-to-fit=no'/></head><body style='font-family:helvetica;text-align:center;margin-top:0px;font-size:14pt;'><div style='font-size:24pt;font-weight:bold;'>philolog.us</div><div style='font-size:12pt;margin-top:8px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:8px;'>and</div><div style='margin-top:8px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:10px;'>courtesy of the</div><div style='margin-top:10px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", realVersion);
             
-            if let w = webView
+            if true //let w = webView
             {
-                w.loadHTMLString(iPhoneCredits, baseURL: nil)
+                DetailViewController.webView.loadHTMLString(iPhoneCredits, baseURL: Bundle.main.resourceURL)
             }
         }
     }
@@ -326,7 +338,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
             translationStyle = styles[6]
         }
 
-        let h = "<HTML><head>%@<style>" +
+        let h = "<HTML><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no shrink-to-fit=no'/>%@<style>" +
             ".l1 { margin-left: 18px;position:relative;text-indent:-18px; } " +
             ".l2 { margin-left: 18px;position:relative;text-indent:-18px; } " +
             ".l3 { margin-left: 18px;position:relative;text-indent:-18px; } " +
@@ -344,7 +356,8 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
             ".label {font-weight:bold;padding-right:0px;text-indent:0px;} " +
             ".label:after { content: ' '; } " +
             ".orth {font-weight:bold; } " +
-        "</style></head><BODY style='font-size:%dpt;font-family:\"New Athena Unicode\";margin:0px 10px;'>"
+            "@font-face {font-family: 'NewAthenaUnicode';src: url('newathu5.ttf') format('truetype');} " +
+        "</style></head><BODY style='font-size:%dpt;font-family:\"NewAthenaUnicode\";margin:0px 10px;'>"
         
         let header = String(format: h, js, foreignStyle, quoteStyle, translationStyle, authorStyle, bibscopeStyle, titleStyle, fontSize);
         
@@ -385,19 +398,20 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
                 let def2:String = match!.def!
                 //NSLog("res: %@", def2)
                 
-                if let w = webView
+                if true //let w = webView
                 {
                     //label.text = detail.timestamp!.description
                     let html = header + def2 + "</BODY></HTML>"
-                    w.loadHTMLString(html, baseURL: nil)
+                    DetailViewController.webView.loadHTMLString(html, baseURL: Bundle.main.resourceURL)
                     //NSLog("html: \(html)")
                 }
             }
             else
             {
-                if let w = webView {
+                if true //let w = webView
+                {
                     //label.text = detail.timestamp!.description
-                    w.loadHTMLString("<html><body>Could not find Greek word \(self.wordid).</body></html>", baseURL: nil)
+                    DetailViewController.webView.loadHTMLString("<html><body>Could not find Greek word \(self.wordid).</body></html>", baseURL: Bundle.main.resourceURL)
                 }
             }
         }
@@ -430,17 +444,18 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
                 let def2:String = match!.def!
                 //NSLog("res: %@", header + def2)
                 
-                if let w = webView
+                if true //let w = webView
                 {
                     //label.text = detail.timestamp!.description
-                    w.loadHTMLString(header + def2 + "</BODY></HTML>", baseURL: nil)
+                    DetailViewController.webView.loadHTMLString(header + def2 + "</BODY></HTML>", baseURL: Bundle.main.resourceURL)
                 }
             }
             else
             {
-                if let w = webView {
+                if true //let w = webView
+                {
                     //label.text = detail.timestamp!.description
-                    w.loadHTMLString("<html><body>Could not find Latin word \(self.wordid).</body></html>", baseURL: nil)
+                    DetailViewController.webView.loadHTMLString("<html><body>Could not find Latin word \(self.wordid).</body></html>", baseURL: Bundle.main.resourceURL)
                 }
             }
         }
