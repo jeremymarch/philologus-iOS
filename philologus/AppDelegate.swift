@@ -75,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             DataManager.shared.backgroundContext?.persistentStoreCoordinator = managedObjectContext.persistentStoreCoordinator
             DataManager.shared.mainContext = managedObjectContext
         }
+        
         return true
     }
 

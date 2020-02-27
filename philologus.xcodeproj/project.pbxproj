@@ -15,6 +15,7 @@
 		3F00F7671EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */; };
 		3F00F7681EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */; };
 		3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */; };
+		3F3F94142405CF5100D07924 /* GlobalColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F94132405CF5100D07924 /* GlobalColors.swift */; };
 		3F48807C208ECDB30093924A /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488067208ECDB30093924A /* HCEnterButton.swift */; };
 		3F48807D208ECDB30093924A /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F488069208ECDB30093924A /* HCbutton.swift */; };
 		3F48807E208ECDB30093924A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F48806A208ECDB30093924A /* LICENSE */; };
@@ -56,6 +57,7 @@
 		3F00F75F1EE0ADE2002DBE9E /* GreekWords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GreekWords+CoreDataProperties.swift"; path = "philologus/GreekWords+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3F00F7601EE0ADE2002DBE9E /* LatinWords+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LatinWords+CoreDataClass.swift"; path = "philologus/LatinWords+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3F00F7611EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LatinWords+CoreDataProperties.swift"; path = "philologus/LatinWords+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3F3F94132405CF5100D07924 /* GlobalColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalColors.swift; sourceTree = "<group>"; };
 		3F488067208ECDB30093924A /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEnterButton.swift; sourceTree = "<group>"; };
 		3F488068208ECDB30093924A /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
 		3F488069208ECDB30093924A /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				3FCA15101F84EB6500FBA200 /* PHTextField.swift */,
 				3FB004281F84DB44008891AC /* PHTitleView.swift */,
 				3FFFB60F20767ABC00ADEE53 /* DataManager.swift */,
+				3F3F94132405CF5100D07924 /* GlobalColors.swift */,
 			);
 			path = philologus;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -317,6 +321,7 @@
 				3FB004291F84DB44008891AC /* PHTitleView.swift in Sources */,
 				3F488084208ECDB30093924A /* KeyboardViewController.swift in Sources */,
 				3F7B7E1C207982E0008A846A /* GreekDefs+CoreDataClass.swift in Sources */,
+				3F3F94142405CF5100D07924 /* GlobalColors.swift in Sources */,
 				3F7B7E202079CB4F008A846A /* RequestQueue+CoreDataClass.swift in Sources */,
 				3F85E82C1ED27380007633D2 /* DetailViewController.swift in Sources */,
 				3F00F7691EE0ADE2002DBE9E /* LatinWords+CoreDataProperties.swift in Sources */,
@@ -467,10 +472,12 @@
 				CODE_SIGN_ENTITLEMENTS = philologus/philologus.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = philologus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -488,10 +495,12 @@
 				CODE_SIGN_ENTITLEMENTS = philologus/philologus.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = philologus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.philologus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

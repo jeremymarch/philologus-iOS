@@ -32,12 +32,46 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
     @IBOutlet weak var textViewHeight: NSLayoutConstraint!
     var reportNavButton:UIBarButtonItem?
 
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        view.backgroundColor = GlobalTheme.primaryBG
+        DetailViewController.webView.backgroundColor = GlobalTheme.primaryBG
+        
+        self.navigationController?.navigationBar.barTintColor = GlobalTheme.primaryBG
+        self.navigationController?.navigationBar.tintColor = GlobalTheme.primaryText
+        print("bar changed")
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+                if wordid > 0
+                {
+                    loadDef()
+                }
+                else
+                {
+                    loadCredits()
+                }
+            }
+        }
+    }
+    
     override func loadView() {
         self.view = DetailViewController.webView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //prevent flashing in dark mode
+        //https://forums.developer.apple.com/thread/121139
+        DetailViewController.webView.isOpaque = false
+        
         DetailViewController.webView.contentScaleFactor = 2.0
         /*
         textViewHeight.constant = 0.0
@@ -65,6 +99,8 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
          //just need to add UITextView to get user comment
         reportNavButton = UIBarButtonItem(title: "Report", style: .plain, target: self, action: #selector(showreportIssue))
         navigationItem.rightBarButtonItem = nil
+        
+        resetColors()
     }
 
     @objc func showreportIssue() {
@@ -247,6 +283,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
     {
         //self.navigationController?.navigationItem.rightBarButtonItems = [button1]
         navigationItem.rightBarButtonItem = nil
+        let style = (isDarkMode()) ? "BODY {background-color:black;color:white;}" : "BODY {background-color:white;color:black;}"
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             var realVersion = ""
@@ -256,7 +293,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
                 realVersion = "<br><div>Version: " + version + "</div>"
             }
             
-            let iPadCredits = String(format:"<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no shrink-to-fit=no'/></head><body style='font-family:helvetica;text-align:center;margin-top:40px;font-size:20pt;'><div style='font-size:34pt;font-weight:bold;'>philolog.us</div><div style='font-size:14pt;margin-top:20px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:10px;'>and</div><div style='margin-top:10px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:16px;'>courtesy of the</div><div style='margin-top:16px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div style='font-size:14pt;'>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", realVersion)
+            let iPadCredits = String(format:"<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no shrink-to-fit=no'/><style>%@</style></head><body style='font-family:helvetica;text-align:center;margin-top:40px;font-size:20pt;'><div style='font-size:34pt;font-weight:bold;'>philolog.us</div><div style='font-size:14pt;margin-top:20px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:10px;'>and</div><div style='margin-top:10px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:16px;'>courtesy of the</div><div style='margin-top:16px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div style='font-size:14pt;'>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", style, realVersion)
             
             if true //let w = webView
             {
@@ -272,7 +309,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
                 realVersion = "<br><div>Version: " + version + "</div>"
             }
             
-            let iPhoneCredits = String(format:"<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no shrink-to-fit=no'/></head><body style='font-family:helvetica;text-align:center;margin-top:0px;font-size:14pt;'><div style='font-size:24pt;font-weight:bold;'>philolog.us</div><div style='font-size:12pt;margin-top:8px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:8px;'>and</div><div style='margin-top:8px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:10px;'>courtesy of the</div><div style='margin-top:10px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", realVersion);
+            let iPhoneCredits = String(format:"<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no shrink-to-fit=no'/><style>%@</style></head><body style='font-family:helvetica;text-align:center;margin-top:0px;font-size:14pt;'><div style='font-size:24pt;font-weight:bold;'>philolog.us</div><div style='font-size:12pt;margin-top:8px;'>Digitized texts of</div><div style='margin-top:16px;'><b>Liddell, Scott, and Jones'<br> <i>A Greek-English Lexicon</i></b></div><div style='font-size:12pt;margin-top:8px;'>and</div><div style='margin-top:8px;'><b>Lewis and Short's<br><i>A Latin Dictionary</i></b></div><div style='font-size:12pt;margin-top:10px;'>courtesy of the</div><div style='margin-top:10px;'>Perseus Digital Library</div><div style='color:blue;'>http://www.perseus.tufts.edu</div><br/><div>Visit philolog.us on the web at<br><span style='color:blue;'>https://philolog.us</span></div>%@</body></html>", style, realVersion);
             
             if true //let w = webView
             {
@@ -293,7 +330,10 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
         {
             navigationItem.rightBarButtonItem = reportNavButton
         }
-        let styles:[String] = ["color:black;","color:red;","color:blue;","color:green;","color:orange;","color:purple;","font-weight:bold;","font-style:italic;"]
+        
+        let whiteOrBlack = isDarkMode() ? "white;" : "black;"
+        let blue = isDarkMode() ? "#03a5fc;" : "blue;"
+        let styles:[String] = ["color:" + whiteOrBlack,"color:red;","color:" + blue,"color:green;","color:orange;","color:purple;","font-weight:bold;","font-style:italic;"]
 
         var authorStyle = styles[0]
         var titleStyle = styles[0]
@@ -344,7 +384,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
             ".l3 { margin-left: 18px;position:relative;text-indent:-18px; } " +
             ".l4 { margin-left: 18px;position:relative;text-indent:-18px; } " +
             ".l5 { margin-left: 18px;position:relative;text-indent:-18px; } " +
-            ".body {line-height:1.2;margin:8px 0px} " +
+            ".body {line-height:1.2;margin:8px 0px;background-color:%@;color:%@;} " +
             ".fo {%@} " +
             ".qu {%@} " +
             ".qu:before { content: '\"'; } " +
@@ -359,7 +399,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
             "@font-face {font-family: 'NewAthenaUnicode';src: url('newathu5.ttf') format('truetype');} " +
         "</style></head><BODY style='font-size:%dpt;font-family:\"NewAthenaUnicode\";margin:0px 10px;'>"
         
-        let header = String(format: h, js, foreignStyle, quoteStyle, translationStyle, authorStyle, bibscopeStyle, titleStyle, fontSize);
+        let header = String(format: h, js, isDarkMode() ? "black" : "white", isDarkMode() ? "white" : "black", foreignStyle, quoteStyle, translationStyle, authorStyle, bibscopeStyle, titleStyle, fontSize);
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
         var vc:NSManagedObjectContext

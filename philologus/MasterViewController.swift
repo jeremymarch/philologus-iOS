@@ -40,6 +40,34 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     let infoButton = UIButton.init(type: .infoDark)
     
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        view.backgroundColor = GlobalTheme.primaryBG
+        
+        self.navigationController?.navigationBar.barTintColor = GlobalTheme.primaryBG//UIColor.white
+        self.navigationController?.navigationBar.tintColor = GlobalTheme.primaryText//UIColor.black
+        
+        searchView.layer.borderColor = GlobalTheme.primaryText.cgColor
+        langButton.setTitleColor(GlobalTheme.primaryText, for: .normal)
+        
+        infoButton.tintColor = GlobalTheme.primaryText
+        searchView.backgroundColor = GlobalTheme.primaryBG
+        tableView.backgroundColor = GlobalTheme.primaryBG
+        tableView.reloadData()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+            }
+        }
+    }
+    
     @objc func defaultsChanged()
     {
         let defaults = UserDefaults.standard
@@ -97,8 +125,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //when the app is closed and reopened.
         self.splitViewController?.maximumPrimaryColumnWidth = 320
         
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.title = ""
         
@@ -106,7 +133,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
 
-        searchView.layer.borderColor = UIColor.black.cgColor
+        
         searchView.layer.borderWidth = 2.0
         searchView.layer.cornerRadius = 20
 
@@ -129,7 +156,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         langButton.backgroundColor = UIColor.clear
         langButton.clipsToBounds = true
-        langButton.setTitleColor(UIColor.black, for: .normal)
         langButton.titleLabel?.textAlignment = .right
         langButton.setTitle("Greek:", for: .normal)
         let titleFont = UIFont(name: "Helvetica-Bold", size: 18.0) //abcdef
@@ -153,7 +179,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //https://stackoverflow.com/questions/7537858/ios-place-uiview-on-top-of-uitableview-in-fixed-position
         infoButton.addTarget(self, action: #selector(showCredits), for: .touchUpInside)
         self.view.addSubview(infoButton)
-        infoButton.tintColor = .black
+        
         var infoButtonFrame = self.infoButton.frame
         var infoButtonPadding:CGFloat = 28.0
         if UIScreen.main.nativeBounds.height == 2688.0 && UIScreen.main.nativeBounds.width == 1242.0
@@ -308,6 +334,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             let scrollIndexPath:IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
             tableView.scrollToRow(at: scrollIndexPath as IndexPath, at: UITableView.ScrollPosition.middle, animated: animatedScroll)
         }
+        resetColors()
     }
     
     @objc func textDidChange(_ notification: Notification) {
@@ -431,7 +458,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         if #available(iOS 11.0, *) {
             cell.textLabel?.adjustsFontForContentSizeCategory = true
         }
-        
+        cell.backgroundColor = GlobalTheme.primaryBG
+        cell.textLabel?.textColor = GlobalTheme.primaryText
         if whichLang == GREEK
         {
             let event = fetchedResultsController.object(at: indexPath)
