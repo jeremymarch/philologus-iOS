@@ -1,3 +1,6 @@
 [submodule "HCPolytonicGreekKB"]
 	path = HCPolytonicGreekKB
 	url = https://github.com/jeremymarch/HCPolytonicGreekKB.git
+[submodule "hoplitekb2"]
+	path = hoplitekb2
+	url = https://github.com/jeremymarch/hoplitekb-2.0.git
