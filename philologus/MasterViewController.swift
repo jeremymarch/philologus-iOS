@@ -110,12 +110,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         searchView.layer.borderWidth = 2.0
         searchView.layer.cornerRadius = 20
 
-        searchTextField?.autocapitalizationType = .none
-        searchTextField?.autocorrectionType = .no
-        searchTextField?.clearButtonMode = .always
+        searchTextField.autocapitalizationType = .none
+        searchTextField.autocorrectionType = .no
+        searchTextField.clearButtonMode = .always
         searchTextField.contentVerticalAlignment = .center
         searchTextField.textColor = UIColor.black
         searchTextField.tintColor = UIColor.blue
+        searchTextField.backgroundColor = UIColor.white
         
         let searchFont = UIFont(name: "HelveticaNeue", size: 20.0)
         if #available(iOS 11.0, *) {
@@ -453,7 +454,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         return false
     }
 
-    private func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 /*
             let context = fetchedResultsController.managedObjectContext
@@ -637,6 +638,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             case .move:
                 greekConfigureCell(tableView.cellForRow(at: indexPath!)!, withEvent: anObject as! GreekWords)
                 tableView.moveRow(at: indexPath!, to: newIndexPath!)
+            @unknown default:
+                fatalError()
         }
     }
 
