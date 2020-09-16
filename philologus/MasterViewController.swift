@@ -114,6 +114,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         searchTextField?.autocorrectionType = .no
         searchTextField?.clearButtonMode = .always
         searchTextField.contentVerticalAlignment = .center
+        searchTextField.textColor = UIColor.black
+        searchTextField.tintColor = UIColor.blue
         
         let searchFont = UIFont(name: "HelveticaNeue", size: 20.0)
         if #available(iOS 11.0, *) {

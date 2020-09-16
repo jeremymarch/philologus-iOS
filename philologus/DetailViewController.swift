@@ -289,7 +289,6 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
         var foreignStyle = styles[0]
         var quoteStyle = styles[0]
         var translationStyle = styles[0]
-        let js = ""
  
         let enabled = UserDefaults.standard.object(forKey: "enableCustomColors") as? Bool
         if enabled == nil || enabled! == false
@@ -325,28 +324,37 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
             }
             translationStyle = styles[6]
         }
-
-        let h = "<HTML><head>%@<style>" +
-            ".l1 { margin-left: 18px;position:relative;text-indent:-18px; } " +
-            ".l2 { margin-left: 18px;position:relative;text-indent:-18px; } " +
-            ".l3 { margin-left: 18px;position:relative;text-indent:-18px; } " +
-            ".l4 { margin-left: 18px;position:relative;text-indent:-18px; } " +
-            ".l5 { margin-left: 18px;position:relative;text-indent:-18px; } " +
-            ".body {line-height:1.2;margin:8px 0px} " +
-            ".fo {%@} " +
-            ".qu {%@} " +
-            ".qu:before { content: '\"'; } " +
-            ".qu:after { content: '\"'; }  " +
-            ".tr {%@} " +
-            ".au {%@} " +
-            ".bi {%@} " +
-            ".ti {%@} " +
-            ".label {font-weight:bold;padding-right:0px;text-indent:0px;} " +
-            ".label:after { content: ' '; } " +
-            ".orth {font-weight:bold; } " +
-        "</style></head><BODY style='font-size:%dpt;font-family:\"New Athena Unicode\";margin:0px 10px;'>"
         
-        let header = String(format: h, js, foreignStyle, quoteStyle, translationStyle, authorStyle, bibscopeStyle, titleStyle, fontSize);
+        let indentPx = 40
+
+        let h = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>philolog.us</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<style>
+    .l1 { margin-left: %dpx;position:relative; }
+    .l2 { margin-left: %dpx;position:relative; }
+    .l3 { margin-left: %dpx;position:relative; }
+    .l4 { margin-left: %dpx;position:relative; }
+    .l5 { margin-left: %dpx;position:relative; }
+    .body {line-height:1.2;margin:8px 0px}
+    .fo {%@}
+    .qu {%@}
+    .qu:before { content: '"'; }
+    .qu:after { content: '"'; }
+    .tr {%@}
+    .au {%@}
+    .bi {%@}
+    .ti {%@}
+    .label {font-weight:bold;position:absolute;left:-%dpx;}
+    .orth {font-weight:bold; }
+</style></head>
+<BODY style='font-size:%dpt;font-family:"New Athena Unicode";margin:0px 10px;'>
+"""
+        
+        let header = String(format: h, indentPx, indentPx * 2, indentPx * 3, indentPx * 4, indentPx * 5, foreignStyle, quoteStyle, translationStyle, authorStyle, bibscopeStyle, titleStyle, indentPx, fontSize);
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
         var vc:NSManagedObjectContext
@@ -388,7 +396,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, UITextViewDe
                 if let w = webView
                 {
                     //label.text = detail.timestamp!.description
-                    let html = header + def2 + "</BODY></HTML>"
+                    let html = header + def2 + "</br></BODY></HTML>"
                     w.loadHTMLString(html, baseURL: nil)
                     //NSLog("html: \(html)")
                 }
